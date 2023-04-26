@@ -1,0 +1,44 @@
+{
+    "add": {
+        "add": "Añadir Casa"
+    },
+    "btn1":{
+        "btn1": "Añadir"
+    },
+    "btn2":{
+        "btn2": "Siguiente"
+    },
+        "btn3":{
+        "btn3": "Añadir habitación"
+    },
+    "btn4":{
+        "btn4": "Atrás"
+    },
+    "btn5":{
+        "btn5": "Finalizar"
+    },
+        "nombre": {
+        "nombre": "Nombre"
+    },
+        "email": {
+        "email": "Email"
+    },
+    "repiteemail": {
+        "repiteemail": "Repite Email"
+    },
+        "password": {
+        "password": "Contraseña"
+    },
+    "repitepassword": {
+        "repitepassword": "Repita la contraseña"
+    },
+        "signin": {
+        "signin": "Iniciar sesión"
+    },
+        "signup": {
+        "signup": "Registrarse"
+    },
+    "forgot": {
+        "forgot": "¿Olvidaste tu contraseña?"
+    }
+}

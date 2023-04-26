@@ -1,0 +1,12 @@
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+.atras {
+  width: 10vh;
+  height: 5vh;
+}

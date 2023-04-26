@@ -1,0 +1,44 @@
+{
+    "add": {
+        "add": "Add Home"
+    },
+    "btn1":{
+        "btn1": "Add"
+    },
+    "btn2":{
+        "btn2": "Next"
+    },
+    "btn3":{
+        "btn3": "Add Room"
+    },
+    "btn4":{
+        "btn4": "Back"
+    },
+    "btn5":{
+        "btn5": "Finish"
+    },
+    "nombre": {
+        "nombre": "Name"
+    },
+    "email": {
+        "email": "Email"
+    },
+        "repiteemail": {
+        "repiteemail": "Repeat Email"
+    },
+    "password": {
+        "password": "Password"
+    },
+    "repitepassword": {
+        "repitepassword": "Repeat Password"
+    },
+    "signin": {
+        "signin": "Sign In"
+    },
+    "signup": {
+        "signup": "Sign Up"
+    },
+    "forgot": {
+        "forgot": "Forgot Password"
+    }
+}
