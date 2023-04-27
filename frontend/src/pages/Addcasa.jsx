@@ -16,16 +16,11 @@ const Addcasa = () => {
 
   const gestorFormulario = async (data) => {
     await axios
-
-      .post(
-        "http://localhost:5000/api/casas/nueva",
-
-        {
-          nombre: data.nombre,
-          direccion: data.direccion,
-          ciudad: data.ciudad,
-        }
-      )
+      .post(process.env.REACT_APP_BACK_URL + "/api/casas/nueva", {
+        nombre: data.nombre,
+        direccion: data.direccion,
+        ciudad: data.ciudad,
+      })
       .then((response) => {
         console.log("Todo correcto", response.data);
         if (response.status === 200) navigate("/MisCasas");

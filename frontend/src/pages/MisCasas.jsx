@@ -9,7 +9,7 @@ const MisCasas = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/casas")
+      .get(`${process.env.BACK_URL}/api/casas/`)
       .then((res) => {
         console.log(res.data);
         setCasas(res.data);
