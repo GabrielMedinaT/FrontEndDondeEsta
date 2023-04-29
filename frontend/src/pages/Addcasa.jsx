@@ -13,14 +13,33 @@ const Addcasa = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const { REACT_APP_BACK_URI } = process.env;
+  const extraerDatosDeUsuario = () => {
+    const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
+    if (datosRecuperar && datosRecuperar.token) {
+      console.log(datosRecuperar.token);
+      return [datosRecuperar.token, datosRecuperar.userId];
+    }
+  };
 
   const gestorFormulario = async (data) => {
+    const [token, userId] = extraerDatosDeUsuario();
+
     await axios
-      .post(process.env.REACT_APP_BACK_URL + "/api/casas/nueva", {
-        nombre: data.nombre,
-        direccion: data.direccion,
-        ciudad: data.ciudad,
-      })
+      .post(
+        "http://localhost:5000/api/casas/nueva",
+        {
+          nombre: data.nombre,
+          direccion: data.direccion,
+          ciudad: data.ciudad,
+          userId: userId, // Agrega el id del usuario al objeto que se envía al servidor
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Agrega el token de autorización en el objeto de configuración de axios
+          },
+        }
+      )
       .then((response) => {
         console.log("Todo correcto", response.data);
         if (response.status === 200) navigate("/MisCasas");

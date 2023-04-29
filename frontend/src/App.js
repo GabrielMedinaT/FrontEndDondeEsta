@@ -15,8 +15,17 @@ import { fill } from "@cloudinary/url-gen/actions/resize";
 import { CloudinaryImage } from "@cloudinary/url-gen";
 import { AdvancedImage } from "@cloudinary/react";
 import { Image } from "cloudinary-react";
+import { useEffect } from "react";
 
 function App() {
+  const [token, setToken] = React.useState("");
+
+  useEffect(() => {
+    const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
+    if (datosRecuperar && datosRecuperar.token) {
+      setToken(datosRecuperar.token);
+    }
+  }, []);
   return (
     <div className="App">
       <Router>

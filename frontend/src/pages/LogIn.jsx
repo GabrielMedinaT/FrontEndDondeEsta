@@ -6,13 +6,23 @@ import { Image } from "cloudinary-react";
 import "./LogIn.css";
 
 const LogIn = () => {
-  const extraerDatosDeUsuario = () => {
-    const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
-    if (datosRecuperar && datosRecuperar.token) {
-      console.log(datosRecuperar.token);
-      return [datosRecuperar.token, datosRecuperar.userId];
+  const gestorFormulario = async (data) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/usuarios/login",
+        {
+          email: data.email,
+          password: data.password,
+        }
+      );
+      console.log("Todo correcto", response.data);
+      localStorage.setItem("datosUsuario", JSON.stringify(response.data));
+      navigate("/misCasas");
+    } catch (error) {
+      console.log("algo falló");
     }
   };
+
   const fileInput = useRef(null);
   const [urlImagen, setUrlImagen] = useState("");
 
@@ -50,22 +60,6 @@ const LogIn = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const gestorFormulario = async (data) => {
-    try {
-      const response = await axios.post(
-        "https://whereis-7n5l.onrender.com/api/usuarios/login",
-        {
-          email: data.email,
-          password: data.password,
-        }
-      );
-      console.log("Todo correcto", response.data);
-      navigate("/misCasas");
-    } catch (error) {
-      console.log("algo falló");
-    }
-  };
 
   return (
     <div>

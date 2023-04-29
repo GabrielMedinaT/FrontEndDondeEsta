@@ -7,6 +7,7 @@ import i18next from "i18next";
 import global_en from "./translations/en/global.json";
 import global_es from "./translations/es/global.json";
 import LanguageDetector from "i18next-browser-languagedetector";
+import { AuthProvider } from "./context/AuthContext";
 
 i18next.use(LanguageDetector).init({
   interpolation: { escapeValue: false },
@@ -24,8 +25,10 @@ i18next.use(LanguageDetector).init({
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <I18nextProvider i18n={i18next}>
-      <App />
-    </I18nextProvider>
+    <AuthProvider>
+      <I18nextProvider i18n={i18next}>
+        <App />
+      </I18nextProvider>
+    </AuthProvider>
   </React.StrictMode>
 );

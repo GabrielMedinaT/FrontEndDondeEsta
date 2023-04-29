@@ -1,49 +1,76 @@
-import axios from "axios";
-import { reloadResources } from "i18next";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const MisCasas = () => {
   const [casas, setCasas] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`${process.env.BACK_URL}/api/casas/`)
-      .then((res) => {
-        console.log(res.data);
-        setCasas(res.data);
-      })
-      .catch((error) => console.log(error));
+    getCasas();
+    eliminarCasa();
   }, []);
 
   const extraerDatosDeUsuario = () => {
     const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
     if (datosRecuperar && datosRecuperar.token) {
-      // Si existe algo que recuperar y dentro de lo recuperado existe la propiedad token
       console.log(datosRecuperar.token);
       return [datosRecuperar.token, datosRecuperar.userId];
+    } else {
+      navigate.push("/login");
     }
   };
 
-  const eliminarCasa = (id) => {
-    axios.delete(`http://localhost:5000/api/casas/borrar/${id}`).then((res) => {
-      window.location.reload();
-      console.log(res.data);
-      setCasas(casas.filter((casa) => (casa.id = id)));
-    });
+  const getCasas = async () => {
+    const [token, userId] = extraerDatosDeUsuario();
+
+    try {
+      const response = await axios.get("http://localhost:5000/api/casas/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          userId: userId,
+        },
+      });
+      console.log("Todo correcto", response.data);
+      setCasas(response.data);
+    } catch (error) {
+      console.log("Error al obtener casas", error.message);
+    }
+  };
+
+  const eliminarCasa = (nombre) => {
+    const [token, userId] = extraerDatosDeUsuario();
+    axios
+      .delete(`http://localhost:5000/api/casas/borrar/${nombre}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          userId: userId,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        console.log(nombre);
+
+        setCasas(casas.filter((casa) => casa.nombre !== nombre));
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
     <div>
       <h1>Mis casas</h1>
-      <ul className="casas">
+      <ul>
         {casas.map((casa) => (
           <li key={casa.id}>
-            <li>{casa.nombre}</li>
-            <li>{casa.ciudad}</li>
-            <li>{casa.direccion}</li>
-            <button onClick={() => eliminarCasa(casa.id)}>Eliminar</button>
+            {casa.nombre}
+            <br />
+            {casa.ciudad}
+            <br />
+            <button onClick={() => eliminarCasa(casa.nombre)}>Eliminar</button>
           </li>
         ))}
       </ul>
