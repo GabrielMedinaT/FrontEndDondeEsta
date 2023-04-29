@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import "./MisCasas.css";
 
 const MisCasas = () => {
   const [casas, setCasas] = useState([]);
@@ -52,10 +53,10 @@ const MisCasas = () => {
         },
       })
       .then((res) => {
-        console.log(res.data);
         console.log(nombre);
+        console.log(res.data);
 
-        setCasas(casas.filter((casa) => casa.nombre !== nombre));
+        // setCasas(casas.filter((casa) => casa.nombre === nombre));
       })
       .catch((error) => console.log(error));
   };
@@ -63,7 +64,7 @@ const MisCasas = () => {
   return (
     <div>
       <h1>Mis casas</h1>
-      <ul>
+      <ul className="casasLista">
         {casas.map((casa) => (
           <li key={casa.id}>
             {casa.nombre}
