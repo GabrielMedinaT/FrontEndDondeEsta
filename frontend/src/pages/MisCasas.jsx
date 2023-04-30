@@ -5,11 +5,12 @@ import "./MisCasas.css";
 
 const MisCasas = () => {
   const [casas, setCasas] = useState([]);
+  const [habitaciones, setHabitaciones] = useState([]);
+  const [isLoadingHabitaciones, setIsLoadingHabitaciones] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     getCasas();
-    eliminarCasa();
   }, []);
 
   const extraerDatosDeUsuario = () => {
@@ -41,6 +42,29 @@ const MisCasas = () => {
     }
   };
 
+  const getHabitaciones = async (nombre) => {
+    const [token, userId] = extraerDatosDeUsuario();
+    setIsLoadingHabitaciones(true);
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/habitaciones/",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            nombreCasa: nombre, // cambié el parámetro a 'nombreCasa' para que coincida con el backend
+          },
+        }
+      );
+      console.log("Todo correcto", response.data);
+      setHabitaciones(response.data);
+    } catch (error) {
+      console.log("Error al obtener habitaciones", error.message);
+    }
+    setIsLoadingHabitaciones(false);
+  };
+
   const eliminarCasa = (nombre) => {
     const [token, userId] = extraerDatosDeUsuario();
     axios
@@ -53,14 +77,16 @@ const MisCasas = () => {
         },
       })
       .then((res) => {
+        window.location.reload();
         console.log(nombre);
         console.log(res.data);
-
-        // setCasas(casas.filter((casa) => casa.nombre === nombre));
       })
       .catch((error) => console.log(error));
   };
 
+  const handleClick = async (casaNombre) => {
+    await getHabitaciones(casaNombre);
+  };
   return (
     <div>
       <h1>Mis casas</h1>
@@ -71,6 +97,23 @@ const MisCasas = () => {
             <br />
             {casa.ciudad}
             <br />
+            <button onClick={() => handleClick(casa.nombre)}>
+              Ver habitaciones
+            </button>
+            {habitaciones.length > 0 && (
+              <div>
+                <button onClick={() => setHabitaciones([])}>
+                  Ocultar habitaciones
+                </button>
+                <ul>
+                  {habitaciones.map((habitacion) => (
+                    <li key={habitacion.id}>
+                      {habitacion.nombre} - {habitacion.tipo}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <button onClick={() => eliminarCasa(casa.nombre)}>Eliminar</button>
           </li>
         ))}

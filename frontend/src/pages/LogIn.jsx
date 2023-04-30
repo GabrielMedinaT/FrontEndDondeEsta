@@ -1,8 +1,6 @@
-import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Image } from "cloudinary-react";
 import "./LogIn.css";
 
 const LogIn = () => {
@@ -23,37 +21,6 @@ const LogIn = () => {
     }
   };
 
-  const fileInput = useRef(null);
-  const [urlImagen, setUrlImagen] = useState("");
-
-  const handleButtonClick = () => {
-    if (fileInput.current) {
-      fileInput.current.click();
-    }
-  };
-
-  const handleFileInputChange = async (event) => {
-    const fileName = event.target.files[0].name;
-    document.getElementById("file-label").innerHTML = fileName;
-    await subeImagen(event.target.files[0]);
-  };
-
-  const subeImagen = async (imagen) => {
-    const formImagen = new FormData();
-    formImagen.append("file", imagen);
-    formImagen.append("upload_preset", "hozgtasq");
-
-    try {
-      const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/dizfdxu5o/image/upload",
-        formImagen
-      );
-      setUrlImagen(response.data.url);
-    } catch (error) {
-      console.log(error.response.data);
-    }
-  };
-
   const navigate = useNavigate();
   const {
     register,
@@ -62,7 +29,7 @@ const LogIn = () => {
   } = useForm();
 
   return (
-    <div>
+    <div className="tarjeta">
       <form action="" onSubmit={handleSubmit(gestorFormulario)}>
         <input
           type="text"
@@ -96,22 +63,6 @@ const LogIn = () => {
           <p>Debe tener al menos 5 caracteres</p>
         )}
         <button type="submit">Enviar</button>
-
-        <input
-          type="file"
-          name="foto"
-          id="file-input"
-          ref={fileInput}
-          onChange={handleFileInputChange}
-          style={{ display: "none" }}
-        />
-
-        <button type="button" onClick={handleButtonClick}>
-          <label htmlFor="file-input" id="file-label">
-            Subir cosillas
-          </label>
-        </button>
-        <button type="submit">enviar</button>
       </form>
     </div>
   );

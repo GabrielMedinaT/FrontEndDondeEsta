@@ -1,0 +1,111 @@
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+.MenuDesplegable--activo {
+  display: none;
+}
+.MenuHamburguesa {
+  display: none;
+}
+.MenuDesplegable {
+  display: none;
+}
+.BarraNavegacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  height: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+}
+
+.Logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.Botones {
+  display: flex;
+  align-items: center;
+}
+
+.Botones button {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px 20px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #4f46e5;
+}
+
+.Botones button:hover {
+  background-color: #554ccf;
+}
+
+.Botones button:first-of-type {
+  background-color: #ff595e;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 768px) {
+  .BarraNavegacion {
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .Botones {
+    display: none;
+  }
+
+  .MenuHamburguesa {
+    display: block;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .MenuDesplegable {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    z-index: 999;
+  }
+
+  .MenuDesplegable li {
+    display: block;
+    padding: 10px;
+    border-bottom: 1px solid #dddddd;
+  }
+
+  .MenuDesplegable li:last-of-type {
+    border-bottom: none;
+  }
+
+  .MenuDesplegable a {
+    color: #4f46e5;
+  }
+
+  .MenuDesplegable a:hover {
+    text-decoration: underline;
+  }
+
+  .MenuDesplegable--activo {
+    display: block;
+  }
+}

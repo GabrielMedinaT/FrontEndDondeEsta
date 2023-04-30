@@ -7,7 +7,7 @@ import "./Registro";
 const Home = () => {
   const navigate = useNavigate();
   return (
-    <div>
+    <div className="home">
       Home
       <br />
       <button onClick={() => navigate("/login")} className="atras">

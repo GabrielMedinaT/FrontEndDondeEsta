@@ -13,7 +13,9 @@ const Addcasa = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
   const { REACT_APP_BACK_URI } = process.env;
+
   const extraerDatosDeUsuario = () => {
     const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
     if (datosRecuperar && datosRecuperar.token) {
@@ -50,13 +52,8 @@ const Addcasa = () => {
 
   return (
     <div>
-      <button onClick={() => i18n.changeLanguage("es")}>ES</button>
-      <button onClick={() => i18n.changeLanguage("en")}>EN</button>
       <br />
 
-      <button onClick={() => navigate("/AdjuntarHabitacion")}>
-        {t("btn2.btn2")}
-      </button>
       <form action="" onSubmit={handleSubmit(gestorFormulario)}>
         <input
           type="text"
