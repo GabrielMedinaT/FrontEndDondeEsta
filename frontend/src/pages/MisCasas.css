@@ -4,6 +4,13 @@ h1 {
   text-align: center;
   margin-top: 2rem;
 }
+.miscasas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+}
 
 /* Estilos para la lista de casas */
 ul.casasLista {
@@ -12,6 +19,7 @@ ul.casasLista {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
+  width: 70%;
 }
 
 /* Estilos para cada casa */
@@ -22,7 +30,9 @@ ul.casasLista li {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
 }
-
+ul.casasLista li:hover {
+  transform: scale(1.05);
+}
 /* Estilos para el botón de ver habitaciones */
 ul.casasLista li button:first-of-type {
   margin-top: 1rem;

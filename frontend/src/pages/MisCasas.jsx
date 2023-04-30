@@ -93,7 +93,7 @@ const MisCasas = () => {
     navigate("/habitaciones");
   };
   return (
-    <div>
+    <div className="miscasas">
       <h1>Mis casas</h1>
       <ul className="casasLista">
         {casas.map((casa) => (
