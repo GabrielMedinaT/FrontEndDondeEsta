@@ -87,6 +87,11 @@ const MisCasas = () => {
   const handleClick = async (casaNombre) => {
     await getHabitaciones(casaNombre);
   };
+
+  //*NAVEGAR A HABITACIONES
+  const habitacione = () => {
+    navigate("/habitaciones");
+  };
   return (
     <div>
       <h1>Mis casas</h1>
@@ -111,6 +116,9 @@ const MisCasas = () => {
                       {habitacion.nombre} - {habitacion.tipo}
                     </li>
                   ))}
+                  <button onClick={() => habitacione()}>
+                    Ver todas las Habitaciones
+                  </button>
                 </ul>
               </div>
             )}

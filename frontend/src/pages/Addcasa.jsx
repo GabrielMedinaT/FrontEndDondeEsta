@@ -3,18 +3,15 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import Config from "@cloudinary/url-gen/config/BaseConfig";
 
 const Addcasa = () => {
-  const { t, i18n } = useTranslation("global");
+  const { t } = useTranslation("global");
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: {},
   } = useForm();
-
-  const { REACT_APP_BACK_URI } = process.env;
 
   const extraerDatosDeUsuario = () => {
     const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
