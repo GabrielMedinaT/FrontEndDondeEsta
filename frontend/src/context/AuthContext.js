@@ -3,7 +3,9 @@ import React, { useState, createContext } from "react";
 export const AuthContext = createContext();
 
 export const AuthProvider = (props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("datosUsuario") ? true : false
+  );
 
   const gestionarLogIn = (token, userId) => {
     localStorage.setItem("datosUsuario", JSON.stringify({ token, userId }));

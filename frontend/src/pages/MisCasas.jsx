@@ -2,16 +2,23 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./MisCasas.css";
+import { AuthContext } from "../context/AuthContext";
 
 const MisCasas = () => {
   const [casas, setCasas] = useState([]);
   const [habitaciones, setHabitaciones] = useState([]);
   const [isLoadingHabitaciones, setIsLoadingHabitaciones] = useState(false);
   const navigate = useNavigate();
+  const { IsLoggedIn } = React.useContext(AuthContext);
 
   useEffect(() => {
     getCasas();
   }, []);
+  //que se recargue la pagina una vez al entrar en la pagina
+
+  const recargarPagina = () => {
+    window.location.reload();
+  };
 
   const extraerDatosDeUsuario = () => {
     const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));

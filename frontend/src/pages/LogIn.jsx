@@ -2,8 +2,15 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./LogIn.css";
+import { useState } from "react";
+import { send } from "emailjs-com";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const LogIn = () => {
+  const [passwordError, setPasswordError] = useState("");
+  const { gestionarLogIn } = useContext(AuthContext);
+
   const gestorFormulario = async (data) => {
     try {
       const response = await axios.post(
@@ -15,9 +22,13 @@ const LogIn = () => {
       );
       console.log("Todo correcto", response.data);
       localStorage.setItem("datosUsuario", JSON.stringify(response.data));
+      gestionarLogIn(response.data.token, response.data.userId);
       navigate("/misCasas");
     } catch (error) {
       console.log("algo falló");
+      if (error.response.status === 500) {
+        setPasswordError("Usuario o contraseña incorrecta");
+      }
     }
   };
 
@@ -62,6 +73,8 @@ const LogIn = () => {
         {errors.password && errors.password.type === "minLength" && (
           <p>Debe tener al menos 5 caracteres</p>
         )}
+        {passwordError && <p className="error">{passwordError}</p>}
+
         <button type="submit">Enviar</button>
       </form>
     </div>
