@@ -35,6 +35,7 @@ const Alta = () => {
     setShowVerificationInput(true);
     const codigoAleatorio = Math.floor(Math.random() * 100000);
     const mensaje = `Su código de verificación es ${codigoAleatorio}`;
+    console.log(mensaje);
     setCodigo(codigoAleatorio);
     const templateParams = {
       nombre: data.nombre,
@@ -65,7 +66,7 @@ const Alta = () => {
       <form onSubmit={handleSubmit(gestorFormulario)}>
         <div className="user-details">
           <div className="input-box">
-            <span className="details">Nombre</span>
+            <span className="details"></span>
             <input
               type="text"
               name="nombre"
@@ -77,7 +78,7 @@ const Alta = () => {
             )}
           </div>
           <div className="input-box">
-            <span className="details">Email</span>
+            <span className="details"></span>
             <input
               type="text"
               name="email"
@@ -95,7 +96,7 @@ const Alta = () => {
             )}
           </div>
           <div className="input-box">
-            <span className="details">Contraseña</span>
+            <span className="details"></span>
             <input
               type="password"
               name="password"
@@ -124,18 +125,22 @@ const Alta = () => {
         </div>
         <div className="button">
           {!showVerificationInput && (
-            <input
+            <button
               type="submit"
               value="Crear cuenta"
               onClick={handleSubmit(enviarCodigo)}
-            />
+            >
+              Crear Cuenta{" "}
+            </button>
           )}
           {showVerificationInput && (
-            <input
+            <button
               type="submit"
               value="Verificar"
               onClick={handleSubmit(gestorFormulario)}
-            />
+            >
+              {" "}
+            </button>
           )}
         </div>
       </form>

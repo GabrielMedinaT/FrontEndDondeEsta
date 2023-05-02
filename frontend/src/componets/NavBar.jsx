@@ -19,10 +19,10 @@ const NavBar = () => {
 
   const Logout = () => {
     gestionarLogOut();
-    navegar("/login");
+    navegar("/");
   };
   const login = () => {
-    navegar("/login");
+    navegar("/");
   };
   const adjuntar = () => {
     navegar("/adjuntar");
@@ -36,6 +36,9 @@ const NavBar = () => {
 
   const toggleMenuDesplegable = () => {
     setMenuDesplegable(!menuDesplegable);
+  };
+  const contraerMenuDesplegable = () => {
+    setMenuDesplegable(false);
   };
 
   return (
@@ -52,8 +55,7 @@ const NavBar = () => {
             </>
           ) : (
             <>
-              <button onClick={() => login()}>Log In</button>
-              <button onClick={() => registro()}>Registro</button>
+              <button>Bienvenido/a</button>
             </>
           )}
         </div>
@@ -72,15 +74,18 @@ const NavBar = () => {
         >
           <ul>
             <li>
-              <Link to="/adjuntar" onClick={() => adjuntar()}>
+              <Link to="/adjuntar" onClick={() => contraerMenuDesplegable()}>
                 {" "}
                 Añadir Casa
               </Link>
             </li>
             <li>
-              <a href="#" onClick={() => habitacion()}>
+              <Link
+                to="AdjuntarHabitacion"
+                onClick={() => contraerMenuDesplegable()}
+              >
                 Añadir Habitacion
-              </a>
+              </Link>
             </li>
             <li>
               <a href="#" onClick={Logout}>

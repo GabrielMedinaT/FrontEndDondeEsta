@@ -6,18 +6,7 @@ import "./Registro";
 
 const Home = () => {
   const navigate = useNavigate();
-  return (
-    <div className="home">
-      Home
-      <br />
-      <button onClick={() => navigate("/login")} className="atras">
-        Log In
-      </button>
-      <button onClick={() => navigate("/registro")} className="atras">
-        Registro
-      </button>
-    </div>
-  );
+  return <div className="home">Home</div>;
 };
 
 export default Home;

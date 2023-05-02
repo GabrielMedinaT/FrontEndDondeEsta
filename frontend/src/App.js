@@ -30,13 +30,13 @@ function App() {
         <Router>
           <NavBar />
           <Routes>
-            <Route path="/" element={<Home />}></Route>
+            <Route path="/" element={<LogIn />}></Route>
             <Route path="/adjuntar" element={<Addcasa />}></Route>
             <Route path="/AdjuntarHabitacion" element={<Addhab />}></Route>
             <Route path="/Adjuntararmario" element={<Addarm />}></Route>
             <Route path="/comousar" element={<Howto />}></Route>
             <Route path="/registro" element={<Registro />}></Route>
-            <Route path="/login" element={<LogIn />}></Route>
+            {/* <Route path="/login" element={<LogIn />}></Route> */}
             <Route path="/miscasas" element={<MisCasas />}></Route>
             <Route path="/personal" element={<PersonalPage />}></Route>
             <Route path="/habitaciones" element={<Habitaciones />}></Route>
