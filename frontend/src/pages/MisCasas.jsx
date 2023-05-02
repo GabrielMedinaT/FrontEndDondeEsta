@@ -34,14 +34,18 @@ const MisCasas = () => {
     const [token, userId] = extraerDatosDeUsuario();
 
     try {
-      const response = await axios.get("http://localhost:5000/api/casas/", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {
-          userId: userId,
-        },
-      });
+      const response = await axios.get(
+        "https://whereis-7n5l.onrender.com/api/casas/",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            userId: userId,
+            casaId: casas._id,
+          },
+        }
+      );
       console.log("Todo correcto", response.data);
       setCasas(response.data);
     } catch (error) {
@@ -49,18 +53,18 @@ const MisCasas = () => {
     }
   };
 
-  const getHabitaciones = async (nombre) => {
+  const getHabitaciones = async (data) => {
     const [token, userId] = extraerDatosDeUsuario();
     setIsLoadingHabitaciones(true);
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/habitaciones/",
+        "https://whereis-7n5l.onrender.com/api/habitaciones/",
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
           params: {
-            nombreCasa: nombre, // cambié el parámetro a 'nombreCasa' para que coincida con el backend
+            idCasa: casas._id,
           },
         }
       );
@@ -72,10 +76,10 @@ const MisCasas = () => {
     setIsLoadingHabitaciones(false);
   };
 
-  const eliminarCasa = (nombre) => {
+  const eliminarCasa = (id) => {
     const [token, userId] = extraerDatosDeUsuario();
     axios
-      .delete(`http://localhost:5000/api/casas/borrar/${nombre}`, {
+      .delete(`https://whereis-7n5l.onrender.com/api/casas/borrar/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -84,11 +88,12 @@ const MisCasas = () => {
         },
       })
       .then((res) => {
-        window.location.reload();
-        console.log(nombre);
+        // window.location.reload();
+        console.log(id);
         console.log(res.data);
       })
       .catch((error) => console.log(error));
+    console.log(id);
   };
 
   const handleClick = async (casaNombre) => {
@@ -129,7 +134,7 @@ const MisCasas = () => {
                 </ul>
               </div>
             )}
-            <button onClick={() => eliminarCasa(casa.nombre)}>Eliminar</button>
+            <button onClick={() => eliminarCasa(casa._id)}>Eliminar</button>
           </li>
         ))}
       </ul>

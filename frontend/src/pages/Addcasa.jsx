@@ -26,7 +26,7 @@ const Addcasa = () => {
 
     await axios
       .post(
-        "http://localhost:5000/api/casas/nueva",
+        "https://whereis-7n5l.onrender.com/api/casas/nueva",
         {
           nombre: data.nombre,
           direccion: data.direccion,

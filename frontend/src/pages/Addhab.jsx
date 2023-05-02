@@ -27,7 +27,7 @@ const Addhab = () => {
 
     await axios
       .post(
-        "http://localhost:5000/api/habitaciones/nueva",
+        "https://whereis-7n5l.onrender.com/api/habitaciones/nueva",
         {
           casa: data.nombre,
           nombre: data.habitacion,
@@ -36,6 +36,9 @@ const Addhab = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`, // Agrega el token de autorización en el objeto de configuración de axios
+          },
+          params: {
+            nombre: data.nombre,
           },
         }
       )

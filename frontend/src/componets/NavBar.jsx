@@ -33,6 +33,9 @@ const NavBar = () => {
   const registro = () => {
     navegar("/registro");
   };
+  const casas = () => {
+    navegar("/misCasas");
+  };
 
   const toggleMenuDesplegable = () => {
     setMenuDesplegable(!menuDesplegable);
@@ -49,6 +52,7 @@ const NavBar = () => {
           {isLoggedIn ? (
             <>
               <button onClick={() => adjuntar()}>Añadir Casa</button>
+              <button onClick={() => casas()}>Ver mis casas</button>
               <button onClick={() => habitacion()}>Añadir Habitacion</button>
               <button onClick={Logout}>Log Out</button>
               <button>Bienvenido</button>

@@ -113,7 +113,7 @@ const LogIn = () => {
                 <p>Debe tener al menos 5 caracteres</p>
               )}
               {passwordError && <p className="error">{passwordError}</p>}
-
+              <br />
               <button type="submit">Enviar</button>
               <br />
               <br />

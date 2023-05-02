@@ -21,16 +21,15 @@ const Habitaciones = () => {
       navigate.push("/login");
     }
   };
-  const getHabitaciones = async () => {
+  const getHabitaciones = async (data) => {
     const [token, userId] = extraerDatosDeUsuario();
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/habitaciones/",
+        "https://whereis-7n5l.onrender.com/api/habitaciones/",
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-          params: {},
         }
       );
       console.log("Todo correcto", response.data);
@@ -39,23 +38,23 @@ const Habitaciones = () => {
       console.log("Error al obtener habitaciones", error.message);
     }
   };
-  const eliminar = async (id) => {
+  const eliminarHabitacion = (nombre) => {
     const [token, userId] = extraerDatosDeUsuario();
-    try {
-      const response = await axios.delete(
-        `http://localhost:5000/api/habitaciones/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          params: {},
-        }
-      );
-      console.log("Todo correcto", response.data);
-      getHabitaciones();
-    } catch (error) {
-      console.log("Error al obtener habitaciones", error.message);
-    }
+    axios
+      .delete(`http://localhost:5000/api/habitaciones/borrar/${nombre}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          userId: userId,
+        },
+      })
+      .then((res) => {
+        window.location.reload();
+        console.log(nombre);
+        console.log(res.data);
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -66,7 +65,7 @@ const Habitaciones = () => {
           return (
             <div>
               <h2>{habitacion.nombre}</h2>
-              <button onClick={() => eliminar()}>Eliminar</button>
+              <button onClick={() => eliminarHabitacion()}>Eliminar</button>
             </div>
           );
         })}
