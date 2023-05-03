@@ -12,6 +12,7 @@ import Registro from "./pages/Registro";
 import MisCasas from "./pages/MisCasas";
 import PersonalPage from "./pages/PersonalPage";
 import Habitaciones from "./pages/Habitaciones";
+import MisArmarios from "./pages/MisArmarios";
 import { AuthProvider } from "./context/AuthContext";
 
 function App() {
@@ -37,6 +38,7 @@ function App() {
             <Route path="/comousar" element={<Howto />}></Route>
             <Route path="/registro" element={<Registro />}></Route>
             {/* <Route path="/login" element={<LogIn />}></Route> */}
+            <Route path="/misarmarios" element={<MisArmarios />}></Route>
             <Route path="/miscasas" element={<MisCasas />}></Route>
             <Route path="/personal" element={<PersonalPage />}></Route>
             <Route path="/habitaciones" element={<Habitaciones />}></Route>

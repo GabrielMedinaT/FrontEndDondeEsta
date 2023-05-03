@@ -7,8 +7,11 @@ export const AuthProvider = (props) => {
     localStorage.getItem("datosUsuario") ? true : false
   );
 
-  const gestionarLogIn = (token, userId) => {
-    localStorage.setItem("datosUsuario", JSON.stringify({ token, userId }));
+  const gestionarLogIn = (token, userId, nombreUsuario) => {
+    localStorage.setItem(
+      "datosUsuario",
+      JSON.stringify({ token, userId, nombre: nombreUsuario })
+    );
     setIsLoggedIn(true);
   };
 

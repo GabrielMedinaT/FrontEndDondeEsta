@@ -17,7 +17,7 @@ const LogIn = () => {
   const toggleForm = () => {
     setShowLogin(!showLogin);
   };
-  console.log(showLogin);
+
   const gestorFormulario = async (data) => {
     try {
       const response = await axios.post(
@@ -27,12 +27,16 @@ const LogIn = () => {
           password: data.password,
         }
       );
-      console.log("Todo correcto", response.data);
+      // console.log("Todo correcto", response.data);
       localStorage.setItem("datosUsuario", JSON.stringify(response.data));
-      gestionarLogIn(response.data.token, response.data.userId);
+      gestionarLogIn(
+        response.data.token,
+        response.data.userId,
+        response.data.nombre
+      );
       navigate("/misCasas");
     } catch (error) {
-      console.log("algo falló");
+      // console.log("algo falló");
       if (error.response.status === 500) {
         setPasswordError("Usuario o contraseña incorrecta");
       }

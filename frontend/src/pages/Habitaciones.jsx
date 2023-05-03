@@ -41,16 +41,20 @@ const Habitaciones = () => {
   const eliminarHabitacion = (nombre) => {
     const [token, userId] = extraerDatosDeUsuario();
     axios
-      .delete(`http://localhost:5000/api/habitaciones/borrar/${nombre}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        data: {
-          userId: userId,
-        },
-      })
+      .delete(
+        `https://whereis-7n5l.onrender.com/api/habitaciones/borrar/${nombre}`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          data: {
+            userId: userId,
+          },
+        }
+      )
       .then((res) => {
-        window.location.reload();
+        // window.location.reload();
         console.log(nombre);
         console.log(res.data);
       })
@@ -65,7 +69,9 @@ const Habitaciones = () => {
           return (
             <div>
               <h2>{habitacion.nombre}</h2>
-              <button onClick={() => eliminarHabitacion()}>Eliminar</button>
+              <button onClick={() => eliminarHabitacion(habitacion.nombre)}>
+                Eliminar
+              </button>
             </div>
           );
         })}
