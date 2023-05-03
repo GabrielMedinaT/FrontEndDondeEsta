@@ -16,7 +16,7 @@ const Alta = () => {
   const gestorFormulario = async (data) => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/usuarios/registro",
+        "https://whereis-7n5l.onrender.com/api/usuarios/registro",
         {
           nombre: data.nombre,
           email: data.email,
