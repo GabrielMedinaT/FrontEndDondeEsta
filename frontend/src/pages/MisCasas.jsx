@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./MisCasas.css";
-import { AuthContext } from "../context/AuthContext";
-import Addcasa from "../pages/Addcasa";
-import Habitaciones from "../pages/Habitaciones";
-import MisArmarios from "../pages/MisArmarios";
+import { AuthContext } from "../componets/context/AuthContext";
+import Addcasa from "../componets/Addcasa";
+import Habitaciones from "../componets/Habitaciones";
+import MisArmarios from "../componets/MisArmarios";
+import Addhab from "../componets/Addhab";
 
 const MisCasas = () => {
   const [casas, setCasas] = useState([]);
-  const [habitaciones, setHabitaciones] = useState([]);
-  const [isLoadingHabitaciones, setIsLoadingHabitaciones] = useState(false);
+
   const navigate = useNavigate();
   const { IsLoggedIn } = React.useContext(AuthContext);
 
@@ -56,29 +56,6 @@ const MisCasas = () => {
     }
   };
 
-  const getHabitaciones = async (data) => {
-    const [token, userId] = extraerDatosDeUsuario();
-    setIsLoadingHabitaciones(true);
-    try {
-      const response = await axios.get(
-        "https://whereis-7n5l.onrender.com/api/habitaciones/",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          params: {
-            idCasa: casas._id,
-          },
-        }
-      );
-      // console.log("Todo correcto", response.data);
-      setHabitaciones(response.data);
-    } catch (error) {
-      // console.log("Error al obtener habitaciones", error.message);
-    }
-    setIsLoadingHabitaciones(false);
-  };
-
   const eliminarCasa = (id) => {
     const [token, userId] = extraerDatosDeUsuario();
     axios
@@ -99,10 +76,11 @@ const MisCasas = () => {
     // console.log(id);
   };
 
-  const handleClick = async (casaNombre) => {
-    await getHabitaciones(casaNombre);
-  };
   const casasLength = casas.length;
+  const habitacionesLentgth = casas.map((casa) => {
+    return casa.habitaciones.length;
+  });
+  console.log(habitacionesLentgth);
 
   //*NAVEGAR A HABITACIONES
   const habitacione = () => {
@@ -118,38 +96,21 @@ const MisCasas = () => {
           </h1>
         )}
         {casas.map((casa) => (
-          <li key={casa.id}>
-            {casa.nombre}
+          <li key={casa._id}>
+            <h1>Nombre de la casa : {casa.nombre}</h1>
+
+            <h1>Ciudad : {casa.ciudad} </h1>
             <br />
-            {casa.ciudad}
-            <br />
-            <button onClick={() => handleClick(casa.nombre)}>
-              Ver habitaciones
-            </button>
-            {habitaciones.length > 0 && (
-              <div>
-                <button onClick={() => setHabitaciones([])}>
-                  Ocultar habitaciones
-                </button>
-                <ul>
-                  <li>
-                    <Habitaciones />
-                    <li></li>
-                  </li>
-                  <button onClick={() => habitacione()}>
-                    Ver todas las Habitaciones
-                  </button>
-                </ul>
-                <div>
-                  <MisArmarios />
-                </div>
-              </div>
-            )}
+            <Addcasa />
+
             <button onClick={() => eliminarCasa(casa._id)}>Eliminar</button>
           </li>
         ))}
+        <div className="Habitaciones">
+          <Habitaciones />
+          <Addhab />
+        </div>
       </ul>
-      <Addcasa />
     </div>
   );
 };

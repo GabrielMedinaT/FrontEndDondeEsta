@@ -1,19 +1,16 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
 import LogIn from "./pages/LogIn";
 import NavBar from "./componets/NavBar";
-import Addcasa from "./pages/Addcasa";
-import Addhab from "./pages/Addhab";
 import Addarm from "./pages/Addarm";
 import Howto from "./pages/Howto";
-import Registro from "./pages/Registro";
+
 import MisCasas from "./pages/MisCasas";
 import PersonalPage from "./pages/PersonalPage";
-import Habitaciones from "./pages/Habitaciones";
-import MisArmarios from "./pages/MisArmarios";
-import { AuthProvider } from "./context/AuthContext";
+import Habitaciones from "./componets/Habitaciones";
+import MisArmarios from "./componets/MisArmarios";
+import { AuthProvider } from "./componets/context/AuthContext";
 
 function App() {
   const [token, setToken] = React.useState("");
@@ -32,12 +29,8 @@ function App() {
           <NavBar />
           <Routes>
             <Route path="/" element={<LogIn />}></Route>
-            <Route path="/adjuntar" element={<Addcasa />}></Route>
-            <Route path="/AdjuntarHabitacion" element={<Addhab />}></Route>
             <Route path="/Adjuntararmario" element={<Addarm />}></Route>
             <Route path="/comousar" element={<Howto />}></Route>
-            <Route path="/registro" element={<Registro />}></Route>
-            {/* <Route path="/login" element={<LogIn />}></Route> */}
             <Route path="/misarmarios" element={<MisArmarios />}></Route>
             <Route path="/miscasas" element={<MisCasas />}></Route>
             <Route path="/personal" element={<PersonalPage />}></Route>

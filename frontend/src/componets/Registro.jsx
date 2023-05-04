@@ -142,6 +142,7 @@ const Alta = () => {
               onClick={handleSubmit(gestorFormulario)}
             >
               {" "}
+              Verificar y crear
             </button>
           )}
         </div>

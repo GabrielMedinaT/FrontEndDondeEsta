@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Habitaciones.css";
+
 const Habitaciones = () => {
   const [habitaciones, setHabitaciones] = useState([]);
   const [armarios, setArmarios] = useState([]);
@@ -21,7 +22,8 @@ const Habitaciones = () => {
       navigate.push("/login");
     }
   };
-  const getHabitaciones = async (data) => {
+
+  const getHabitaciones = async () => {
     const [token, userId] = extraerDatosDeUsuario();
     try {
       const response = await axios.get(
@@ -38,12 +40,12 @@ const Habitaciones = () => {
       console.log("Error al obtener habitaciones", error.message);
     }
   };
+
   const eliminarHabitacion = (nombre) => {
     const [token, userId] = extraerDatosDeUsuario();
     axios
       .delete(
         `https://whereis-7n5l.onrender.com/api/habitaciones/borrar/${nombre}`,
-
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -54,9 +56,10 @@ const Habitaciones = () => {
         }
       )
       .then((res) => {
-        // window.location.reload();
         console.log(nombre);
         console.log(res.data);
+        // Actualizar la lista de habitaciones después de eliminar una habitación
+        setHabitaciones(habitaciones.filter((h) => h.nombre !== nombre));
       })
       .catch((error) => console.log(error));
   };
@@ -64,17 +67,19 @@ const Habitaciones = () => {
   return (
     <div>
       <h1>Habitaciones</h1>
+      {habitaciones.length === 0 && (
+        <h1>No tiene habitaciones puede añadir una </h1>
+      )}
       <div>
-        {habitaciones.map((habitacion) => {
-          return (
-            <div>
-              <h2>{habitacion.nombre}</h2>
-              <button onClick={() => eliminarHabitacion(habitacion.nombre)}>
-                Eliminar
-              </button>
-            </div>
-          );
-        })}
+        {/* Agregar una función de devolución de llamada para actualizar el estado */}
+        {habitaciones.map((habitacion) => (
+          <div key={habitacion._id}>
+            <h2>{habitacion.nombre}</h2>
+            <button onClick={() => eliminarHabitacion(habitacion.nombre)}>
+              Eliminar
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );

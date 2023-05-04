@@ -5,8 +5,8 @@ import "./LogIn.css";
 import { useState } from "react";
 import { send } from "emailjs-com";
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
-import Registro from "./Registro";
+import { AuthContext } from "../componets/context/AuthContext";
+import Registro from "../componets/Registro";
 
 const LogIn = () => {
   const [passwordError, setPasswordError] = useState("");

@@ -3,15 +3,14 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import Config from "@cloudinary/url-gen/config/BaseConfig";
 
-const Addhab = () => {
-  const { t, i18n } = useTranslation("global");
+const Addcasa = () => {
+  const { t } = useTranslation("global");
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: {},
   } = useForm();
 
   const extraerDatosDeUsuario = () => {
@@ -27,24 +26,22 @@ const Addhab = () => {
 
     await axios
       .post(
-        "https://whereis-7n5l.onrender.com/api/habitaciones/nueva",
+        "https://whereis-7n5l.onrender.com/api/casas/nueva",
         {
-          casa: data.nombre,
-          nombre: data.habitacion,
+          nombre: data.nombre,
+          direccion: data.direccion,
+          ciudad: data.ciudad,
           userId: userId, // Agrega el id del usuario al objeto que se envía al servidor
         },
         {
           headers: {
             Authorization: `Bearer ${token}`, // Agrega el token de autorización en el objeto de configuración de axios
           },
-          params: {
-            nombre: data.nombre,
-          },
         }
       )
       .then((response) => {
         console.log("Todo correcto", response.data);
-        if (response.status === 200) navigate("/MisCasas");
+        if (response.status === 200) window.location.reload();
         else alert("Error al crear la casa");
       })
       .catch((error) => console.log(error.response.data));
@@ -54,9 +51,6 @@ const Addhab = () => {
     <div>
       <br />
 
-      <button onClick={() => navigate("/AdjuntarHabitacion")}>
-        {t("btn2.btn2")}
-      </button>
       <form action="" onSubmit={handleSubmit(gestorFormulario)}>
         <input
           type="text"
@@ -65,14 +59,18 @@ const Addhab = () => {
         />
         <input
           type="text"
-          placeholder="Nombre de la habitacion"
-          {...register("habitacion", { minLength: 5, required: true })}
+          placeholder="Dirección"
+          {...register("direccion", { minLength: 5, required: true })}
         />
-
+        <input
+          type="text"
+          placeholder="Ciudad"
+          {...register("ciudad", { minLength: 5, required: true })}
+        />
         <button type="submit">{t("btn1.btn1")}</button>
       </form>
     </div>
   );
 };
 
-export default Addhab;
+export default Addcasa;
