@@ -5,7 +5,7 @@ import "./LogIn.css";
 import { useState } from "react";
 import { send } from "emailjs-com";
 import { useContext } from "react";
-import { AuthContext } from "../componets/context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 import Registro from "../componets/Registro";
 
 const LogIn = () => {

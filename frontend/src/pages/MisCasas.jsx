@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./MisCasas.css";
-import { AuthContext } from "../componets/context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 import Addcasa from "../componets/Addcasa";
 import Habitaciones from "../componets/Habitaciones";
 import MisArmarios from "../componets/MisArmarios";

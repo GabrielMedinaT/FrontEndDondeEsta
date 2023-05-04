@@ -10,7 +10,7 @@ import MisCasas from "./pages/MisCasas";
 import PersonalPage from "./pages/PersonalPage";
 import Habitaciones from "./componets/Habitaciones";
 import MisArmarios from "./componets/MisArmarios";
-import { AuthProvider } from "./componets/context/AuthContext";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   const [token, setToken] = React.useState("");
