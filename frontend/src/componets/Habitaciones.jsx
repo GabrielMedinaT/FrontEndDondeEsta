@@ -16,7 +16,6 @@ const Habitaciones = () => {
   const extraerDatosDeUsuario = () => {
     const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
     if (datosRecuperar && datosRecuperar.token) {
-      console.log(datosRecuperar.token);
       return [datosRecuperar.token, datosRecuperar.userId];
     } else {
       navigate.push("/login");
@@ -34,7 +33,7 @@ const Habitaciones = () => {
           },
         }
       );
-      console.log("Todo correcto", response.data);
+      // console.log("Todo correcto", response.data);
       setHabitaciones(response.data);
     } catch (error) {
       console.log("Error al obtener habitaciones", error.message);

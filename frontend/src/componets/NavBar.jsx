@@ -93,11 +93,9 @@ const NavBar = () => {
         <div className="Botones">
           {isLoggedIn ? (
             <>
-              <button>Bienvenido/a {nombreUsuario}</button>
-              <button onClick={() => adjuntar()}>Añadir Casa</button>
-              <button onClick={() => casas()}>Ver mis casas</button>
-              <button onClick={() => habitacion()}>Añadir Habitacion</button>
-              <button onClick={() => armarios()}>Ver mis armarios</button>
+              <button onClick={() => casas()}>
+                Bienvenido/a {nombreUsuario}
+              </button>
               <button onClick={Logout}>Log Out</button>
             </>
           ) : (

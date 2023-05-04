@@ -36,7 +36,7 @@ const Addhab = () => {
         },
       })
       .then((response) => {
-        console.log("Todo correcto", response.data);
+        // console.log("Todo correcto", response.data);
         setCasas(response.data);
         setIsLoadingCasas(false);
       })
@@ -137,7 +137,6 @@ const Addhab = () => {
             casas.map((casa) => (
               <option key={casa._id} value={casa.nombre}>
                 {casa.nombre}
-                {console.log(casa.nombre)}
               </option>
             ))
           )}

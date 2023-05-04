@@ -7,6 +7,8 @@ import Addcasa from "../componets/Addcasa";
 import Habitaciones from "../componets/Habitaciones";
 import MisArmarios from "../componets/MisArmarios";
 import Addhab from "../componets/Addhab";
+import Cajones from "../componets/Cajones";
+import Cosas from "../componets/Cosas";
 
 const MisCasas = () => {
   const [casas, setCasas] = useState([]);
@@ -80,9 +82,7 @@ const MisCasas = () => {
   const habitacionesLentgth = casas.map((casa) => {
     return casa.habitaciones.length;
   });
-  console.log(habitacionesLentgth);
 
-  //*NAVEGAR A HABITACIONES
   const habitacione = () => {
     navigate("/habitaciones");
   };
@@ -91,9 +91,12 @@ const MisCasas = () => {
       <h1>Mis casas</h1>
       <ul className="casasLista">
         {casasLength === 0 && (
-          <h1>
-            No tienes casas añadidas, añada una con el siguiente formulario
-          </h1>
+          <>
+            <h1>
+              No tienes casas añadidas, añade una con el siguiente formulario
+            </h1>
+            <Addcasa />
+          </>
         )}
         {casas.map((casa) => (
           <li key={casa._id}>
@@ -101,15 +104,18 @@ const MisCasas = () => {
 
             <h1>Ciudad : {casa.ciudad} </h1>
             <br />
+            <h1>Añadir mas casas</h1>
             <Addcasa />
-
             <button onClick={() => eliminarCasa(casa._id)}>Eliminar</button>
           </li>
         ))}
         <div className="Habitaciones">
           <Habitaciones />
           <Addhab />
+          <MisArmarios />
+          <Cajones />
         </div>
+        <Cosas />
       </ul>
     </div>
   );

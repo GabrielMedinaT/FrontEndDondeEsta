@@ -3,10 +3,16 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
+import Habitaciones from "./Habitaciones";
 
 const MisArmarios = () => {
   const [armarios, setArmarios] = useState([]);
   const [isLoadingArmarios, setIsLoadingArmarios] = useState(true);
+  const [isLoadingHabitacion, setIsLoadingHabitacion] = useState(false);
+  const [habitacion, setHabitacion] = useState([]);
+  const [isLoadingCasas, setIsLoadingCasas] = useState(false);
+  const [casas, setCasas] = useState([]);
+
   const navigate = useNavigate();
   const { token, userId } = useContext(AuthContext);
 
@@ -18,7 +24,41 @@ const MisArmarios = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const extraerDatosDeUsuario = () => {
+    const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
+    if (datosRecuperar && datosRecuperar.token) {
+      console.log(datosRecuperar.token);
+      return [datosRecuperar.token, datosRecuperar.userId];
+    }
+  };
+
+  const obtenerHabitaciones = async () => {
+    const [token, userId] = extraerDatosDeUsuario();
+    setIsLoadingHabitacion(true);
+    await axios
+      .get("https://whereis-7n5l.onrender.com/api/habitaciones", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        // console.log(response.data);
+        setHabitacion(response.data);
+        setIsLoadingHabitacion(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoadingHabitacion(false);
+      });
+  };
+  useEffect(() => {
+    obtenerHabitaciones();
+    obtenerCasas();
+  }, []);
+
   const getArmarios = async () => {
+    const [token, userId] = extraerDatosDeUsuario();
     try {
       const response = await axios.get(
         "https://whereis-7n5l.onrender.com/api/armarios/",
@@ -26,16 +66,44 @@ const MisArmarios = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
+          params: {
+            userId: userId,
+            armarioId: armarios._id,
+          },
         }
       );
       console.log("Todo correcto", response.data);
       setArmarios(response.data);
+      console.log(armarios);
     } catch (error) {
       console.log("Error al obtener armarios", error.message);
     }
   };
+  const obtenerCasas = async () => {
+    const [token, userId] = extraerDatosDeUsuario();
+    setIsLoadingCasas(true);
+    await axios
+      .get(`https://whereis-7n5l.onrender.com/api/casas`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          userId: userId,
+        },
+      })
+      .then((response) => {
+        // console.log("Todo correcto", response.data);
+        setCasas(response.data);
+        setIsLoadingCasas(false);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+        setIsLoadingCasas(false);
+      });
+  };
 
   const eliminarArmario = (nombre) => {
+    const [token, userId] = extraerDatosDeUsuario();
     axios
       .delete(
         `https://whereis-7n5l.onrender.com/api/armarios/borrar/${nombre}`,
@@ -49,7 +117,6 @@ const MisArmarios = () => {
         }
       )
       .then((res) => {
-        window.location.reload();
         console.log(nombre);
         console.log(res.data);
       })
@@ -77,40 +144,40 @@ const MisArmarios = () => {
       .catch((error) => console.log(error));
   };
   const addArmarios = async (data) => {
+    const [token, userId] = extraerDatosDeUsuario();
     axios
-      .post("https://whereis-7n5l.onrender.com/api/armarios/nuevo", {
-        nombre: data.nombre,
-        casa: data.casa,
-        habitacion: data.habitacion,
-
-        headers: {
-          Authorization: `Bearer ${token}`,
+      .post(
+        "https://whereis-7n5l.onrender.com/api/armarios/nuevo",
+        {
+          nombre: data.nombre,
+          casa: data.casa,
+          habitacion: data.habitacion,
+          usuario: userId,
         },
-        data: {
-          userId: userId,
-        },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         console.log(data.nombre);
         console.log(res.data);
+        console.log(userId);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error + " " + userId));
   };
+  const armariosLength = armarios.length;
 
   return (
     <div>
       <h1>Mis armarios</h1>
-
+      {armariosLength === 0 && <h1>No tiene armarios </h1>}
       <ul className="armariosLista">
         {armarios.map((armario) => (
-          <li key={armario.id}>
+          <li key={armario._id}>
             {armario.nombre}
-            <br />
-            {armario.ciudad}
-            <br />
-            <button onClick={() => editarArmario(armario.nombre)}>
-              Editar
-            </button>
+
             <button onClick={() => eliminarArmario(armario.nombre)}>
               Eliminar
             </button>
@@ -124,18 +191,28 @@ const MisArmarios = () => {
           {...register("nombre", { required: true })}
         />
         {errors.nombre && <span>Este campo es obligatorio</span>}
-        <input
-          type="text"
-          placeholder="Habitacion"
-          {...register("habitacion", { required: true })}
-        />
-        {errors.habitacion && <span>Este campo es obligatorio</span>}
-        <input
-          type="text"
-          placeholder="Casa"
-          {...register("casa", { required: true })}
-        />
-        {errors.casa && <span>Este campo es obligatorio</span>}
+        <select {...register("habitacion", { required: true })}>
+          {isLoadingHabitacion ? (
+            <option>Cargando...</option>
+          ) : (
+            habitacion.map((habitacion) => (
+              <option key={habitacion.id} value={habitacion.id}>
+                {habitacion.nombre}
+              </option>
+            ))
+          )}
+        </select>
+        <select {...register("casa", { required: true })}>
+          {isLoadingCasas ? (
+            <option>Cargando...</option>
+          ) : (
+            casas.map((casa) => (
+              <option key={casa.id} value={casa.id}>
+                {casa.nombre}
+              </option>
+            ))
+          )}
+        </select>
         <button onClick={addArmarios}>Añadir armario</button>
       </form>
     </div>
