@@ -12,15 +12,21 @@ import Cosas from "../componets/Cosas";
 
 const MisCasas = () => {
   const [casas, setCasas] = useState([]);
-  const [mostrar, setMostrar] = useState(true);
   const [verHab, setVerHab] = useState(true);
-
+  const [mostrar, setMostrar] = useState(false);
+  const [verCasa, setVerCasa] = useState(true);
+  const [addHabi, setddHabi] = useState(true);
+  const mostrarBoton = () => {
+    setMostrar(mostrar);
+  };
   const mostrarHabitacion = () => {
     setVerHab(!verHab);
   };
-
-  const mostrarBoton = () => {
-    setMostrar(!true);
+  const mostrarCasa = () => {
+    setVerCasa(!verCasa);
+  };
+  const AgregarHab = () => {
+    setddHabi(!addHabi);
   };
 
   const navigate = useNavigate();
@@ -97,48 +103,80 @@ const MisCasas = () => {
       <div className="casas">
         <ul className="casasLista">
           {casasLength === 0 && (
-            <>
+            <li>
               <h1>
                 No tienes casas añadidas, añade una con el siguiente formulario
               </h1>
-              <button>Agregar</button>
-              <Addcasa />
-            </>
-          )}
-          {casas.map((casa) => (
-            <li key={casa._id}>
-              <h1>Mis casas</h1>
-              <h1>Nombre de la casa : {casa.nombre}</h1>
-
-              <h1>Ciudad : {casa.ciudad} </h1>
-              <br />
-              <h1>Añadir mas casas</h1>
-              <button onClick={() => mostrarBoton()}>
-                {mostrar ? "Ocultar" : "Mostrar"}
-              </button>
-              {mostrar === true && (
+              <button onClick={() => mostrarBoton()}>Agregar</button>
+              {mostrar === false && (
                 <div>
                   <Addcasa />
                 </div>
               )}
-              <button onClick={() => eliminarCasa(casa._id)}>Eliminar</button>
             </li>
-          ))}
-          <div className="Habitaciones">
-            <button onClick={() => mostrarHabitacion()}>
-              {verHab ? "Ocultar habitaciones" : "Ver habitaciones"}
-            </button>
-            {verHab === true && (
-              <div>
-                <Habitaciones />
-              </div>
-            )}
+          )}
+          {casas &&
+            casas.length > 0 &&
+            casas.map((casa) => (
+              <li key={casa._id}>
+                <h1>Mi casa</h1>
+                <button
+                  className={verCasa ? "ocultar" : "mostrar"}
+                  onClick={() => mostrarCasa()}
+                >
+                  {verCasa ? "Ocultar" : "Mostrar casa"}
+                </button>
+                {verCasa === true && (
+                  <div className="misCasas">
+                    <div className="casasExistentes">
+                      <h1>Nombre de la casa : {casa.nombre}</h1>{" "}
+                      <h1>Ciudad : {casa.ciudad} </h1>
+                      <button onClick={() => eliminarCasa(casa._id)}>
+                        Eliminar
+                      </button>
+                      <button onClick={() => mostrarHabitacion()}>
+                        {verHab ? "Ocultar habitaciones" : "Ver habitaciones"}
+                      </button>
+                    </div>
+                    <br />
+                    {/* <h1>Añadir mas casas</h1> */}
+                    <div>
+                      {/* TO DO PARA AÑADIR EL CONDICIONAL DE SI EL USUARIO ES PREMIUM O NO */}
+                      {/* <button onClick={() => mostrarBoton()}>
+                        {mostrar ? "Ocultar" : "Agregar"}
+                      </button> */}
+                      {/* {mostrar === true && (
+                        <div>
+                          <Addcasa />
+                        </div>
+                      )} */}
+                    </div>
+                    <div className="Habitaciones">
+                      {verHab === true && (
+                        <div>
+                          <Habitaciones />
+                          <br />
+                          <button onClick={() => AgregarHab()}>
+                            {addHabi ? "Ocultar" : "Agregar habitacion"}
+                          </button>
+                          {addHabi === true && (
+                            <div className="AgregarHab">
+                              <Addhab />
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      {/* <MisArmarios /> */}
 
-            <Addhab />
-            <MisArmarios />
-            <Cajones />
-          </div>
-          <Cosas />
+                      {/* <Addhab />
+                        
+                        <Cajones /> */}
+                    </div>
+                    {/* <Cosas /> */}
+                  </div>
+                )}
+              </li>
+            ))}
         </ul>
       </div>
     </div>

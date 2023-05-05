@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import "../componets/Addcasa.css";
 
 const Addcasa = () => {
   const { t } = useTranslation("global");
@@ -49,24 +50,29 @@ const Addcasa = () => {
 
   return (
     <div>
-      <br />
-
-      <form action="" onSubmit={handleSubmit(gestorFormulario)}>
+      <form
+        className="addCasa"
+        action=""
+        onSubmit={handleSubmit(gestorFormulario)}
+      >
         <input
           type="text"
           placeholder="Nombre de casa"
           {...register("nombre", { minLength: 2, required: true })}
         />
+        <br />
         <input
           type="text"
           placeholder="Dirección"
           {...register("direccion", { minLength: 5, required: true })}
         />
+        <br />
         <input
           type="text"
           placeholder="Ciudad"
           {...register("ciudad", { minLength: 5, required: true })}
         />
+        <br />
         <button type="submit">{t("btn1.btn1")}</button>
       </form>
     </div>

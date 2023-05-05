@@ -1,40 +1,65 @@
-.miscasas {
+.App {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
+}
+button {
+  transition: background-color 0.5s ease;
+}
+
+button:hover {
+  background-color: #333;
+}
+
+button {
+  animation: pulse 2s ease-in-out;
+}
+.miscasas {
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 5px;
+  width: 40vw;
+  box-shadow: 5px 5px 5px 5px rgba(128, 128, 128, 0.26);
 }
 
 .casasLista {
   list-style: none;
   padding: 0;
-  margin: 0;
 }
 
 .casasLista li {
-  display: block;
   margin-bottom: 20px;
 }
 
-.habitaciones {
-  display: none;
-}
-
-.verHabitaciones {
-  margin-top: 10px;
-  padding: 5px 10px;
-  background-color: #ccc;
+button {
+  background-color: rgb(35, 150, 14);
+  color: #fff;
   border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.5s ease;
 }
 
-.verHabitaciones:focus {
-  outline: none;
+button:hover {
+  background-color: #555;
 }
 
-.verHabitaciones:hover {
-  background-color: #bbb;
+.mostrar {
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
 
-.habitaciones.visible {
-  display: block;
+.ocultar {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+.casasExistentes {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  text-align: left;
+  border: solid gray;
+  border-radius: 15px;
 }

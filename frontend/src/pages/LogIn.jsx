@@ -77,9 +77,11 @@ const LogIn = () => {
           organizada.
         </p>
       </div>
-      <div className="formularios">
+      <div className="formulariosLoginSingUp">
         {showLogin ? (
           <div className="login">
+            <h2>Log in</h2>
+            <br />
             <form
               className="formulario"
               action=""

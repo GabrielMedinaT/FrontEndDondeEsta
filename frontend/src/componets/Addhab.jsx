@@ -17,6 +17,7 @@ const Addhab = () => {
   const [isLoadingHabitaciones, setIsLoadingHabitaciones] = useState(false);
   const [isLoadingCasas, setIsLoadingCasas] = useState(false);
   const [casas, setCasas] = useState([]);
+  const [addHabi, setddHabi] = useState(true);
 
   const {
     register,
@@ -93,40 +94,6 @@ const Addhab = () => {
 
   return (
     <div>
-      {habitaciones.length > 0 && (
-        <div>
-          <button onClick={() => setHabitaciones([])}>
-            Ocultar habitaciones
-          </button>
-          <ul>
-            <li></li>
-            <button onClick={() => habitaciones()}>
-              Ver todas las Habitaciones
-            </button>
-          </ul>
-        </div>
-      )}
-      <br />
-      {habitaciones.length > 0 && (
-        <div>
-          <Habitaciones />
-          <button onClick={() => setHabitaciones([])}>
-            Ocultar habitaciones
-          </button>
-          <ul>
-            <li>
-              <li></li>
-            </li>
-            <button onClick={() => habitaciones()}>
-              Ver todas las Habitaciones
-            </button>
-          </ul>
-          <div>
-            <MisArmarios />
-          </div>
-        </div>
-      )}
-
       <form action="" onSubmit={handleSubmit(gestorFormulario)}>
         <select {...register("nombre", { required: true })}>
           <option value="">Seleccione casa</option>

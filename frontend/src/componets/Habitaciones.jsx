@@ -12,6 +12,19 @@ const Habitaciones = () => {
   const [isLoadingHabitaciones, setIsLoadingHabitaciones] = useState(false);
   const [isLoadingCasas, setIsLoadingCasas] = useState(false);
   const [casas, setCasas] = useState([]);
+  const [slideIndex, setSlideIndex] = useState(0);
+
+  const slide = (amount) => {
+    const newSlideIndex = slideIndex + amount;
+    const maxSlideIndex = (habitaciones.length - 1) * -100;
+
+    if (newSlideIndex > 0 || newSlideIndex < maxSlideIndex) {
+      // Si la nueva posición estaría fuera de los límites, no actualizamos el estado
+      return;
+    }
+
+    setSlideIndex(newSlideIndex);
+  };
 
   const {
     register,
@@ -74,21 +87,40 @@ const Habitaciones = () => {
   };
 
   return (
-    <div>
+    <div className="Habitaciones">
       <h1>Habitaciones</h1>
       {habitaciones.length === 0 && (
         <h1>No tiene habitaciones puede añadir una </h1>
       )}
-      <div>
-        {/* Agregar una función de devolución de llamada para actualizar el estado */}
-        {habitaciones.map((habitacion) => (
-          <div key={habitacion._id}>
-            <h2>{habitacion.nombre}</h2>
-            <button onClick={() => eliminarHabitacion(habitacion.nombre)}>
-              Eliminar
-            </button>
+      <div className="carousel-container">
+        <div
+          className="carousel-items"
+          style={{ transform: `translateX(${slideIndex}%)` }}
+        >
+          <div className="listaHabitaciones">
+            {habitaciones.map((habitacion) => (
+              <ul className="habitacionConcreta" key={habitacion._id}>
+                <h2>{habitacion.nombre}</h2>
+                <br />
+                <button onClick={() => eliminarHabitacion(habitacion.nombre)}>
+                  Eliminar
+                </button>
+              </ul>
+            ))}
           </div>
-        ))}
+        </div>
+        <button
+          className="carousel-button carousel-button-left"
+          onClick={() => slide(10)}
+        >
+          ◀
+        </button>
+        <button
+          className="carousel-button carousel-button-right"
+          onClick={() => slide(-10)}
+        >
+          ▶
+        </button>
       </div>
     </div>
   );
