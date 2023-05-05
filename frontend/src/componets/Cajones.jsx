@@ -71,15 +71,16 @@ export const Cajones = () => {
       <h1>Cajones</h1>
       <div className="cajones">
         <div className="cajones-list">
-          {cajones.map((cajon) => {
-            return (
-              <div key={cajon._id} className="cajones-item">
-                <div className="cajones-item-text">
-                  <h2>{cajon.nombre}</h2>
+          {Array.isArray(cajones) &&
+            cajones.map((cajon) => {
+              return (
+                <div key={cajon._id} className="cajones-item">
+                  <div className="cajones-item-text">
+                    <h2>{cajon.nombre}</h2>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
       </div>
       <div className="cajones-form">

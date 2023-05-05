@@ -1,82 +1,40 @@
-/* Estilos para el título de la página */
-h1 {
-  font-size: 2rem;
-  text-align: center;
-  margin-top: 2rem;
-}
 .miscasas {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 2rem;
 }
 
-/* Estilos para la lista de casas */
-ul.casasLista {
-  list-style: none;
-  margin-top: 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  width: 70%;
-}
-
-/* Estilos para cada casa */
-ul.casasLista li {
-  background-color: #f8f9fa;
-  padding: 1rem;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
-}
-ul.casasLista li:hover {
-  transform: scale(1.05);
-}
-/* Estilos para el botón de ver habitaciones */
-ul.casasLista li button:first-of-type {
-  margin-top: 1rem;
-  padding: 0.5rem;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-ul.casasLista li button:first-of-type:hover {
-  background-color: #0069d9;
-}
-
-/* Estilos para la lista de habitaciones */
-ul.casasLista li ul {
-  margin-top: 1rem;
+.casasLista {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-/* Estilos para cada habitación */
-ul.casasLista li ul li {
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.casasLista li {
+  display: block;
+  margin-bottom: 20px;
 }
 
-/* Estilos para el botón de eliminar casa */
-ul.casasLista li button:last-of-type {
-  margin-top: 1rem;
-  padding: 0.5rem;
-  background-color: #dc3545;
-  color: #fff;
+.habitaciones {
+  display: none;
+}
+
+.verHabitaciones {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #ccc;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  transition: all 3s ease-in-out;
 }
 
-ul.casasLista li button:last-of-type:hover {
-  background-color: #c82333;
+.verHabitaciones:focus {
+  outline: none;
+}
+
+.verHabitaciones:hover {
+  background-color: #bbb;
+}
+
+.habitaciones.visible {
+  display: block;
 }

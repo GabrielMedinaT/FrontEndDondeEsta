@@ -12,6 +12,16 @@ import Cosas from "../componets/Cosas";
 
 const MisCasas = () => {
   const [casas, setCasas] = useState([]);
+  const [mostrar, setMostrar] = useState(true);
+  const [verHab, setVerHab] = useState(true);
+
+  const mostrarHabitacion = () => {
+    setVerHab(!verHab);
+  };
+
+  const mostrarBoton = () => {
+    setMostrar(!true);
+  };
 
   const navigate = useNavigate();
   const { IsLoggedIn } = React.useContext(AuthContext);
@@ -20,10 +30,6 @@ const MisCasas = () => {
     getCasas();
   }, []);
   //que se recargue la pagina una vez al entrar en la pagina
-
-  const recargarPagina = () => {
-    window.location.reload();
-  };
 
   const extraerDatosDeUsuario = () => {
     const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
@@ -88,35 +94,53 @@ const MisCasas = () => {
   };
   return (
     <div className="miscasas">
-      <h1>Mis casas</h1>
-      <ul className="casasLista">
-        {casasLength === 0 && (
-          <>
-            <h1>
-              No tienes casas añadidas, añade una con el siguiente formulario
-            </h1>
-            <Addcasa />
-          </>
-        )}
-        {casas.map((casa) => (
-          <li key={casa._id}>
-            <h1>Nombre de la casa : {casa.nombre}</h1>
+      <div className="casas">
+        <ul className="casasLista">
+          {casasLength === 0 && (
+            <>
+              <h1>
+                No tienes casas añadidas, añade una con el siguiente formulario
+              </h1>
+              <button>Agregar</button>
+              <Addcasa />
+            </>
+          )}
+          {casas.map((casa) => (
+            <li key={casa._id}>
+              <h1>Mis casas</h1>
+              <h1>Nombre de la casa : {casa.nombre}</h1>
 
-            <h1>Ciudad : {casa.ciudad} </h1>
-            <br />
-            <h1>Añadir mas casas</h1>
-            <Addcasa />
-            <button onClick={() => eliminarCasa(casa._id)}>Eliminar</button>
-          </li>
-        ))}
-        <div className="Habitaciones">
-          <Habitaciones />
-          <Addhab />
-          <MisArmarios />
-          <Cajones />
-        </div>
-        <Cosas />
-      </ul>
+              <h1>Ciudad : {casa.ciudad} </h1>
+              <br />
+              <h1>Añadir mas casas</h1>
+              <button onClick={() => mostrarBoton()}>
+                {mostrar ? "Ocultar" : "Mostrar"}
+              </button>
+              {mostrar === true && (
+                <div>
+                  <Addcasa />
+                </div>
+              )}
+              <button onClick={() => eliminarCasa(casa._id)}>Eliminar</button>
+            </li>
+          ))}
+          <div className="Habitaciones">
+            <button onClick={() => mostrarHabitacion()}>
+              {verHab ? "Ocultar habitaciones" : "Ver habitaciones"}
+            </button>
+            {verHab === true && (
+              <div>
+                <Habitaciones />
+              </div>
+            )}
+
+            <Addhab />
+            <MisArmarios />
+            <Cajones />
+          </div>
+          <Cosas />
+        </ul>
+      </div>
     </div>
   );
 };

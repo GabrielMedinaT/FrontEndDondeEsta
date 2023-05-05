@@ -2,12 +2,22 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Habitaciones.css";
+import { useForm } from "react-hook-form";
 
 const Habitaciones = () => {
   const [habitaciones, setHabitaciones] = useState([]);
   const [armarios, setArmarios] = useState([]);
   const [isloadingarmarios, setIsLoadingArmarios] = useState(true);
   const navigate = useNavigate();
+  const [isLoadingHabitaciones, setIsLoadingHabitaciones] = useState(false);
+  const [isLoadingCasas, setIsLoadingCasas] = useState(false);
+  const [casas, setCasas] = useState([]);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   useEffect(() => {
     getHabitaciones();

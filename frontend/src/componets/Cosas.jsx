@@ -96,16 +96,36 @@ const Cosas = () => {
         <br />
         <label>Desccripcion</label>
         <br />
-        <input
-          type="text"
-          placeholder="Ej: herramienta, escolar, informática"
+        <select
           {...register("descripcion", { required: true })}
-        />
-        <input
-          type="text"
-          placeholder="Clasificacion"
+          name="descripcion"
+        >
+          <option value="">Selecciona una descripción</option>
+          <option value="Herramienta">Herramienta</option>
+          <option value="Escolar">Escolar</option>
+          <option value="Informática">Informática</option>
+          <option value="Cocina">Cocina</option>
+          <option value="Ropa">Ropa</option>
+          <option value="Jueguetes">Juguetes</option>
+          <option value="Salun y bienestar">Salud y Bienestar</option>
+          <option value="Jardineria">Jardineria</option>
+          <option value="Cine y peliculas">Cine y Peliculas</option>
+          <option value="Arte y manualidades">Arte y manualidades</option>
+          <option value="Libros">Libros</option>
+          <option value="Comics, manga y novela gráfica">
+            Comics, manga y novela gráfica
+          </option>
+        </select>
+
+        <select
           {...register("clasificacion", { required: true })}
-        />
+          name="clasificacion"
+        >
+          <option value="">Selecciona una clasificación</option>
+          <option value="Importante">Importante</option>
+          <option value="Imprescindible">Imprescindible</option>
+          <option value="Normal">Normal</option>
+        </select>
         <input
           type="text"
           placeholder="Cajon"

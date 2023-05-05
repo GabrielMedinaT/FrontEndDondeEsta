@@ -129,6 +129,7 @@ const Addhab = () => {
 
       <form action="" onSubmit={handleSubmit(gestorFormulario)}>
         <select {...register("nombre", { required: true })}>
+          <option value="">Seleccione casa</option>
           {isLoadingCasas ? (
             <option value="">{t("loading")}</option>
           ) : (
