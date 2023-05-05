@@ -33,30 +33,12 @@ const MisArmarios = () => {
     }
   };
 
-  const obtenerHabitaciones = async () => {
-    const [token, userId] = extraerDatosDeUsuario();
-    setIsLoadingHabitacion(true);
-    await axios
-      .get("https://whereis-7n5l.onrender.com/api/habitaciones", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        // console.log(response.data);
-        setHabitacion(response.data);
-        setIsLoadingHabitacion(false);
-      })
-      .catch((error) => {
-        console.log(error);
-        setIsLoadingHabitacion(false);
-      });
-  };
+  //*USE EFECCT
   useEffect(() => {
     obtenerHabitaciones();
     obtenerCasas();
   }, []);
-
+  //*OBTENER ARMARIOS
   const getArmarios = async () => {
     const [token, userId] = extraerDatosDeUsuario();
     try {
@@ -79,6 +61,7 @@ const MisArmarios = () => {
       console.log("Error al obtener armarios", error.message);
     }
   };
+  //*OBTENER CASAS
   const obtenerCasas = async () => {
     const [token, userId] = extraerDatosDeUsuario();
     setIsLoadingCasas(true);
@@ -101,7 +84,7 @@ const MisArmarios = () => {
         setIsLoadingCasas(false);
       });
   };
-
+  //*ELIMINAR ARMARIOS
   const eliminarArmario = (nombre) => {
     const [token, userId] = extraerDatosDeUsuario();
     axios
@@ -122,7 +105,7 @@ const MisArmarios = () => {
       })
       .catch((error) => console.log(error));
   };
-
+  //*EDITAR ARMARIOS
   const editarArmario = (nombre) => {
     axios
       .patch(
@@ -143,6 +126,7 @@ const MisArmarios = () => {
       })
       .catch((error) => console.log(error));
   };
+  //*CREAR ARMARIOS
   const addArmarios = async (data) => {
     const [token, userId] = extraerDatosDeUsuario();
     axios
@@ -160,12 +144,28 @@ const MisArmarios = () => {
           },
         }
       )
-      .then((res) => {
-        console.log(data.nombre);
-        console.log(res.data);
-        console.log(userId);
-      })
+      .then((res) => {})
       .catch((error) => console.log(error + " " + userId));
+  };
+  //*VER HABITACIONES
+  const obtenerHabitaciones = async () => {
+    const [token, userId] = extraerDatosDeUsuario();
+    setIsLoadingHabitacion(true);
+    await axios
+      .get("https://whereis-7n5l.onrender.com/api/habitaciones", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        // console.log(response.data);
+        setHabitacion(response.data);
+        setIsLoadingHabitacion(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoadingHabitacion(false);
+      });
   };
   const armariosLength = armarios.length;
 

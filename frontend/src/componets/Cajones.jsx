@@ -16,7 +16,6 @@ export const Cajones = () => {
   const extraerDatosDeUsuario = () => {
     const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
     if (datosRecuperar && datosRecuperar.token) {
-      // console.log(datosRecuperar.token);
       return [datosRecuperar.token, datosRecuperar.userId];
     }
   };
@@ -36,11 +35,7 @@ export const Cajones = () => {
       });
   };
   useEffect(() => {
-    const delay = setTimeout(() => {
-      obtenerCajones();
-    }, 1000);
-
-    return () => clearTimeout(delay);
+    obtenerCajones();
   }, []);
 
   const gestorFormulario = async (data) => {
