@@ -1,18 +1,25 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./LogIn.css";
 import { useState } from "react";
 import { send } from "emailjs-com";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import Registro from "../componets/Registro";
+import ModificarPass from "../componets/ModificarPass";
 
 const LogIn = () => {
   const [passwordError, setPasswordError] = useState("");
   const { gestionarLogIn } = useContext(AuthContext);
   const { REACT_APP_BACKEND_URL } = process.env;
   const [showLogin, setShowLogin] = useState(true);
+  const [verCambiar, setVerCambiar] = useState(true);
+
+  const cambiarpass = () => {
+    setVerCambiar(false);
+  };
+  console.log(verCambiar);
 
   const toggleForm = () => {
     setShowLogin(!showLogin);
@@ -38,7 +45,17 @@ const LogIn = () => {
     } catch (error) {
       // console.log("algo falló");
       if (error.response.status === 500) {
-        setPasswordError("Usuario o contraseña incorrecta");
+        setPasswordError(
+          <>
+            Usuario o contraseña incorrecta. Ha olvidado su contraseña? Pulse{" "}
+            <span className="reset-link">
+              <Link href="" onClick={cambiarpass}>
+                aqui
+              </Link>
+            </span>{" "}
+            para reestablecerla.
+          </>
+        );
       }
     }
   };
@@ -116,7 +133,7 @@ const LogIn = () => {
                 <p>Campo requerido</p>
               )}
               {errors.password && errors.password.type === "minLength" && (
-                <p>Debe tener al menos 5 caracteres</p>
+                <p>Debe tener al menos 5 caracteres </p>
               )}
               {passwordError && <p className="error">{passwordError}</p>}
               <br />
@@ -135,6 +152,12 @@ const LogIn = () => {
           </div>
         )}
       </div>
+
+      {verCambiar === false && (
+        // <div className="verCambiar">
+        <ModificarPass />
+        // </div>
+      )}
     </div>
   );
 };
