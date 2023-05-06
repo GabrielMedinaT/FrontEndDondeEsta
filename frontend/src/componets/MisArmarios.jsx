@@ -3,28 +3,64 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
-import Habitaciones from "./Habitaciones";
 
 const MisArmarios = () => {
+  //*CONST NECESARIAS PARA LA LÓGICA DEL COMPONENTE
+
   const [armarios, setArmarios] = useState([]);
   const [isLoadingArmarios, setIsLoadingArmarios] = useState(true);
   const [isLoadingHabitacion, setIsLoadingHabitacion] = useState(false);
   const [habitacion, setHabitacion] = useState([]);
   const [isLoadingCasas, setIsLoadingCasas] = useState(false);
   const [casas, setCasas] = useState([]);
-
   const navigate = useNavigate();
   const { token, userId } = useContext(AuthContext);
+  const [slideIndex, setSlideIndex] = useState(0);
+  const [confirmacion, setConfirmacion] = useState(true);
 
+  //*FUNCION QUE ABRE VENTANA PARA CONFIRMAR LA ELIMINACIÓN DEL ARMARIO
+  const obtenerConfirmacion = (nombre) => {
+    const opcionesVentana = "width=400,height=300,top=100,left=100";
+    const nuevaVentana = window.open("", "_blank", opcionesVentana);
+    nuevaVentana.document.write(
+      `<h1>¿Seguro que quieres eliminar el armario ${nombre}?</h1>`
+    );
+    nuevaVentana.document.write(
+      "<button onclick=\"window.opener.postMessage('si', '*'); window.close()\">Sí</button>"
+    );
+    nuevaVentana.document.write(
+      "<button onclick=\"window.opener.postMessage('no', '*'); window.close()\">No</button>"
+    );
+
+    window.addEventListener("message", (event) => {
+      if (event.data === "si") {
+        eliminarArmario(nombre);
+        console.log("El usuario ha seleccionado 'Sí'" + nombre);
+      } else if (event.data === "no") {
+        console.log("El usuario ha seleccionado 'No'");
+      }
+    });
+  };
+  //* FUNCION PARA EL SLIDE O CARROSUEL
+  const slide = (amount) => {
+    const newSlideIndex = slideIndex + amount;
+    const maxSlideIndex = (armarios.length - 1) * -100;
+    if (newSlideIndex < maxSlideIndex) {
+      setSlideIndex(newSlideIndex);
+    }
+  };
+  //*USE EFECCT
   useEffect(() => {
     getArmarios();
+    obtenerHabitaciones();
+    obtenerCasas();
   }, []);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
+  //*EXTRAER LOS DATOS DE LOS USUARIOS PARA HACER LA VERIFICACIÓN DE USUARIO
   const extraerDatosDeUsuario = () => {
     const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
     if (datosRecuperar && datosRecuperar.token) {
@@ -33,11 +69,6 @@ const MisArmarios = () => {
     }
   };
 
-  //*USE EFECCT
-  useEffect(() => {
-    obtenerHabitaciones();
-    obtenerCasas();
-  }, []);
   //*OBTENER ARMARIOS
   const getArmarios = async () => {
     const [token, userId] = extraerDatosDeUsuario();
@@ -102,6 +133,7 @@ const MisArmarios = () => {
       .then((res) => {
         console.log(nombre);
         console.log(res.data);
+        setArmarios(armarios.filter((h) => h.nombre !== nombre));
       })
       .catch((error) => console.log(error));
   };
@@ -144,7 +176,9 @@ const MisArmarios = () => {
           },
         }
       )
-      .then((res) => {})
+      .then((res) => {
+        window.location.reload();
+      })
       .catch((error) => console.log(error + " " + userId));
   };
   //*VER HABITACIONES
@@ -167,23 +201,59 @@ const MisArmarios = () => {
         setIsLoadingHabitacion(false);
       });
   };
+  //*VER ARMARIOS AGRUPADOS POR HABITACIONES
+  const armariosGroupedByHabitacion = armarios.reduce((groups, armario) => {
+    const nombreHabitacion = armario.nombreHabitacion;
+    if (groups[nombreHabitacion]) {
+      groups[nombreHabitacion].push(armario);
+    } else {
+      groups[nombreHabitacion] = [armario];
+    }
+    return groups;
+  }, {});
   const armariosLength = armarios.length;
-
   return (
     <div>
       <h1>Mis armarios</h1>
       {armariosLength === 0 && <h1>No tiene armarios </h1>}
-      <ul className="armariosLista">
-        {armarios.map((armario) => (
-          <li key={armario._id}>
-            {armario.nombre}
-
-            <button onClick={() => eliminarArmario(armario.nombre)}>
-              Eliminar
-            </button>
-          </li>
-        ))}
-      </ul>
+      <div className="carousel-container">
+        <div
+          className="carousel-items"
+          style={{ transform: `translateX(${slideIndex}%)` }}
+        >
+          <div className="listaArmarios">
+            {Object.entries(armariosGroupedByHabitacion).map(
+              ([nombreHabitacion, armarios]) => (
+                <div className="armariosHabitacion" key={nombreHabitacion}>
+                  <h1>{nombreHabitacion}</h1>
+                  {armarios.map((armario) => (
+                    <div className="armarioConcreto" key={armario.nombre}>
+                      <h2>{armario.nombre}</h2>
+                      <button
+                        onClick={() => obtenerConfirmacion(armario.nombre)}
+                      >
+                        Eliminar
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )
+            )}
+          </div>
+        </div>
+      </div>
+      <button
+        className="carousel-button carousel-button-left"
+        onClick={() => slide(10)}
+      >
+        ◀
+      </button>
+      <button
+        className="carousel-button carousel-button-right"
+        onClick={() => slide(-10)}
+      >
+        ▶
+      </button>
       <form action="" onSubmit={handleSubmit(addArmarios)}>
         <input
           type="text"
@@ -192,6 +262,7 @@ const MisArmarios = () => {
         />
         {errors.nombre && <span>Este campo es obligatorio</span>}
         <select {...register("habitacion", { required: true })}>
+          <option value="">Seleccione una habitación</option>
           {isLoadingHabitacion ? (
             <option>Cargando...</option>
           ) : (
@@ -203,6 +274,7 @@ const MisArmarios = () => {
           )}
         </select>
         <select {...register("casa", { required: true })}>
+          <option value="">Seleccione una casa</option>
           {isLoadingCasas ? (
             <option>Cargando...</option>
           ) : (

@@ -62,8 +62,9 @@ const Addhab = () => {
   const gestorFormulario = async (data) => {
     const [token, userId] = extraerDatosDeUsuario();
     setIsLoadingHabitaciones(true); // Inicia el estado de carga de las habitaciones
-    await axios
-      .post(
+
+    try {
+      const response = await axios.post(
         "https://whereis-7n5l.onrender.com/api/habitaciones/nueva",
         {
           casa: data.nombre,
@@ -78,18 +79,21 @@ const Addhab = () => {
             nombre: data.nombre,
           },
         }
-      )
-      .then((response) => {
-        setIsLoadingHabitaciones(false); // Finaliza el estado de carga de las habitaciones
-        console.log("Todo correcto", response.data);
-        window.location.reload();
-        if (response.status === 200) navigate("/MisCasas");
-        else alert("Error al crear la casa");
-      })
-      .catch((error) => {
-        setIsLoadingHabitaciones(false);
-        console.log(error.response.data);
-      });
+      );
+
+      setIsLoadingHabitaciones(false); // Finaliza el estado de carga de las habitaciones
+
+      if (response.status === 200) {
+        // Actualizar la lista de habitaciones después de agregar una nueva habitación
+        setHabitaciones([...habitaciones, { nombre: data.habitacion }]);
+        window.location.reload("/Addhab");
+      } else {
+        alert("Error al crear la casa");
+      }
+    } catch (error) {
+      setIsLoadingHabitaciones(false);
+      console.log(error.response.data);
+    }
   };
 
   return (

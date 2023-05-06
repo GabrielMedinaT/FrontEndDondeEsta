@@ -166,7 +166,7 @@ const MisCasas = () => {
                           )}
                         </div>
                       )}
-                      {/* <MisArmarios /> */}
+                      <MisArmarios />
 
                       {/* <Addhab />
                         
