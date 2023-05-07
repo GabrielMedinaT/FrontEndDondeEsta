@@ -1,13 +1,13 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import "../componets/Addcasa.css";
 
 const Addcasa = () => {
   const { t } = useTranslation("global");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -27,7 +27,7 @@ const Addcasa = () => {
 
     await axios
       .post(
-        "https://whereis-7n5l.onrender.com/api/casas/nueva",
+        process.env.REACT_APP_API_URL + "/api/casas/nueva",
         {
           nombre: data.nombre,
           direccion: data.direccion,

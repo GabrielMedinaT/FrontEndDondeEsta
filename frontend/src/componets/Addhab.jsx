@@ -3,21 +3,21 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import Config from "@cloudinary/url-gen/config/BaseConfig";
+// import Config from "@cloudinary/url-gen/config/BaseConfig";
 import { useEffect } from "react";
 import { useState } from "react";
-import Addcasa from "../componets/Addcasa";
-import MisArmarios from "../componets/MisArmarios";
-import Habitaciones from "../componets/Habitaciones";
+// import Addcasa from "../componets/Addcasa";
+// import MisArmarios from "../componets/MisArmarios";
+// import Habitaciones from "../componets/Habitaciones";
 
 const Addhab = () => {
-  const { t, i18n } = useTranslation("global");
-  const navigate = useNavigate();
+  const { t } = useTranslation("global");
+  // const navigate = useNavigate();
   const [habitaciones, setHabitaciones] = useState([]);
   const [isLoadingHabitaciones, setIsLoadingHabitaciones] = useState(false);
   const [isLoadingCasas, setIsLoadingCasas] = useState(false);
   const [casas, setCasas] = useState([]);
-  const [addHabi, setddHabi] = useState(true);
+  // const [addHabi, setddHabi] = useState(true);
 
   const {
     register,
@@ -31,7 +31,7 @@ const Addhab = () => {
     setIsLoadingCasas(true);
 
     await axios
-      .get(`https://whereis-7n5l.onrender.com/api/casas`, {
+      .get(process.env.REACT_APP_API_URL + `/api/casas`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -65,7 +65,7 @@ const Addhab = () => {
 
     try {
       const response = await axios.post(
-        "https://whereis-7n5l.onrender.com/api/habitaciones/nueva",
+        process.env.REACT_APP_API_URL + "/api/habitaciones/nueva",
         {
           casa: data.nombre,
           nombre: data.habitacion,

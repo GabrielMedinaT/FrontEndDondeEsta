@@ -47,7 +47,7 @@ const ModificarPass = () => {
   const gestorFormulario = async (data) => {
     try {
       const response = await axios.patch(
-        "https://whereis-7n5l.onrender.com/api/usuarios/password",
+        process.env.REACT_APP_API_URL + "/api/usuarios/password",
         {
           email: data.email,
           password: data.password,

@@ -12,10 +12,62 @@ import Cosas from "../componets/Cosas";
 
 const MisCasas = () => {
   const [casas, setCasas] = useState([]);
-  const [verHab, setVerHab] = useState(true);
+  const [verHab, setVerHab] = useState(false);
   const [mostrar, setMostrar] = useState(false);
   const [verCasa, setVerCasa] = useState(true);
-  const [addHabi, setddHabi] = useState(true);
+  const [addHabi, setddHabi] = useState(false);
+  const [verArmarios, setVerArmarios] = useState(false);
+  const [verCajones, setVerCajones] = useState(false);
+  const [verCosas, setVerCosas] = useState(false);
+  const [verFormulario, serVerFormulario] = useState(true);
+
+  const verElFormulario = () => {
+    serVerFormulario(!verFormulario);
+  };
+
+  //*FUNCION QUE ABRE VENTANA PARA CONFIRMAR LA ELIMINACIÓN DEL ARMARIO
+  const obtenerConfirmacion = (casa_id) => {
+    const ventanaAncho = 300;
+    const ventanaAlto = 300;
+    const pantallaAncho = window.innerWidth;
+    const pantallaAlto = window.innerHeight;
+    const left = Math.max(0, (pantallaAncho - ventanaAncho) / 2);
+    const top = Math.max(0, (pantallaAlto - ventanaAlto) / 2);
+    const opcionesVentana = `width=${ventanaAncho},height=${ventanaAlto},left=${left},top=${top}`;
+    const nuevaVentana = window.open("", "_blank", opcionesVentana);
+    nuevaVentana.document.write(
+      `<h1 style="color: red;">¿Seguro que quieres eliminar la casa? Esta acción no se podrá revertir</h1>`
+    );
+
+    nuevaVentana.document.write(
+      "<button style=\"padding: 10px 20px; font-size: 16px; background-color: red; color: white; border-radius: 5px; margin-right: 10px; transition: transform 0.5s;\" onclick=\"window.opener.postMessage('si', '*'); window.close()\" onmouseover=\"this.style.backgroundColor = 'darkred'; this.style.transform = 'scale(1.1)'; this.style.cursor = 'pointer'\" onmouseout=\"this.style.backgroundColor = 'red'; this.style.transform = 'scale(1)'; this.style.cursor = 'default'\">Sí</button>"
+    );
+
+    nuevaVentana.document.write(
+      "<button style=\"padding: 10px 20px; font-size: 16px; background-color: green; color: white; border-radius: 5px; margin-right: 10px; transition: transform 0.5s;\" onclick=\"window.opener.postMessage('no', '*'); window.close()\" onmouseover=\"this.style.backgroundColor = 'darkgreen'; this.style.transform = 'scale(1.1)'; this.style.cursor = 'pointer'\" onmouseout=\"this.style.backgroundColor = 'green'; this.style.transform = 'scale(1)'; this.style.cursor = 'default'\">No</button>"
+    );
+
+    window.addEventListener("message", (event) => {
+      if (event.data === "si") {
+        eliminarCasa(casa_id);
+        // console.log("El usuario ha seleccionado 'Sí'" + casa_id);
+      } else if (event.data === "no") {
+        // console.log("El usuario ha seleccionado 'No'");
+      }
+    });
+  };
+  //*FUNCIONES PARA MOSTRAR U OCULTAR
+  const mostrarCosas = () => {
+    setVerCosas(!verCosas);
+  };
+
+  const mostrarCajones = () => {
+    setVerCajones(!verCajones);
+  };
+
+  const mostrarArmarios = () => {
+    setVerArmarios(!verArmarios);
+  };
   const mostrarBoton = () => {
     setMostrar(mostrar);
   };
@@ -52,7 +104,7 @@ const MisCasas = () => {
 
     try {
       const response = await axios.get(
-        "https://whereis-7n5l.onrender.com/api/casas/",
+        process.env.REACT_APP_API_URL + "/api/casas/",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -69,11 +121,11 @@ const MisCasas = () => {
       // console.log("Error al obtener casas", error.message);
     }
   };
-
+  //*ELIMINAR CASA
   const eliminarCasa = (id) => {
     const [token, userId] = extraerDatosDeUsuario();
     axios
-      .delete(`https://whereis-7n5l.onrender.com/api/casas/borrar/${id}`, {
+      .delete(process.env.REACT_APP_API_URL + `/api/casas/borrar/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -129,18 +181,19 @@ const MisCasas = () => {
                 {verCasa === true && (
                   <div className="misCasas">
                     <div className="casasExistentes">
-                      <h1>Nombre de la casa : {casa.nombre}</h1>{" "}
-                      <h1>Ciudad : {casa.ciudad} </h1>
-                      <button onClick={() => eliminarCasa(casa._id)}>
-                        Eliminar
-                      </button>
-                      <button onClick={() => mostrarHabitacion()}>
-                        {verHab ? "Ocultar habitaciones" : "Ver habitaciones"}
-                      </button>
+                      <div className="CasaConcreta">
+                        <h1>Nombre de la casa : {casa.nombre}</h1>{" "}
+                        <h1>Ciudad : {casa.ciudad} </h1>
+                      </div>
+                      <div className="botones">
+                        <button onClick={() => obtenerConfirmacion(casa._id)}>
+                          Eliminar
+                        </button>
+                      </div>
                     </div>
                     <br />
-                    {/* <h1>Añadir mas casas</h1> */}
                     <div>
+                      {/* <h1>Añadir mas casas</h1> */}
                       {/* TO DO PARA AÑADIR EL CONDICIONAL DE SI EL USUARIO ES PREMIUM O NO */}
                       {/* <button onClick={() => mostrarBoton()}>
                         {mostrar ? "Ocultar" : "Agregar"}
@@ -151,7 +204,11 @@ const MisCasas = () => {
                         </div>
                       )} */}
                     </div>
-                    <div className="Habitaciones">
+                    <div className="HabitacionesGeneral">
+                      <h1>Habitaciones</h1>
+                      <button onClick={() => mostrarHabitacion()}>
+                        {verHab ? "Ocultar habitaciones" : "Ver habitaciones"}
+                      </button>
                       {verHab === true && (
                         <div>
                           <Habitaciones />
@@ -166,13 +223,31 @@ const MisCasas = () => {
                           )}
                         </div>
                       )}
-                      <MisArmarios />
-
-                      {/* <Addhab />
-                        
-                        <Cajones /> */}
                     </div>
-                    {/* <Cosas /> */}
+                    {/* ARMARIOS  */}
+                    <div className="Armarios">
+                      <h1>Armarios</h1>
+                      <button onClick={() => mostrarArmarios()}>
+                        {verArmarios ? "Ocultar armarios" : "Ver armarios"}
+                      </button>
+                      {verArmarios === true && <MisArmarios />}
+                    </div>
+                    {/* CAJONES */}
+                    <div className="Cajones">
+                      <h1>Cajones</h1>
+                      <button onClick={() => mostrarCajones()}>
+                        {verCajones ? "Ocultar cajones" : "Ver cajones"}
+                      </button>
+                      {verCajones === true && <Cajones />}
+                    </div>
+                    {/* COSAS */}
+                    <div className="Cosas">
+                      <h1>Cosas</h1>
+                      <button onClick={() => mostrarCosas()}>
+                        {verCosas ? "Ocultar cosas" : "Ver cosas"}
+                      </button>
+                      {verCosas === true && <Cosas />}
+                    </div>
                   </div>
                 )}
               </li>

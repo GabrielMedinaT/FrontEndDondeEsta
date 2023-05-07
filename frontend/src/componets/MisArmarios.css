@@ -1,0 +1,120 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f1f1f1;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.carousel-container {
+  position: relative;
+  margin-bottom: 20px;
+  overflow: hidden;
+  padding: 2vh;
+}
+.habitacionConcreta {
+  border: solid 2px black;
+}
+
+.carousel-items {
+  /* border: solid 2px black; */
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.listaArmarios {
+  display: flex;
+  width: 50vw;
+  flex-wrap: nowrap; /* Evita el salto de línea */
+  overflow-x: auto; /* Permite desplazarse horizontalmente */
+  -webkit-overflow-scrolling: touch; /* Desplazamiento suave en iOS */
+}
+
+.armariosHabitacion {
+  min-width: 50%; /* Cada bloque ocupa el ancho completo del contenedor */
+  margin: 0 4px; /* Espaciado entre bloques */
+  margin-right: 10px; /* Espacio entre armarios */
+  flex: 0 0 auto; /* No se expande más allá del tamaño contenido */
+}
+
+.armarioConcreto {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  flex: 0 0 auto; /* No se expande más allá del tamaño contenido */
+  /* width: 20vw; */
+}
+
+.armarioConcreto h2 {
+  margin: 0;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+  font-size: 1.5rem;
+  background-color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.carousel-button-left {
+  left: 10px;
+}
+
+.carousel-button-right {
+  right: 10px;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+select {
+  appearance: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+button {
+  padding: 10px;
+  background-color: #4481b2;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  transition: 1s;
+}
+
+button:hover {
+  background-color: #748c9c;
+}

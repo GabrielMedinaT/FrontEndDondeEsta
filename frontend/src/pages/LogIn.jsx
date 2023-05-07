@@ -28,7 +28,7 @@ const LogIn = () => {
   const gestorFormulario = async (data) => {
     try {
       const response = await axios.post(
-        "https://whereis-7n5l.onrender.com/api/usuarios/login",
+        process.env.REACT_APP_API_URL + "/api/usuarios/login",
         {
           email: data.email,
           password: data.password,

@@ -1,3 +1,6 @@
+/** --link-water: #dee9f9;
+--steel-blue: #4481b2;
+--gothic: #748c9c; */
 *,
 *:after,
 *:before {
@@ -49,15 +52,22 @@
   border-radius: 4px;
   cursor: pointer;
   color: #ffffff;
-  background-color: #4f46e5;
+  background-color: #4481b2;
 }
 
 .Botones button:hover {
-  background-color: #554ccf;
+  background-color: #748c9c;
 }
 
 .Botones button:first-of-type {
   background-color: #ff595e;
+}
+.Logo {
+  background-image: url(../resources/images/LogoCasa.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 150px;
+  height: 70px;
 }
 
 /* Media Queries */

@@ -27,7 +27,7 @@ const NavBar = () => {
       const token = localStorage.getItem("token");
       const { userId, nombre } = extraerDatosDeUsuario(token);
       const response = await axios.get(
-        "https://whereis-7n5l.onrender.com/api/usuarios/",
+        process.env.REACT_APP_API_URL + "/api/usuarios/",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -88,7 +88,7 @@ const NavBar = () => {
   return (
     <div>
       <div className="BarraNavegacion">
-        <div className="Logo">Logo</div>
+        <div className="Logo"></div>
 
         <div className="Botones">
           {isLoggedIn ? (

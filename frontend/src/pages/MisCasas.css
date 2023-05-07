@@ -16,10 +16,11 @@ button {
   animation: pulse 2s ease-in-out;
 }
 .miscasas {
+  margin-top: 15vh;
   background-color: #f8f8f8;
   padding: 20px;
   border-radius: 5px;
-  width: 40vw;
+  width: 60vw;
   box-shadow: 5px 5px 5px 5px rgba(128, 128, 128, 0.26);
 }
 
@@ -33,13 +34,14 @@ button {
 }
 
 button {
-  background-color: rgb(35, 150, 14);
+  background-color: #4481b2;
   color: #fff;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.5s ease;
+  height: 5vh;
 }
 
 button:hover {
@@ -60,6 +62,38 @@ button:hover {
   justify-content: flex-start;
   flex-direction: column;
   text-align: left;
-  border: solid gray;
+  border: solid #748c9c;
+  border-radius: 15px;
+  margin-top: 5vh;
+  background-image: url(../resources/images/paraFondoCasa.png);
+  background-size: contain;
+  background-position: left;
+  background-repeat: no-repeat;
+}
+.botones {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: auto;
+  height: 10vh;
+}
+.CasaConcreta {
+  margin-top: 3vh;
+}
+.HabitacionesGeneral {
+  border: solid #748c9c;
+  border-radius: 15px;
+}
+.Armarios {
+  border: solid #748c9c;
+  border-radius: 15px;
+}
+.Cajones {
+  border: solid #748c9c;
+  border-radius: 15px;
+}
+.Cosas {
+  border: solid #748c9c;
   border-radius: 15px;
 }

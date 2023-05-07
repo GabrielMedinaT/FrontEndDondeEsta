@@ -13,6 +13,40 @@ const Habitaciones = () => {
   const [isLoadingCasas, setIsLoadingCasas] = useState(false);
   const [casas, setCasas] = useState([]);
   const [slideIndex, setSlideIndex] = useState(0);
+  const [verFormulario, serVerFormulario] = useState(true);
+
+  const verElFormulario = () => {
+    serVerFormulario(!verFormulario);
+  };
+
+  //*FUNCION QUE ABRE VENTANA PARA CONFIRMAR LA ELIMINACIÓN DEL ARMARIO
+  const obtenerConfirmacion = (nombre) => {
+    const ventanaAncho = 300;
+    const ventanaAlto = 300;
+    const pantallaAncho = window.innerWidth;
+    const pantallaAlto = window.innerHeight;
+    const left = Math.max(0, (pantallaAncho - ventanaAncho) / 2);
+    const top = Math.max(0, (pantallaAlto - ventanaAlto) / 2);
+    const opcionesVentana = `width=${ventanaAncho},height=${ventanaAlto},left=${left},top=${top}`;
+    const nuevaVentana = window.open("", "_blank", opcionesVentana);
+    nuevaVentana.document.write(
+      `<h1 style="color: red;">¿Seguro que quieres eliminar ${nombre}? Esta acción no se podrá revertir</h1>`
+    );
+    nuevaVentana.document.write(
+      "<button style=\"padding: 10px 20px; font-size: 16px; background-color: red; color: white; border-radius: 5px; margin-right: 10px; transition: transform 0.5s;\" onclick=\"window.opener.postMessage('si', '*'); window.close()\" onmouseover=\"this.style.backgroundColor = 'darkred'; this.style.transform = 'scale(1.1)'; this.style.cursor = 'pointer'\" onmouseout=\"this.style.backgroundColor = 'red'; this.style.transform = 'scale(1)'; this.style.cursor = 'default'\">Sí</button>"
+    );
+    nuevaVentana.document.write(
+      "<button style=\"padding: 10px 20px; font-size: 16px; background-color: green; color: white; border-radius: 5px; margin-right: 10px; transition: transform 0.5s;\" onclick=\"window.opener.postMessage('no', '*'); window.close()\" onmouseover=\"this.style.backgroundColor = 'darkgreen'; this.style.transform = 'scale(1.1)'; this.style.cursor = 'pointer'\" onmouseout=\"this.style.backgroundColor = 'green'; this.style.transform = 'scale(1)'; this.style.cursor = 'default'\">No</button>"
+    );
+    window.addEventListener("message", (event) => {
+      if (event.data === "si") {
+        eliminarHabitacion(nombre);
+        // console.log("El usuario ha seleccionado 'Sí'" + casa_id);
+      } else if (event.data === "no") {
+        // console.log("El usuario ha seleccionado 'No'");
+      }
+    });
+  };
 
   const slide = (amount) => {
     const newSlideIndex = slideIndex + amount;
@@ -35,7 +69,7 @@ const Habitaciones = () => {
   useEffect(() => {
     getHabitaciones();
   }, []);
-
+  //*EXTRAER DATOS DE USUARIO
   const extraerDatosDeUsuario = () => {
     const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
     if (datosRecuperar && datosRecuperar.token) {
@@ -44,12 +78,12 @@ const Habitaciones = () => {
       navigate.push("/login");
     }
   };
-
+  //*OBTENER HABITACIONES PARA MOSTRAR EN LA LISTA
   const getHabitaciones = async () => {
     const [token, userId] = extraerDatosDeUsuario();
     try {
       const response = await axios.get(
-        "https://whereis-7n5l.onrender.com/api/habitaciones/",
+        process.env.REACT_APP_API_URL + "/api/habitaciones/",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -62,12 +96,12 @@ const Habitaciones = () => {
       console.log("Error al obtener habitaciones", error.message);
     }
   };
-
+  //*ELIMINAR HABITACION
   const eliminarHabitacion = (nombre) => {
     const [token, userId] = extraerDatosDeUsuario();
     axios
       .delete(
-        `https://whereis-7n5l.onrender.com/api/habitaciones/borrar/${nombre}`,
+        process.env.REACT_APP_API_URL + `/api/habitaciones/borrar/${nombre}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -102,7 +136,7 @@ const Habitaciones = () => {
               <ul className="habitacionConcreta" key={habitacion._id}>
                 <h2>{habitacion.nombre}</h2>
                 <br />
-                <button onClick={() => eliminarHabitacion(habitacion.nombre)}>
+                <button onClick={() => obtenerConfirmacion(habitacion.nombre)}>
                   Eliminar
                 </button>
               </ul>
