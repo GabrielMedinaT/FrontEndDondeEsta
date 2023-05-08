@@ -23,6 +23,9 @@ button {
   width: 60vw;
   box-shadow: 5px 5px 5px 5px rgba(128, 128, 128, 0.26);
 }
+button [type="submit"] {
+  background-color: blue;
+}
 
 .casasLista {
   list-style: none;

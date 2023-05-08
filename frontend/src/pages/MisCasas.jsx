@@ -12,8 +12,8 @@ import Cosas from "../componets/Cosas";
 
 const MisCasas = () => {
   const [casas, setCasas] = useState([]);
-  const [verHab, setVerHab] = useState(false);
-  const [mostrar, setMostrar] = useState(false);
+  const [verHab, setVerHab] = useState(true);
+  const [mostrar, setMostrar] = useState(true);
   const [verCasa, setVerCasa] = useState(true);
   const [addHabi, setddHabi] = useState(false);
   const [verArmarios, setVerArmarios] = useState(false);

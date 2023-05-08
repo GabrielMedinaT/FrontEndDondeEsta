@@ -33,7 +33,7 @@ export const Cajones = () => {
       return [datosRecuperar.token, datosRecuperar.userId];
     }
   };
-
+  //*VER CAJONES
   const obtenerCajones = async () => {
     const [token, userId] = extraerDatosDeUsuario();
     await axios
@@ -49,7 +49,7 @@ export const Cajones = () => {
         console.log(error);
       });
   };
-
+  //*VER HABITACIONES
   const obtenerHabitaciones = async () => {
     const [token, userId] = extraerDatosDeUsuario();
     await axios
@@ -65,7 +65,7 @@ export const Cajones = () => {
         console.log(error);
       });
   };
-
+  //* VER ARMARIOS
   const obtenerArmarios = async () => {
     setIsLoadingArmarios(true);
     const [token, userId] = extraerDatosDeUsuario();
