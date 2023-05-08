@@ -19,14 +19,14 @@ const ModificarPass = () => {
     setShowVerificationInput(true);
     const codigoAleatorio = Math.floor(Math.random() * 100000);
     const mensaje = `Su código de verificación es ${codigoAleatorio}`;
-    console.log(mensaje);
+    // console.log(mensaje);
     setCodigo(codigoAleatorio);
     const templateParams = {
       nombre: data.nombre,
       email: data.email,
       message: mensaje,
     };
-    console.log(mensaje);
+    // console.log(mensaje);
 
     try {
       const result = await emailJS.send(
@@ -53,7 +53,7 @@ const ModificarPass = () => {
           password: data.password,
         }
       );
-      console.log("Contraseña modificada exitosamente", response.data);
+      alert("Contraseña modificada exitosamente", response.data);
       navegar("/");
     } catch (error) {
       console.log(error.response.data);

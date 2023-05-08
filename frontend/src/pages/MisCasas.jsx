@@ -134,7 +134,7 @@ const MisCasas = () => {
         },
       })
       .then((res) => {
-        window.location.reload();
+        // window.location.reload();
         console.log(id);
         console.log(res.data);
       })

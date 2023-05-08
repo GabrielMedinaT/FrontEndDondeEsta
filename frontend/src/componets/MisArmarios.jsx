@@ -94,7 +94,7 @@ const MisArmarios = () => {
       setArmarios(response.data);
       // console.log(armarios);
     } catch (error) {
-      console.log("Error al obtener armarios", error.message);
+      // console.log("Error al obtener armarios", error.message);
     }
   };
   //*OBTENER CASAS
@@ -136,7 +136,7 @@ const MisArmarios = () => {
         }
       )
       .then((res) => {
-        console.log(nombre);
+        // console.log(nombre);
         console.log(res.data);
         setArmarios(armarios.filter((h) => h.nombre !== nombre));
       })

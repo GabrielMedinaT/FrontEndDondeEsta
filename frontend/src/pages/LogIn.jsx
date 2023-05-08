@@ -12,14 +12,13 @@ import ModificarPass from "../componets/ModificarPass";
 const LogIn = () => {
   const [passwordError, setPasswordError] = useState("");
   const { gestionarLogIn } = useContext(AuthContext);
-  const { REACT_APP_BACKEND_URL } = process.env;
   const [showLogin, setShowLogin] = useState(true);
   const [verCambiar, setVerCambiar] = useState(true);
 
   const cambiarpass = () => {
     setVerCambiar(false);
   };
-  console.log(verCambiar);
+  // console.log(verCambiar);
 
   const toggleForm = () => {
     setShowLogin(!showLogin);

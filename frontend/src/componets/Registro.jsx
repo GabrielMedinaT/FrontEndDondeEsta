@@ -23,7 +23,7 @@ const Alta = () => {
           password: data.password,
         }
       );
-      console.log("Todo correcto", response.data);
+      // console.log("Todo correcto", response.data);
       navegar("/login");
     } catch (error) {
       console.log(error.response.data);
@@ -34,14 +34,14 @@ const Alta = () => {
     setShowVerificationInput(true);
     const codigoAleatorio = Math.floor(Math.random() * 100000);
     const mensaje = `Su código de verificación es ${codigoAleatorio}`;
-    console.log(mensaje);
+    // console.log(mensaje);
     setCodigo(codigoAleatorio);
     const templateParams = {
       nombre: data.nombre,
       email: data.email,
       message: mensaje,
     };
-    console.log(mensaje);
+    // console.log(mensaje);
 
     try {
       const result = await emailJS.send(
@@ -50,10 +50,10 @@ const Alta = () => {
         templateParams,
         "BjAUYemuslYd41-PL"
       );
-      console.log(result.text);
+      // console.log(result.text);
       alert("Mensaje enviado correctamente");
     } catch (error) {
-      console.log(error.text);
+      // console.log(error.text);
       alert("Error al enviar el mensaje");
       return;
     }
