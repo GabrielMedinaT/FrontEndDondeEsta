@@ -3,23 +3,36 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
+import "../componets/Cosas.css";
 
 const Cosas = () => {
   const [cosas, setCosas] = useState([]);
   const [isLoadingCosas, setLoadingCosas] = useState(false);
   const [isLoadingArmarios, setIsLoadingArmarios] = useState(false);
+  const [isLoadingCajones, setIsLoadingCajones] = useState(false);
   const [habitaciones, setHabitaciones] = useState([]);
   const [shouldReload, setShouldReload] = useState(false); // variable para determinar si se debe recargar la lista de cosas
   const navigate = useNavigate();
   const [armarios, setArmarios] = useState([]);
   const [selectedHabitacion, setSelectedHabitacion] = useState("");
+  const [selectedArmario, setSelectedArmario] = useState("");
+  const [isLoadingCasas, setIsLoadingCasas] = useState(false);
+  const [casas, setCasas] = useState([]);
+  const [cajones, setCajones] = useState([]);
   const handleHabitacionChange = (event) => {
     setSelectedHabitacion(event.target.value);
+  };
+  const handleArmarioChange = (event) => {
+    setSelectedArmario(event.target.value);
   };
   const filteredArmarios = armarios.filter(
     (armario) =>
       armario.nombreHabitacion === selectedHabitacion &&
       armario.nombreArmario !== ""
+  );
+  const filteredCajones = cajones.filter(
+    (cajon) =>
+      cajon.nombreArmario === selectedArmario && cajon.nombreCajon !== ""
   );
 
   const {
@@ -103,13 +116,13 @@ const Cosas = () => {
           },
         }
       );
-      console.log(response);
+
+      // console.log(response);
       setLoadingCosas(true);
       setShouldReload(true); // actualizar la variable para que se recargue la lista de cosas
       setLoadingCosas(false);
     } catch (error) {
       console.log(error);
-
       setLoadingCosas(false);
     }
   };
@@ -139,8 +152,71 @@ const Cosas = () => {
       setIsLoadingArmarios(false);
     }
   };
+  //*OBTENER CASAS
+  const obtenerCasas = async () => {
+    const [token, userId] = extraerDatosDeUsuario();
+    setIsLoadingCasas(true);
+    await axios
+      .get(process.env.REACT_APP_API_URL + `/api/casas`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          userId: userId,
+        },
+      })
+      .then((response) => {
+        // console.log("Todo correcto", response.data);
+        setCasas(response.data);
+        setIsLoadingCasas(false);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+        setIsLoadingCasas(false);
+      });
+  };
+  //* VER ARMARIOS
+  const obtenerArmarios = async () => {
+    setIsLoadingArmarios(true);
+    const [token, userId] = extraerDatosDeUsuario();
+    await axios
+      .get(process.env.REACT_APP_API_URL + "/api/armarios", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setArmarios(response.data);
+        setIsLoadingArmarios(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsLoadingArmarios(false);
+      });
+  };
 
+  //*VER CAJONES
+  const obtenerCajones = async () => {
+    const [token, userId] = extraerDatosDeUsuario();
+    await axios
+      .get(process.env.REACT_APP_API_URL + "/api/cajones", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setIsLoadingCajones(false);
+        setCajones(response.data);
+      })
+      .catch((error) => {
+        setIsLoadingCajones(false);
+        console.log(error);
+      });
+  };
   useEffect(() => {
+    obtenerCajones();
+    obtenerArmarios();
+    obtenerCasas();
     obtenerHabitaciones();
     verCosas();
   }, []);
@@ -155,8 +231,7 @@ const Cosas = () => {
           placeholder="Nombre"
           {...register("nombre", { required: true })}
         />
-        <br />
-        <label>Desccripcion</label>
+
         <br />
         <select
           {...register("descripcion", { required: true })}
@@ -178,7 +253,6 @@ const Cosas = () => {
             Comics, manga y novela gráfica
           </option>
         </select>
-
         <select
           {...register("clasificacion", { required: true })}
           name="clasificacion"
@@ -188,35 +262,60 @@ const Cosas = () => {
           <option value="Imprescindible">Imprescindible</option>
           <option value="Normal">Normal</option>
         </select>
-        <input
-          type="text"
-          placeholder="Casa"
-          {...register("casa", { required: false })}
-        />
-
-        <input
-          type="text"
-          placeholder="Cajon"
-          {...register("cajon", { required: false })}
-        />
-        <input
-          type="text"
-          placeholder="Armario"
-          {...register("armario", { required: false })}
-        />
+        <select {...register("casa", { required: true })}>
+          <option value="">Seleccione una casa</option>
+          {isLoadingCasas ? (
+            <option>Cargando...</option>
+          ) : (
+            casas.map((casa) => (
+              <option key={casa.id} value={casa.id}>
+                {casa.nombre}
+              </option>
+            ))
+          )}
+        </select>
         <select
           {...register("habitacion", { required: false })}
           onChange={handleHabitacionChange}
         >
           <option value="">Seleccione una habitación</option>
           {habitaciones.map((habitacion) => (
-            <option key={habitacion._id} value={habitacion._id}>
+            <option key={habitacion._id} value={habitacion.nombre}>
               {habitacion.nombre}
             </option>
           ))}
         </select>
+        <select
+          {...register("armario", { required: true })}
+          onChange={handleArmarioChange}
+        >
+          <option value="">Seleccione un armario</option>
+          {isLoadingArmarios ? (
+            <option>Loading...</option>
+          ) : (
+            filteredArmarios.map((armario) => (
+              <option key={armario.id} value={armario.id}>
+                {armario.nombre}
+              </option>
+            ))
+          )}
+        </select>
+        <select {...register("cajon", { required: false })}>
+          <option value="">Seleccione cajón</option>
+          {isLoadingCajones ? (
+            <option>Loading...</option>
+          ) : (
+            filteredCajones.map((cajon) => (
+              <option key={cajon._id} value={cajon._id}>
+                {cajon.nombre}
+              </option>
+            ))
+          )}
+        </select>
+
         <button>Añadir</button>
       </form>
+      {/* VER LAS COSAS  */}
       <div className="cosas">
         {cosas.map((cosa, index) => {
           return (

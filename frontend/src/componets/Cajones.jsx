@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import "./Cajones.css";
 
 export const Cajones = () => {
   const [cajones, setCajones] = useState([]);
@@ -20,12 +21,17 @@ export const Cajones = () => {
       armario.nombreHabitacion === selectedHabitacion &&
       armario.nombreArmario !== ""
   );
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    obtenerCajones();
+    obtenerHabitaciones();
+    obtenerArmarios();
+  }, []);
 
   const extraerDatosDeUsuario = () => {
     const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
@@ -33,7 +39,7 @@ export const Cajones = () => {
       return [datosRecuperar.token, datosRecuperar.userId];
     }
   };
-  //*VER CAJONES
+
   const obtenerCajones = async () => {
     const [token, userId] = extraerDatosDeUsuario();
     await axios
@@ -49,7 +55,7 @@ export const Cajones = () => {
         console.log(error);
       });
   };
-  //*VER HABITACIONES
+
   const obtenerHabitaciones = async () => {
     const [token, userId] = extraerDatosDeUsuario();
     await axios
@@ -65,7 +71,7 @@ export const Cajones = () => {
         console.log(error);
       });
   };
-  //* VER ARMARIOS
+
   const obtenerArmarios = async () => {
     setIsLoadingArmarios(true);
     const [token, userId] = extraerDatosDeUsuario();
@@ -85,13 +91,6 @@ export const Cajones = () => {
       });
   };
 
-  useEffect(() => {
-    obtenerCajones();
-    obtenerHabitaciones();
-    obtenerArmarios();
-  }, []);
-
-  //*CREAR CAJONES
   const gestorFormulario = async (data) => {
     const [token, userId] = extraerDatosDeUsuario();
     setIsloadingCajojes(true);
@@ -121,21 +120,6 @@ export const Cajones = () => {
       });
   };
 
-  //*AGRUPAR CAJONES POR ARMARIO
-  const cajonesPorArmario =
-    cajones.length > 0
-      ? cajones.reduce((groups, cajon) => {
-          const nombreArmario = cajon.nombre;
-          if (groups[nombreArmario]) {
-            groups[nombreArmario].push(cajon);
-          } else {
-            groups[nombreArmario] = [cajon];
-          }
-          return groups;
-        }, {})
-      : {};
-
-  //*ELIMINAR CAJONES
   const eliminarCajon = (nombre) => {
     const [token, userId] = extraerDatosDeUsuario();
     axios
@@ -156,26 +140,43 @@ export const Cajones = () => {
       });
   };
 
+  // Agrupar los armarios por habitación
+  const armariosPorHabitacion = armarios.reduce((groups, armario) => {
+    const nombreHabitacion = armario.nombreHabitacion;
+    if (groups[nombreHabitacion]) {
+      groups[nombreHabitacion].push(armario);
+    } else {
+      groups[nombreHabitacion] = [armario];
+    }
+    return groups;
+  }, {});
+
   return (
     <div>
       <h1>Cajones</h1>
       <div className="cajones">
-        {Object.entries(cajonesPorArmario).map(
-          ([nombreArmario, cajonesArmario]) => (
-            <div key={cajonesArmario} className="cajones-armario">
-              <h2>{nombreArmario}</h2>
-              <div className="cajones-armario-list">
-                {Array.isArray(cajonesArmario) &&
-                  cajonesArmario.map((cajon) => (
-                    <div key={cajon._id} className="cajones-armario-item">
-                      <div className="cajones-armario-item-text">
-                        <h2>{cajon.nombreArmario}</h2>
-                        <button onClick={() => eliminarCajon(cajon.nombre)}>
-                          Eliminar
-                        </button>
-                      </div>
+        {Object.entries(armariosPorHabitacion).map(
+          ([nombreHabitacion, armariosHabitacion]) => (
+            <div key={nombreHabitacion} className="habitacion">
+              <h2>{nombreHabitacion}</h2>
+              <div className="armarios">
+                {armariosHabitacion.map((armario) => (
+                  <div key={armario._id} className="armario">
+                    <h3>{armario.nombre}</h3>
+                    <div className="cajones">
+                      {cajones
+                        .filter((cajon) => cajon.armario === armario._id)
+                        .map((cajon) => (
+                          <div key={cajon._id} className="cajon">
+                            <h4>{cajon.nombre}</h4>
+                            <button onClick={() => eliminarCajon(cajon.nombre)}>
+                              Eliminar
+                            </button>
+                          </div>
+                        ))}
                     </div>
-                  ))}
+                  </div>
+                ))}
               </div>
             </div>
           )

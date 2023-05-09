@@ -138,7 +138,9 @@ const LogIn = () => {
               )}
               {passwordError && <p className="error">{passwordError}</p>}
               <br />
-              <button type="submit">Enviar</button>
+              <button className="EnviarLogin" type="submit">
+                Enviar
+              </button>
               <br />
               <br />
               <button onClick={toggleForm}>Sign up</button>

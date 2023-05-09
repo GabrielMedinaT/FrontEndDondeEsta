@@ -4,11 +4,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LogIn from "./pages/LogIn";
 import NavBar from "./componets/NavBar";
 import MisCasas from "./pages/MisCasas";
-import PersonalPage from "./pages/PersonalPage";
 import Habitaciones from "./componets/Habitaciones";
 import MisArmarios from "./componets/MisArmarios";
 import { AuthProvider } from "./context/AuthContext";
-
 function App() {
   const [token, setToken] = React.useState("");
 
@@ -28,7 +26,6 @@ function App() {
             <Route path="/" element={<LogIn />}></Route>
             <Route path="/misarmarios" element={<MisArmarios />}></Route>
             <Route path="/miscasas" element={<MisCasas />}></Route>
-            <Route path="/personal" element={<PersonalPage />}></Route>
           </Routes>
         </Router>
       </div>

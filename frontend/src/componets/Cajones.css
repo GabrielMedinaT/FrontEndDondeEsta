@@ -1,0 +1,61 @@
+/* Cajones.css */
+
+.caquones {
+  margin-top: 20px;
+}
+
+.habitacion {
+  margin-bottom: 20px;
+}
+
+.armarios {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.armario {
+  width: 200px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+}
+
+.cajones {
+  margin-top: 10px;
+}
+
+.cajon {
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.cajon h4 {
+  margin: 0;
+}
+
+.cajones-form {
+  margin-top: 20px;
+}
+
+.cajones-form input,
+.cajones-form select {
+  margin-bottom: 10px;
+}
+
+.cajones-form button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.cajones-form button:hover {
+  background-color: #45a049;
+}
+
+.cajones-form button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
