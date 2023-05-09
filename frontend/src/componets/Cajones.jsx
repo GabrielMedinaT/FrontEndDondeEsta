@@ -162,17 +162,17 @@ export const Cajones = () => {
       <div className="cajones">
         {Object.entries(cajonesPorArmario).map(
           ([nombreArmario, cajonesArmario]) => (
-            <div key={nombreArmario} className="cajones-armario">
+            <div key={cajonesArmario} className="cajones-armario">
               <h2>{nombreArmario}</h2>
               <div className="cajones-armario-list">
                 {Array.isArray(cajonesArmario) &&
                   cajonesArmario.map((cajon) => (
                     <div key={cajon._id} className="cajones-armario-item">
-                      <button onClick={() => eliminarCajon(cajon.nombre)}>
-                        Eliminar
-                      </button>
                       <div className="cajones-armario-item-text">
-                        <h2>{cajon.nombre}</h2>
+                        <h2>{cajon.nombreArmario}</h2>
+                        <button onClick={() => eliminarCajon(cajon.nombre)}>
+                          Eliminar
+                        </button>
                       </div>
                     </div>
                   ))}

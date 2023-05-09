@@ -69,7 +69,7 @@ const MisCasas = () => {
     setVerArmarios(!verArmarios);
   };
   const mostrarBoton = () => {
-    setMostrar(mostrar);
+    setMostrar(!mostrar);
   };
   const mostrarHabitacion = () => {
     setVerHab(!verHab);

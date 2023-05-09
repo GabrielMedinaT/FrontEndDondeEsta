@@ -142,6 +142,7 @@ const Cosas = () => {
 
   useEffect(() => {
     obtenerHabitaciones();
+    verCosas();
   }, []);
 
   return (
@@ -189,6 +190,12 @@ const Cosas = () => {
         </select>
         <input
           type="text"
+          placeholder="Casa"
+          {...register("casa", { required: false })}
+        />
+
+        <input
+          type="text"
           placeholder="Cajon"
           {...register("cajon", { required: false })}
         />
@@ -208,11 +215,6 @@ const Cosas = () => {
             </option>
           ))}
         </select>
-        <input
-          type="text"
-          placeholder="Casa"
-          {...register("casa", { required: false })}
-        />
         <button>Añadir</button>
       </form>
       <div className="cosas">
