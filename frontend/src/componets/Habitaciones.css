@@ -136,3 +136,31 @@ button:hover {
 .carousel-button-right {
   right: 10px;
 }
+@media screen and (max-width: 768px) {
+  .carousel-button {
+    position: absolute;
+    margin-top: 1vh;
+    top: 50%;
+    transform: translateY(10%);
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+  }
+  .carousel-button-left {
+    left: 10px;
+  }
+
+  .carousel-button-right {
+    width: 2vh;
+    height: 2vh;
+    right: 10px;
+  }
+  .carousel-button-left {
+    width: 2vh;
+    height: 2vh;
+    right: 10px;
+  }
+}

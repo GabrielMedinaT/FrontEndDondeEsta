@@ -27,7 +27,6 @@ const Addhab = () => {
 
   const obtenerCasas = async () => {
     const [token, userId] = extraerDatosDeUsuario();
-
     setIsLoadingCasas(true);
 
     await axios

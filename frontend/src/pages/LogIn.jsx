@@ -107,6 +107,7 @@ const LogIn = () => {
                 type="text"
                 name="email"
                 placeholder="Email"
+                className="password"
                 {...register("email", {
                   pattern:
                     /^(?![_.-])((?![_.-][_.-])[a-zA-Z\d_.-]){0,63}[a-zA-Z\d]@((?!-)((?!--)[a-zA-Z\d-]){0,63}[a-zA-Z\d]\.){1,2}([a-zA-Z]{2,14}\.)?[a-zA-Z]{2,14}$/,
@@ -123,6 +124,7 @@ const LogIn = () => {
                 type="password"
                 name="password"
                 placeholder="Password"
+                className="password"
                 {...register("password", {
                   minLength: 5,
                   required: true,
