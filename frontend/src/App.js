@@ -5,6 +5,8 @@ import LogIn from "./pages/LogIn";
 import NavBar from "./components/NavBar";
 import MisCasas from "./pages/MisCasas";
 import Habitaciones from "./components/Habitaciones";
+
+import Home from "./pages/Home";
 import MisArmarios from "./components/MisArmarios";
 import { AuthProvider } from "./context/AuthContext";
 function App() {
@@ -23,6 +25,7 @@ function App() {
         <Router>
           <NavBar />
           <Routes>
+            <Route path="/home" element={<Home />}></Route>
             <Route path="/" element={<LogIn />}></Route>
             <Route path="/misarmarios" element={<MisArmarios />}></Route>
             <Route path="/miscasas" element={<MisCasas />}></Route>

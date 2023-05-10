@@ -24,7 +24,7 @@ const Alta = () => {
         }
       );
       // console.log("Todo correcto", response.data);
-      navegar("/login");
+      // navegar("/login");
     } catch (error) {
       console.log(error.response.data);
       console.log("algo falló");

@@ -50,7 +50,7 @@ const NavBar = () => {
   useEffect(() => {
     if (isLoggedIn) {
       verUsuario();
-      navegar("/misCasas");
+      // navegar("/misCasas");
       //recargar una sola vez  el navbar para que se vean los otros botones
     }
   }, [isLoggedIn]);

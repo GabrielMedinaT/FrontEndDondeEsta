@@ -75,7 +75,7 @@ const Habitaciones = () => {
     if (datosRecuperar && datosRecuperar.token) {
       return [datosRecuperar.token, datosRecuperar.userId];
     } else {
-      navigate.push("/login");
+      navigate("/");
     }
   };
   //*OBTENER HABITACIONES PARA MOSTRAR EN LA LISTA

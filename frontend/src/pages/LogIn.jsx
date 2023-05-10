@@ -40,7 +40,7 @@ const LogIn = () => {
         response.data.userId,
         response.data.nombre
       );
-      navigate("/misCasas");
+      // navigate("/misCasas");
     } catch (error) {
       // console.log("algo falló");
       if (error.response.status === 500) {
@@ -59,7 +59,7 @@ const LogIn = () => {
     }
   };
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const {
     register,
     handleSubmit,

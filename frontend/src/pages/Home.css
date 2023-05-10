@@ -1,0 +1,104 @@
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+body {
+  margin-top: 100px;
+}
+
+.principalSuperior {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10vh;
+  font-size: 1.5rem;
+  gap: 5rem;
+  height: 150vh;
+}
+
+.principalHome {
+  background-color: wheat;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  justify-content: start;
+  padding: 2vh;
+  margin-top: 2vh;
+  height: 120vh;
+  width: 90vw;
+  border: solid black 2px;
+}
+
+.botonesVerOcultar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  align-items: center;
+  margin-top: -10vh;
+  height: 10vh;
+  width: 90vw;
+  border: solid black 2px;
+}
+
+.VerUOcultar {
+  padding: 10px 20px;
+  border: none;
+  font-size: 17px;
+  color: #fff;
+  border-radius: 7px;
+  letter-spacing: 4px;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: 0.5s;
+  transition-property: box-shadow;
+  background: rgb(0, 140, 255);
+  box-shadow: 0 0 25px rgb(0, 140, 255);
+  margin-top: -5vh;
+}
+
+.VerUOcultar:hover {
+  box-shadow: 0 0 5px rgb(0, 140, 255), 0 0 25px rgb(0, 140, 255),
+    0 0 50px rgb(0, 140, 255), 0 0 100px rgb(0, 140, 255);
+}
+
+.VerUOcultar.reset-animation {
+  animation: none !important;
+}
+
+.VerUOcultar:focus + .principalHome,
+.VerUOcultar:active + .principalHome {
+  animation: wipe-in-down 4.5s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+}
+.verLaCasa {
+  animation: wipe-in-down 4.5s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+}
+.VerLaHabitacion {
+  animation: wipe-in-down 4.5s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+}
+.VerLosArmarios {
+  animation: wipe-in-down 4.5s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+}
+.VerLosCajones {
+  animation: wipe-in-down 4.5s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+}
+.VerLasCosas {
+  animation: wipe-in-down 4.5s cubic-bezier(0.25, 1, 0.3, 1) forwards;
+}
+@keyframes wipe-in-down {
+  from {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}

@@ -79,7 +79,7 @@ const Cosas = () => {
     if (datosRecuperar && datosRecuperar.token) {
       return [datosRecuperar.token, datosRecuperar.userId];
     } else {
-      navigate.push("/login");
+      navigate("/");
     }
   };
   //*VER COSAS
@@ -109,7 +109,7 @@ const Cosas = () => {
 
     try {
       const response = await axios.delete(
-        process.env.REACT_APP_API_URL + "/api/cosas/" + nombre,
+        process.env.REACT_APP_API_URL + "/api/cosas/borrar/" + nombre,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -121,6 +121,7 @@ const Cosas = () => {
       setLoadingCosas(true);
       setShouldReload(true); // actualizar la variable para que se recargue la lista de cosas
       setLoadingCosas(false);
+      window.location.reload();
     } catch (error) {
       console.log(error);
       setLoadingCosas(false);
