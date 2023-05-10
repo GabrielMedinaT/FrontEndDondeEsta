@@ -64,7 +64,7 @@ const ModificarPass = () => {
   const onSubmit = async (data) => {};
 
   return (
-    <div className="Formpass">
+    <div className="formpass">
       <div className="title">
         <h2>Modificar contraseña</h2>
       </div>

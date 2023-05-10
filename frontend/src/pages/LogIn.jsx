@@ -138,12 +138,14 @@ const LogIn = () => {
               )}
               {passwordError && <p className="error">{passwordError}</p>}
               <br />
-              <button className="EnviarLogin" type="submit">
-                Enviar
-              </button>
-              <br />
-              <br />
-              <button onClick={toggleForm}>Sign up</button>
+              <div className="botonesLogIn">
+                <button className="EnviarLogin" type="submit">
+                  Enviar
+                </button>
+                <br />
+                <br />
+                <button onClick={toggleForm}>Sign up</button>
+              </div>
             </form>
           </div>
         ) : (

@@ -8,31 +8,25 @@ nav {
   left: 0;
   right: 0;
   z-index: 9999;
-  /* agregar aquí los demás estilos del navbar */
+  /* Agrega aquí los demás estilos del navbar */
 }
 
 /* LogIn.css */
 @media (min-width: 768px) {
   .principal {
+    display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
-    display: flex;
     padding: 10vh;
     font-size: 1.5rem;
     gap: 5rem;
     height: 150vh;
     margin-top: 20vh;
   }
-  .formulariosLoginSingUp input {
-    width: 30vw;
-    padding: 16px;
-    margin-bottom: 16px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  .formulariosLoginSingUp input [type="password"] {
+
+  .formulariosLoginSingUp input,
+  .formulariosLoginSingUp input[type="password"] {
     width: 30vw;
     padding: 16px;
     margin-bottom: 16px;
@@ -55,6 +49,7 @@ nav {
   .formulariosLoginSingUp button:hover {
     background-color: #0058c0;
   }
+
   .formulariosLoginSingUp {
     position: relative;
     display: flex;
@@ -62,12 +57,15 @@ nav {
     align-items: center;
     padding: 5vh;
     background-color: #f0f0f0;
-    border: black 1px solid;
+    border: 1px solid black;
     border-radius: 8px;
     position: fixed;
     margin-top: vh;
     margin-left: 50vw;
     width: 70vh;
+    height: 55vh;
+    /* Sombra degradada */
+    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.781);
   }
 
   .present {
@@ -88,11 +86,12 @@ nav {
     align-items: center;
     padding: 2vh;
     background-color: #f0f0f0;
-    border: black 1px solid;
+    border: 1px solid black;
     border-radius: 8px;
     position: fixed;
     width: 35vw;
   }
+
   .Formpass input {
     width: 20vw;
     padding: 16px;
@@ -101,22 +100,18 @@ nav {
     border-radius: 4px;
     font-size: 16px;
   }
-  .Formpass button {
-    background-color: #0070f3;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 16px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-  }
-  .EnviarLogin {
-    background-color: red;
+
+  .botonesLogIn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }
+
 @media (max-width: 768px) {
   .principal {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -130,21 +125,13 @@ nav {
     width: 90%;
     margin-left: 5%;
     margin-top: 10vh;
-
     flex-wrap: nowrap;
   }
 
   .formularios {
     width: 90%;
   }
-  /* .Formpass input {
-    width: 20vw;
-    padding: 16px;
-    margin-bottom: 16px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-  } */
+
   .password {
     width: 80vw;
     padding: 16px;
@@ -153,6 +140,7 @@ nav {
     border-radius: 4px;
     font-size: 16px;
   }
+
   button {
     background-color: #0070f3;
     color: #fff;

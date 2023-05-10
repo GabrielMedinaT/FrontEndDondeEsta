@@ -4,17 +4,16 @@
   justify-content: flex-start;
   align-items: center;
 }
+
 button {
   transition: background-color 0.5s ease;
+  animation: pulse 2s ease-in-out;
 }
 
 button:hover {
   background-color: #333;
 }
 
-button {
-  animation: pulse 2s ease-in-out;
-}
 .miscasas {
   margin-top: 15vh;
   background-color: #f8f8f8;
@@ -23,7 +22,8 @@ button {
   width: 60vw;
   box-shadow: 5px 5px 5px 5px rgba(128, 128, 128, 0.26);
 }
-button [type="submit"] {
+
+button[type="submit"] {
   background-color: blue;
 }
 
@@ -60,6 +60,7 @@ button:hover {
   opacity: 1;
   transition: opacity 0.5s ease;
 }
+
 .casasExistentes {
   display: flex;
   justify-content: flex-start;
@@ -73,6 +74,7 @@ button:hover {
   background-position: left;
   background-repeat: no-repeat;
 }
+
 .botones {
   display: flex;
   justify-content: space-around;
@@ -81,25 +83,19 @@ button:hover {
   padding: auto;
   height: 10vh;
 }
+
 .CasaConcreta {
   margin-top: 3vh;
 }
-.HabitacionesGeneral {
-  border: solid #748c9c;
-  border-radius: 15px;
-}
-.Armarios {
-  border: solid #748c9c;
-  border-radius: 15px;
-}
-.Cajones {
-  border: solid #748c9c;
-  border-radius: 15px;
-}
+
+.HabitacionesGeneral,
+.Armarios,
+.Cajones,
 .Cosas {
   border: solid #748c9c;
   border-radius: 15px;
 }
+
 .modal {
   position: fixed;
   top: 50%;
@@ -110,6 +106,10 @@ button:hover {
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
+.v1 {
+  background-color: red;
+}
+
 @media screen and (max-width: 768px) {
   .miscasas {
     margin-top: 15vh;

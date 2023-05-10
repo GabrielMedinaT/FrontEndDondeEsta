@@ -206,9 +206,14 @@ const MisCasas = () => {
                     </div>
                     <div className="HabitacionesGeneral">
                       <h1>Habitaciones</h1>
-                      <button onClick={() => mostrarHabitacion()}>
-                        {verHab ? "Ocultar habitaciones" : "Ver habitaciones"}
-                      </button>
+                      <div className="botonesLogIn">
+                        <button
+                          className={verHab ? "v1" : "v2"}
+                          onClick={() => mostrarHabitacion()}
+                        >
+                          {verHab ? "Ocultar habitaciones" : "Ver habitaciones"}
+                        </button>
+                      </div>
                       {verHab === true && (
                         <div>
                           <Habitaciones />
