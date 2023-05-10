@@ -6,8 +6,8 @@ import { useState } from "react";
 import { send } from "emailjs-com";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import Registro from "../componets/Registro";
-import ModificarPass from "../componets/ModificarPass";
+import Registro from "../components/Registro";
+import ModificarPass from "../components/ModificarPass";
 
 const LogIn = () => {
   const [passwordError, setPasswordError] = useState("");

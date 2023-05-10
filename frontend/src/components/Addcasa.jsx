@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 // import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import "../componets/Addcasa.css";
+import "../components/Addcasa.css";
 
 const Addcasa = () => {
   const { t } = useTranslation("global");

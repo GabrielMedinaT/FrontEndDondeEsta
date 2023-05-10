@@ -2,10 +2,10 @@ import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LogIn from "./pages/LogIn";
-import NavBar from "./componets/NavBar";
+import NavBar from "./components/NavBar";
 import MisCasas from "./pages/MisCasas";
-import Habitaciones from "./componets/Habitaciones";
-import MisArmarios from "./componets/MisArmarios";
+import Habitaciones from "./components/Habitaciones";
+import MisArmarios from "./components/MisArmarios";
 import { AuthProvider } from "./context/AuthContext";
 function App() {
   const [token, setToken] = React.useState("");

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
-import "../componets/Cosas.css";
+import "../components/Cosas.css";
 
 const Cosas = () => {
   const [cosas, setCosas] = useState([]);

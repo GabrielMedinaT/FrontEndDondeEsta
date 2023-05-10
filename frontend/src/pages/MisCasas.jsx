@@ -3,12 +3,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./MisCasas.css";
 import { AuthContext } from "../context/AuthContext";
-import Addcasa from "../componets/Addcasa";
-import Habitaciones from "../componets/Habitaciones";
-import MisArmarios from "../componets/MisArmarios";
-import Addhab from "../componets/Addhab";
-import Cajones from "../componets/Cajones";
-import Cosas from "../componets/Cosas";
+import Addcasa from "../components/Addcasa";
+import Habitaciones from "../components/Habitaciones";
+import MisArmarios from "../components/MisArmarios";
+import Addhab from "../components/Addhab";
+import Cajones from "../components/Cajones";
+import Cosas from "../components/Cosas";
 
 const MisCasas = () => {
   const [casas, setCasas] = useState([]);
