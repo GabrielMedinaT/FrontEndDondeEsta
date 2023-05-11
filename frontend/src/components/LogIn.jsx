@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import "./LogIn.css";
 import { useState } from "react";
 import { send } from "emailjs-com";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import Registro from "../components/Registro";
-import ModificarPass from "../components/ModificarPass";
+import Registro from "./Registro";
+import ModificarPass from "./ModificarPass";
+import "./LogIn.css";
 
 const LogIn = () => {
   const [passwordError, setPasswordError] = useState("");
@@ -40,7 +40,7 @@ const LogIn = () => {
         response.data.userId,
         response.data.nombre
       );
-      // navigate("/misCasas");
+      navigate("/home");
     } catch (error) {
       // console.log("algo falló");
       if (error.response.status === 500) {
@@ -59,7 +59,7 @@ const LogIn = () => {
     }
   };
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,

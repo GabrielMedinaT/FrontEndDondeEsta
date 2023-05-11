@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import Home from "../pages/Home";
 import "./NavBar.css";
 import axios from "axios";
 
@@ -11,6 +12,65 @@ const NavBar = () => {
   const { gestionarLogOut, isLoggedIn } = useContext(AuthContext);
   const [menuDesplegable, setMenuDesplegable] = useState(false);
   const [nombreUsuario, setNombreUsuario] = useState("");
+  const [mostrarCasas, setMostrarCasas] = useState(false);
+  const [mostrarHabitacion, setMostrarHabitacion] = useState(false);
+  const [mostrarArmarios, setMostrarArmarios] = useState(false);
+  const [mostrarCajones, setMostrarCajones] = useState(false);
+  const [mostrarCosas, setMostrarCosas] = useState(false);
+
+  const [resultadoMostrarCasas, setResultadoMostrarCasas] = useState(false);
+  const [resultadoMostrarHabitacion, setResultadoMostrarHabitacion] =
+    useState(false);
+  const [resultadoMostrarArmario, setResultadoMostrarArmario] = useState(false);
+  const [resultadoMostrarCajones, setResultadoMostrarCajones] = useState(false);
+  const [resultadoMostrarCosas, setResultadoMostrarCosas] = useState(false);
+
+  const [resetAnimation, setResetAnimation] = useState(false);
+
+  const mostrarCasasFuncion = () => {
+    setMostrarCasas(!mostrarCasas);
+    setResetAnimation(true);
+    setTimeout(() => {
+      setResetAnimation(false);
+    }, 500);
+    setResultadoMostrarCasas(!mostrarCasas);
+  };
+
+  const mostrarHabitacionFuncion = () => {
+    setMostrarHabitacion(!mostrarHabitacion);
+    setResetAnimation(true);
+    setTimeout(() => {
+      setResetAnimation(false);
+    }, 500);
+    setResultadoMostrarHabitacion(!mostrarHabitacion);
+  };
+
+  const mostrarArmariosFuncion = () => {
+    setMostrarArmarios(!mostrarArmarios);
+    setResetAnimation(true);
+    setTimeout(() => {
+      setResetAnimation(false);
+    }, 500);
+    setResultadoMostrarArmario(!mostrarArmarios);
+  };
+
+  const mostrarCajonesFuncion = () => {
+    setMostrarCajones(!mostrarCajones);
+    setResetAnimation(true);
+    setTimeout(() => {
+      setResetAnimation(false);
+    }, 500);
+    setResultadoMostrarCajones(!mostrarCajones);
+  };
+
+  const mostrarCosasFuncion = () => {
+    setMostrarCosas(!mostrarCosas);
+    setResetAnimation(true);
+    setTimeout(() => {
+      setResetAnimation(false);
+    }, 500);
+    setResultadoMostrarCosas(!mostrarCosas);
+  };
 
   const extraerDatosDeUsuario = (token) => {
     const datos = localStorage.getItem("datosUsuario");
@@ -62,20 +122,12 @@ const NavBar = () => {
   const login = () => {
     navegar("/");
   };
-  const adjuntar = () => {
-    navegar("/adjuntar");
-  };
-  const habitacion = () => {
-    navegar("/AdjuntarHabitacion");
-  };
+
   const registro = () => {
     navegar("/registro");
   };
   const casas = () => {
     navegar("/misCasas");
-  };
-  const armarios = () => {
-    navegar("/misarmarios");
   };
 
   const toggleMenuDesplegable = () => {
@@ -93,6 +145,48 @@ const NavBar = () => {
         <div className="Botones">
           {isLoggedIn ? (
             <>
+              <button
+                onClick={mostrarCasasFuncion}
+                className={`VerUOculta ${
+                  resetAnimation ? "reset-animation" : ""
+                }`}
+              >
+                {mostrarCasas ? "Ocultar Casa" : "Ver Casa"}
+              </button>
+              <button
+                onClick={mostrarHabitacionFuncion}
+                className={`VerUOculta ${
+                  resetAnimation ? "reset-animation" : ""
+                }`}
+              >
+                {mostrarHabitacion
+                  ? "Ocultar Habitaciones"
+                  : "Ver Habitaciones"}
+              </button>
+              <button
+                onClick={mostrarArmariosFuncion}
+                className={`VerUOculta ${
+                  resetAnimation ? "reset-animation" : ""
+                }`}
+              >
+                {mostrarArmarios ? "Ocultar Armarios" : "Ver Armarios"}
+              </button>
+              <button
+                onClick={mostrarCajonesFuncion}
+                className={`VerUOculta ${
+                  resetAnimation ? "reset-animation" : ""
+                }`}
+              >
+                {mostrarCajones ? "Ocultar Cajones" : "Ver Cajones"}
+              </button>
+              <button
+                onClick={mostrarCosasFuncion}
+                className={`VerUOculta ${
+                  resetAnimation ? "reset-animation" : ""
+                }`}
+              >
+                {mostrarCosas ? "Ocultar Cosas" : "Ver Cosas"}
+              </button>
               <button onClick={() => casas()}>
                 Bienvenido/a {nombreUsuario}
               </button>
@@ -119,10 +213,7 @@ const NavBar = () => {
         >
           <ul>
             <li>
-              <Link to="/adjuntar" onClick={() => contraerMenuDesplegable()}>
-                {" "}
-                Añadir Casa
-              </Link>
+              <button onClick={() => mostrarCasasFuncion()}> Ver Casa</button>
             </li>
             <li>
               <Link
@@ -160,6 +251,15 @@ const NavBar = () => {
           </ul>
         </div>
       )}
+      <Home
+        mostrarDatos={{
+          mostrarCasas: resultadoMostrarCasas,
+          mostrarHabitacion: resultadoMostrarHabitacion,
+          mostrarArmarios: resultadoMostrarArmario,
+          mostrarCajones: resultadoMostrarCajones,
+          mostrarCosas: resultadoMostrarCosas,
+        }}
+      />
     </div>
   );
 };

@@ -12,13 +12,10 @@ import Cosas from "../components/Cosas";
 
 const MisCasas = () => {
   const [casas, setCasas] = useState([]);
-  const [verHab, setVerHab] = useState(true);
+
   const [mostrar, setMostrar] = useState(true);
   const [verCasa, setVerCasa] = useState(true);
-  const [addHabi, setddHabi] = useState(false);
-  const [verArmarios, setVerArmarios] = useState(false);
-  const [verCajones, setVerCajones] = useState(false);
-  const [verCosas, setVerCosas] = useState(false);
+
   const [verFormulario, serVerFormulario] = useState(true);
 
   const verElFormulario = () => {
@@ -57,28 +54,9 @@ const MisCasas = () => {
     });
   };
   //*FUNCIONES PARA MOSTRAR U OCULTAR
-  const mostrarCosas = () => {
-    setVerCosas(!verCosas);
-  };
 
-  const mostrarCajones = () => {
-    setVerCajones(!verCajones);
-  };
-
-  const mostrarArmarios = () => {
-    setVerArmarios(!verArmarios);
-  };
   const mostrarBoton = () => {
     setMostrar(!mostrar);
-  };
-  const mostrarHabitacion = () => {
-    setVerHab(!verHab);
-  };
-  const mostrarCasa = () => {
-    setVerCasa(!verCasa);
-  };
-  const AgregarHab = () => {
-    setddHabi(!addHabi);
   };
 
   const navigate = useNavigate();
@@ -172,12 +150,12 @@ const MisCasas = () => {
             casas.map((casa) => (
               <li key={casa._id}>
                 <h1>Mi casa</h1>
-                <button
+                {/* <button
                   className={verCasa ? "ocultar" : "mostrar"}
                   onClick={() => mostrarCasa()}
                 >
                   {verCasa ? "Ocultar" : "Mostrar casa"}
-                </button>
+                </button> */}
                 {verCasa === true && (
                   <div className="misCasas">
                     <div className="casasExistentes">
@@ -204,7 +182,8 @@ const MisCasas = () => {
                         </div>
                       )} */}
                     </div>
-                    <div className="HabitacionesGeneral">
+                    {/* ---------------------------HABITACIONES-------------------------------------------------- */}
+                    {/* <div className="HabitacionesGeneral">
                       <h1>Habitaciones</h1>
                       <div className="botonesLogIn">
                         <button
@@ -228,31 +207,31 @@ const MisCasas = () => {
                           )}
                         </div>
                       )}
-                    </div>
-                    {/* ARMARIOS  */}
-                    <div className="Armarios">
+                    </div> */}
+                    {/* ------------------------------------- ARMARIOS ------------------------------------------------  */}
+                    {/* <div className="Armarios">
                       <h1>Armarios</h1>
                       <button onClick={() => mostrarArmarios()}>
                         {verArmarios ? "Ocultar armarios" : "Ver armarios"}
                       </button>
                       {verArmarios === true && <MisArmarios />}
-                    </div>
-                    {/* CAJONES */}
-                    <div className="Cajones">
+                    </div> */}
+                    {/* -------------------------------------CAJONES ---------------------------------------------------- */}
+                    {/* <div className="Cajones">
                       <h1>Cajones</h1>
                       <button onClick={() => mostrarCajones()}>
                         {verCajones ? "Ocultar cajones" : "Ver cajones"}
                       </button>
                       {verCajones === true && <Cajones />}
-                    </div>
-                    {/* COSAS */}
-                    <div className="Cosas">
+                    </div> */}
+                    {/* ------------------------------------- COSAS ----------------------------------------------------- */}
+                    {/* <div className="Cosas">
                       <h1>Cosas</h1>
                       <button onClick={() => mostrarCosas()}>
                         {verCosas ? "Ocultar cosas" : "Ver cosas"}
                       </button>
                       {verCosas === true && <Cosas />}
-                    </div>
+                    </div> */}
                   </div>
                 )}
               </li>
