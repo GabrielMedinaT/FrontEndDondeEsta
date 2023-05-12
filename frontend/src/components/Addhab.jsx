@@ -28,7 +28,6 @@ const Addhab = () => {
   const obtenerCasas = async () => {
     const [token, userId] = extraerDatosDeUsuario();
     setIsLoadingCasas(true);
-
     await axios
       .get(process.env.REACT_APP_API_URL + `/api/casas`, {
         headers: {
