@@ -116,7 +116,6 @@ const Cosas = () => {
           },
         }
       );
-
       // console.log(response);
       setLoadingCosas(true);
       setShouldReload(true); // actualizar la variable para que se recargue la lista de cosas
@@ -224,6 +223,20 @@ const Cosas = () => {
 
   return (
     <div>
+      {/* VER LAS COSAS  */}
+      <div className="cosas">
+        {cosas.map((cosa, index) => {
+          return (
+            <div key={cosa._id}>
+              <h2>{cosa.nombre}</h2>
+              <button onClick={() => eliminarCosas(cosa.nombre)}>
+                Eliminar
+              </button>
+            </div>
+          );
+        })}
+      </div>
+
       <h1>Cosas</h1>
 
       <form action="" onSubmit={handleSubmit(gestorFormulario)}>
@@ -316,19 +329,6 @@ const Cosas = () => {
 
         <button>Añadir</button>
       </form>
-      {/* VER LAS COSAS  */}
-      <div className="cosas">
-        {cosas.map((cosa, index) => {
-          return (
-            <div key={cosa._id}>
-              <h2>{cosa.nombre}</h2>
-              <button onClick={() => eliminarCosas(cosa.nombre)}>
-                Eliminar
-              </button>
-            </div>
-          );
-        })}
-      </div>
     </div>
   );
 };
