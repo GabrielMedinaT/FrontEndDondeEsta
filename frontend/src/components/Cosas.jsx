@@ -236,7 +236,7 @@ const Cosas = () => {
           );
         })}
       </div>
-
+      {/* AÑADIR COSAS  */}
       <h1>Cosas</h1>
 
       <form action="" onSubmit={handleSubmit(gestorFormulario)}>
