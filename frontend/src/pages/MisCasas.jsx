@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Modal from "react";
 import { useNavigate } from "react-router-dom";
 import "./MisCasas.css";
 import { AuthContext } from "../context/AuthContext";
@@ -9,51 +10,25 @@ import MisArmarios from "../components/MisArmarios";
 import Addhab from "../components/Addhab";
 import Cajones from "../components/Cajones";
 import Cosas from "../components/Cosas";
+import ConfirmacionModal from "../components/ConfirmacionModal";
 
 const MisCasas = () => {
   const [casas, setCasas] = useState([]);
-
   const [mostrar, setMostrar] = useState(true);
   const [verCasa, setVerCasa] = useState(true);
-
   const [verFormulario, serVerFormulario] = useState(true);
+  const [modalAbierto, setModalAbierto] = useState(false);
+  const [casaId, setCasaId] = useState(null);
 
-  const verElFormulario = () => {
-    serVerFormulario(!verFormulario);
+  const mostrarModal = (id) => {
+    setCasaId(id);
+    setModalAbierto(true);
   };
 
-  //*FUNCION QUE ABRE VENTANA PARA CONFIRMAR LA ELIMINACIÓN DEL ARMARIO
-  const obtenerConfirmacion = (casa_id) => {
-    const ventanaAncho = 300;
-    const ventanaAlto = 300;
-    const pantallaAncho = window.innerWidth;
-    const pantallaAlto = window.innerHeight;
-    const left = Math.max(0, (pantallaAncho - ventanaAncho) / 2);
-    const top = Math.max(0, (pantallaAlto - ventanaAlto) / 2);
-    const opcionesVentana = `width=${ventanaAncho},height=${ventanaAlto},left=${left},top=${top}`;
-    const nuevaVentana = window.open("", "_blank", opcionesVentana);
-    nuevaVentana.document.write(
-      `<h1 style="color: red;">¿Seguro que quieres eliminar la casa? Esta acción no se podrá revertir</h1>`
-    );
-
-    nuevaVentana.document.write(
-      "<button style=\"padding: 10px 20px; font-size: 16px; background-color: red; color: white; border-radius: 5px; margin-right: 10px; transition: transform 0.5s;\" onclick=\"window.opener.postMessage('si', '*'); window.close()\" onmouseover=\"this.style.backgroundColor = 'darkred'; this.style.transform = 'scale(1.1)'; this.style.cursor = 'pointer'\" onmouseout=\"this.style.backgroundColor = 'red'; this.style.transform = 'scale(1)'; this.style.cursor = 'default'\">Sí</button>"
-    );
-
-    nuevaVentana.document.write(
-      "<button style=\"padding: 10px 20px; font-size: 16px; background-color: green; color: white; border-radius: 5px; margin-right: 10px; transition: transform 0.5s;\" onclick=\"window.opener.postMessage('no', '*'); window.close()\" onmouseover=\"this.style.backgroundColor = 'darkgreen'; this.style.transform = 'scale(1.1)'; this.style.cursor = 'pointer'\" onmouseout=\"this.style.backgroundColor = 'green'; this.style.transform = 'scale(1)'; this.style.cursor = 'default'\">No</button>"
-    );
-
-    window.addEventListener("message", (event) => {
-      if (event.data === "si") {
-        eliminarCasa(casa_id);
-        // console.log("El usuario ha seleccionado 'Sí'" + casa_id);
-      } else if (event.data === "no") {
-        // console.log("El usuario ha seleccionado 'No'");
-      }
-    });
+  const cerrarModal = () => {
+    setModalAbierto(false);
+    setCasaId(null);
   };
-  //*FUNCIONES PARA MOSTRAR U OCULTAR
 
   const mostrarBoton = () => {
     setMostrar(!mostrar);
@@ -115,19 +90,14 @@ const MisCasas = () => {
         // window.location.reload();
         console.log(id);
         console.log(res.data);
+        cerrarModal();
       })
       .catch((error) => console.log(error));
     // console.log(id);
   };
 
   const casasLength = casas.length;
-  const habitacionesLentgth = casas.map((casa) => {
-    return casa.habitaciones.length;
-  });
 
-  const habitacione = () => {
-    navigate("/habitaciones");
-  };
   return (
     <div className="miscasas">
       <div className="casas">
@@ -164,9 +134,18 @@ const MisCasas = () => {
                         <h1>Ciudad : {casa.ciudad} </h1>
                       </div>
                       <div className="botones">
-                        <button onClick={() => obtenerConfirmacion(casa._id)}>
-                          Eliminar
-                        </button>
+                        <div>
+                          <button onClick={() => mostrarModal(casa._id)}>
+                            Eliminar
+                          </button>
+
+                          <ConfirmacionModal
+                            casaId={casaId}
+                            isOpen={modalAbierto}
+                            onClose={cerrarModal}
+                            onConfirm={eliminarCasa}
+                          />
+                        </div>
                       </div>
                     </div>
                     <br />
