@@ -171,11 +171,13 @@ const Habitaciones = () => {
             {habitaciones.map((habitacion) => (
               <ul
                 // className="VerArmarioenHabitacion"
-                onClick={() => verArmarios(habitacion._id)}
+
                 className="habitacionConcreta"
                 key={habitacion._id}
               >
-                <h2>{habitacion.nombre}</h2>
+                <h2 onClick={() => verArmarios(habitacion._id)}>
+                  {habitacion.nombre}
+                </h2>
                 <br />
                 <button onClick={() => obtenerConfirmacion(habitacion.nombre)}>
                   Eliminar

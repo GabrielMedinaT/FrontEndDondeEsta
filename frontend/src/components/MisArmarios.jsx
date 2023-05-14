@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import "./MisArmarios.css";
 import Modal from "react-modal";
 
@@ -21,38 +21,18 @@ const MisArmarios = () => {
   const [confirmacion, setConfirmacion] = useState(true);
   const [verFormulario, serVerFormulario] = useState(true);
   const [modalAbierto, setModalAbierto] = useState(false);
+  const [modalEliminar, setModalEliminar] = useState(false);
+  const [nombreArmario, setNombreArmario] = useState("");
 
   const cerrarModal = () => {
     setModalAbierto(false);
   };
 
-  const verElFormulario = () => {
-    serVerFormulario(!verFormulario);
+  const verElFormulario = (nombre) => {
+    setNombreArmario(nombre);
+    setModalEliminar(true);
   };
 
-  //*FUNCION QUE ABRE VENTANA PARA CONFIRMAR LA ELIMINACIÓN DEL ARMARIO
-  const obtenerConfirmacion = (nombre) => {
-    const opcionesVentana = "width=400,height=300,top=100,left=100";
-    const nuevaVentana = window.open("", "_blank", opcionesVentana);
-    nuevaVentana.document.write(
-      `<h1>¿Seguro que quieres eliminar el armario ${nombre}?</h1>`
-    );
-    nuevaVentana.document.write(
-      "<button onclick=\"window.opener.postMessage('si', '*'); window.close()\">Sí</button>"
-    );
-    nuevaVentana.document.write(
-      "<button onclick=\"window.opener.postMessage('no', '*'); window.close()\">No</button>"
-    );
-
-    window.addEventListener("message", (event) => {
-      if (event.data === "si") {
-        eliminarArmario(nombre);
-        console.log("El usuario ha seleccionado 'Sí'" + nombre);
-      } else if (event.data === "no") {
-        console.log("El usuario ha seleccionado 'No'");
-      }
-    });
-  };
   //* FUNCION PARA EL SLIDE O CARROSUEL
   const slide = (amount) => {
     const newSlideIndex = slideIndex + amount;
@@ -223,6 +203,7 @@ const MisArmarios = () => {
   const armariosLength = armarios.length;
   return (
     <div>
+      <h1>Mis armarios</h1>
       <div className="carousel-container">
         <div
           className="carousel-items"
@@ -236,13 +217,18 @@ const MisArmarios = () => {
                   {armarios.map((armario) => (
                     <div className="armarioConcreto" key={armario._id}>
                       <h2>{armario.nombre}</h2>
-                      <button
-                        onClick={() => obtenerConfirmacion(armario.nombre)}
-                      >
+                      <button onClick={() => verElFormulario(armario.nombre)}>
                         Eliminar
                       </button>
                     </div>
                   ))}
+                  <Modal className="modal" isOpen={modalEliminar}>
+                    <h1>¿Estás seguro de que quieres eliminarlo?</h1>
+                    <button onClick={() => eliminarArmario(nombreArmario)}>
+                      Sí
+                    </button>
+                    <button onClick={() => setModalEliminar(false)}>No</button>
+                  </Modal>
                 </div>
               )
             )}
@@ -305,7 +291,6 @@ const MisArmarios = () => {
       </Modal>
 
       {/* //*MIS ARMARIOS */}
-      <h1>Mis armarios</h1>
     </div>
   );
 };

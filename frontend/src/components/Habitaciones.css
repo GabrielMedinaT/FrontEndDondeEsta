@@ -88,9 +88,7 @@ button:hover {
 .carousel-button-right {
   right: 0;
 } */
-.App {
-  z-index: 1;
-}
+
 .carousel-container {
   display: flex;
   overflow: hidden;

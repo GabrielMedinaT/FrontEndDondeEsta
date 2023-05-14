@@ -11,7 +11,7 @@ body {
   margin-top: 100px;
 }
 
-.principalSuperior {
+.principalSuperiorHome {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -20,6 +20,7 @@ body {
   font-size: 1.5rem;
   gap: 5rem;
   height: 150vh;
+  margin-top: 1vh;
 }
 
 .principalHome {
@@ -30,7 +31,7 @@ body {
   align-items: center;
   justify-content: start;
   padding: 2vh;
-  margin-top: 2vh;
+  margin-top: 10vh;
   height: 120vh;
   width: 90vw;
   border-radius: 68px;
