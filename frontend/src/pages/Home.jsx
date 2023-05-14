@@ -49,7 +49,7 @@ const Home = ({ mostrarDatos }) => {
             ) : (
               <>
                 <Habitaciones />
-                <Addhab />
+                {/* <Addhab /> */}
               </>
             )}
           </div>

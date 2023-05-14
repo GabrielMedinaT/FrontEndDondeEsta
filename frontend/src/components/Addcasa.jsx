@@ -1,6 +1,5 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-// import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import "../components/Addcasa.css";

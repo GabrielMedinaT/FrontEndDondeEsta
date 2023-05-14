@@ -2,7 +2,6 @@ import React from "react";
 import Modal from "react-modal";
 import "./ConfirmacionModal.css";
 
-// Estilos CSS para el modal
 const modalStyles = {
   overlay: {
     position: "fixed",
@@ -10,39 +9,38 @@ const modalStyles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: "rgba(0, 0, 0, 0.75)" /* Fondo oscuro semi-transparente */,
+    backgroundColor: "rgba(0, 0, 0, 0.75)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
   content: {
     position: "relative",
-    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)" /* Sombra del modal */,
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)",
     borderRadius: "4px",
-    backgroundColor: "#fff" /* Color de fondo del modal */,
+    backgroundColor: "#fff",
     padding: "20px",
-    maxWidth: "500px" /* Ancho máximo del modal */,
-    margin: "0 auto" /* Centrar horizontalmente */,
+    maxWidth: "500px",
+    margin: "0 auto",
   },
   bodyOpen: {
-    overflow:
-      "hidden" /* Evitar el desplazamiento de fondo cuando el modal está abierto */,
+    overflow: "hidden",
   },
 };
 
-Modal.setAppElement("#root"); // Establece el elemento raíz de tu aplicación
+Modal.setAppElement("#root");
 
 const ConfirmacionModalHabitacion = ({
-  modalAbiertoHab,
+  modalAbierto,
   cerrarModal,
   eliminarHabitacion,
   nombreHabitacion,
 }) => {
   return (
     <Modal
-      isOpen={modalAbiertoHab}
+      isOpen={modalAbierto}
       onRequestClose={cerrarModal}
-      style={modalStyles} // Aplicar los estilos CSS al modal
+      style={modalStyles}
     >
       <h1>
         ¿Seguro que quieres eliminar la Habitacion? Esta acción no se podrá

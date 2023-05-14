@@ -3,21 +3,18 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-// import Config from "@cloudinary/url-gen/config/BaseConfig";
-import { useEffect } from "react";
-import { useState } from "react";
-// import Addcasa from "../componets/Addcasa";
-// import MisArmarios from "../componets/MisArmarios";
-// import Habitaciones from "../componets/Habitaciones";
+import Modal from "react-modal";
+import "../components/Addcasa.css";
+import { useState, useEffect } from "react";
 
-const Addhab = () => {
+Modal.setAppElement("#root");
+
+const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
   const { t } = useTranslation("global");
-  // const navigate = useNavigate();
   const [habitaciones, setHabitaciones] = useState([]);
   const [isLoadingHabitaciones, setIsLoadingHabitaciones] = useState(false);
   const [isLoadingCasas, setIsLoadingCasas] = useState(false);
   const [casas, setCasas] = useState([]);
-  // const [addHabi, setddHabi] = useState(true);
 
   const {
     register,
@@ -35,7 +32,6 @@ const Addhab = () => {
         },
       })
       .then((response) => {
-        // console.log("Todo correcto", response.data);
         setCasas(response.data);
         setIsLoadingCasas(false);
       })
@@ -59,7 +55,7 @@ const Addhab = () => {
 
   const gestorFormulario = async (data) => {
     const [token, userId] = extraerDatosDeUsuario();
-    setIsLoadingHabitaciones(true); // Inicia el estado de carga de las habitaciones
+    setIsLoadingHabitaciones(true);
 
     try {
       const response = await axios.post(
@@ -79,10 +75,9 @@ const Addhab = () => {
         }
       );
 
-      setIsLoadingHabitaciones(false); // Finaliza el estado de carga de las habitaciones
+      setIsLoadingHabitaciones(false);
 
       if (response.status === 200) {
-        // Actualizar la lista de habitaciones después de agregar una nueva habitación
         setHabitaciones([...habitaciones, { nombre: data.habitacion }]);
         window.location.reload("/Addhab");
       } else {
@@ -95,10 +90,14 @@ const Addhab = () => {
   };
 
   return (
-    <div>
+    <Modal
+      isOpen={modalAbiertoHabitacion}
+      onRequestClose={cerrarModalHabitacion}
+      className="modal"
+      overlayClassName="overlay"
+    >
       <form action="" onSubmit={handleSubmit(gestorFormulario)}>
         <select {...register("nombre", { required: true })}>
-          {/* <option value="">Seleccione casa</option> */}
           {isLoadingCasas ? (
             <option value="">{t("loading")}</option>
           ) : (
@@ -114,13 +113,13 @@ const Addhab = () => {
 
         <input
           type="text"
-          placeholder="Nombre de la habitacion"
+          placeholder="          Nombre de la habitacion"
           {...register("habitacion", { minLength: 3, required: true })}
         />
 
         <button type="submit">{t("btn1.btn1")}</button>
       </form>
-    </div>
+    </Modal>
   );
 };
 
