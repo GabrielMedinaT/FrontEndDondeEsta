@@ -207,29 +207,33 @@ const NavBar = () => {
         </div>
       </div>
       {isLoggedIn && (
-        <div
-          className={`MenuDesplegable ${
-            menuDesplegable ? "MenuDesplegable--activo" : ""
-          }`}
-        >
-          <ul>
-            <li>
-              <button onClick={() => mostrarCasasFuncion()}> Ver Casa</button>
-            </li>
-            <li>
-              <Link
-                to="AdjuntarHabitacion"
-                onClick={() => contraerMenuDesplegable()}
-              >
-                Añadir Habitacion
-              </Link>
-            </li>
-            <li>
-              <a href="#" onClick={Logout}>
-                Log Out
-              </a>
-            </li>
-          </ul>
+        <div>
+          <button>Bienvenido</button>
+
+          <div
+            className={`MenuDesplegable ${
+              menuDesplegable ? "MenuDesplegable--activo" : ""
+            }`}
+          >
+            <ul>
+              <li>
+                <button onClick={() => mostrarCasasFuncion()}> Ver Casa</button>
+              </li>
+              <li>
+                <Link
+                  to="AdjuntarHabitacion"
+                  onClick={() => contraerMenuDesplegable()}
+                >
+                  Añadir Habitacion
+                </Link>
+              </li>
+              <li>
+                <a href="#" onClick={Logout}>
+                  Log Out
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       )}
       {!isLoggedIn && (
