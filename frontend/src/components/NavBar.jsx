@@ -194,6 +194,7 @@ const NavBar = () => {
             </>
           ) : (
             <>
+              <button onClick={() => login()}>Login</button>
               <button>Bienvenido/a</button>
             </>
           )}

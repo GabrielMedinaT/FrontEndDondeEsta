@@ -15,95 +15,91 @@ nav {
 @media (min-width: 768px) {
   .principal {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
-    padding: 10vh;
-    font-size: 1.5rem;
-    gap: 5rem;
-    height: 150vh;
-  }
-
-  .formulariosLoginSingUp input [type="email"]
-  /* .formulariosLoginSingUp input[type="password"]  */ {
-    width: 50vw;
-    padding: 16px;
-    margin-bottom: 16px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-
-  .formulariosLoginSingUp button {
-    background-color: #0070f3;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 16px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-  }
-
-  .formulariosLoginSingUp button:hover {
-    background-color: #0058c0;
-  }
-
-  .formulariosLoginSingUp {
-    position: relative;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    background-color: #f0f0f0;
-    border: 1px solid black;
-    border-radius: 8px;
-    position: fixed;
-
-    margin-left: 50vw;
-    width: 85vh;
-    height: 60vh;
-    /* Sombra degradada */
-    box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.781);
+    padding: 20px;
+    margin-top: -150vh;
   }
 
   .present {
-    width: 50%;
-    margin-right: 2rem;
+    flex: 1;
+    margin-right: 20px;
   }
 
-  .formularios {
-    width: 50%;
+  .titulo {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
   }
 
-  .Formpass {
-    margin-top: 55vh;
-    margin-left: 50vw;
-    position: relative;
+  .subtitulo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .descripcion {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .formulariosLoginSingUp {
+    flex: 1;
+    margin-left: 20px;
+  }
+
+  .login {
+    margin-bottom: 20px;
+  }
+
+  .login h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .formulario {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 2vh;
-    background-color: #f0f0f0;
-    border: 1px solid black;
-    border-radius: 8px;
-    position: fixed;
-    width: 35vw;
   }
 
-  .Formpass input {
-    width: 20vw;
-    padding: 16px;
-    margin-bottom: 16px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
+  .formulario input {
+    padding: 10px;
+    margin-bottom: 10px;
   }
 
   .botonesLogIn {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+  }
+
+  .EnviarLogin {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .EnviarLogin:hover {
+    background-color: #0069d9;
+  }
+
+  .error {
+    color: red;
+    margin-top: 10px;
+  }
+
+  .reset-link a {
+    color: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .reset-link a:hover {
+    color: #0056b3;
   }
 }
 
