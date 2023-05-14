@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import Modal from "react-modal";
-import "../components/Addcasa.css";
 import { useState, useEffect } from "react";
 
 Modal.setAppElement("#root");
@@ -15,6 +14,7 @@ const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
   const [isLoadingHabitaciones, setIsLoadingHabitaciones] = useState(false);
   const [isLoadingCasas, setIsLoadingCasas] = useState(false);
   const [casas, setCasas] = useState([]);
+  const [notificacionVisible, setNotificacionVisible] = useState(false); // Estado de visibilidad de la notificación
 
   const {
     register,
@@ -79,7 +79,13 @@ const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
 
       if (response.status === 200) {
         setHabitaciones([...habitaciones, { nombre: data.habitacion }]);
-        window.location.reload("/Addhab");
+        setNotificacionVisible(true); // Mostrar la notificación
+        setTimeout(() => {
+          window.location.reload("/Addhab");
+        }, 2000);
+        setTimeout(() => {
+          setIsLoadingHabitaciones(true);
+        }, 2500);
       } else {
         alert("Error al crear la casa");
       }
@@ -89,13 +95,40 @@ const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
     }
   };
 
+  const modalStyles = {
+    overlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "rgba(0, 0, 0, 0.75)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 9999, // Asegúrate de que el valor del zIndex sea mayor que cualquier otro elemento en la página
+    },
+    content: {
+      position: "absolute",
+      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)",
+      borderRadius: "4px",
+      backgroundColor: "#fff",
+      padding: "20px",
+      maxWidth: "500px",
+      margin: "0 auto",
+      zIndex: 99999, // Asegúrate de que el valor del zIndex sea mayor que cualquier otro elemento en la página
+    },
+  };
+
   return (
     <Modal
       isOpen={modalAbiertoHabitacion}
       onRequestClose={cerrarModalHabitacion}
       className="modal"
       overlayClassName="overlay"
+      style={modalStyles}
     >
+      <h1>Nueva Habitación</h1>
       <form action="" onSubmit={handleSubmit(gestorFormulario)}>
         <select {...register("nombre", { required: true })}>
           {isLoadingCasas ? (
@@ -113,12 +146,19 @@ const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
 
         <input
           type="text"
-          placeholder="          Nombre de la habitacion"
+          placeholder="Nombre de la habitación"
           {...register("habitacion", { minLength: 3, required: true })}
         />
 
         <button type="submit">{t("btn1.btn1")}</button>
       </form>
+
+      {notificacionVisible && (
+        <div className="notificacion">
+          <p>Habitación creada con éxito.</p>
+          <button onClick={() => setNotificacionVisible(false)}>Cerrar</button>
+        </div>
+      )}
     </Modal>
   );
 };

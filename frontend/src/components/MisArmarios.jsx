@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
 import "./MisArmarios.css";
+import Modal from "react-modal";
 
 const MisArmarios = () => {
   //*CONST NECESARIAS PARA LA LÓGICA DEL COMPONENTE
@@ -19,6 +20,11 @@ const MisArmarios = () => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [confirmacion, setConfirmacion] = useState(true);
   const [verFormulario, serVerFormulario] = useState(true);
+  const [modalAbierto, setModalAbierto] = useState(false);
+
+  const cerrarModal = () => {
+    setModalAbierto(false);
+  };
 
   const verElFormulario = () => {
     serVerFormulario(!verFormulario);
@@ -257,12 +263,11 @@ const MisArmarios = () => {
       </div>
       {armariosLength === 0 && <h1>No tiene armarios </h1>}
       {/* //*CREAR ARMARIOS */}
-      <button onClick={() => verElFormulario()}>
-        {verFormulario ? "Ocultar formulario" : "Agregar Armario"}
-      </button>
+      <button onClick={() => setModalAbierto(true)}>Agregar Armario</button>
+
       <br />
       <br />
-      {verFormulario && (
+      <Modal className="modal" isOpen={modalAbierto}>
         <form action="" onSubmit={handleSubmit(addArmarios)}>
           <input
             type="text"
@@ -296,7 +301,9 @@ const MisArmarios = () => {
           </select>
           <button onClick={addArmarios}>Añadir armario</button>
         </form>
-      )}
+        <button onClick={() => setModalAbierto(false)}>Cerrar</button>
+      </Modal>
+
       {/* //*MIS ARMARIOS */}
       <h1>Mis armarios</h1>
     </div>

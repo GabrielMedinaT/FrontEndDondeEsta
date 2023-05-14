@@ -6,6 +6,7 @@ import Cajones from "../components/Cajones";
 import Cosas from "../components/Cosas";
 import Addhab from "../components/Addhab";
 import "./Home.css";
+import "../components/ConfirmacionModal.css";
 
 const Home = ({ mostrarDatos }) => {
   const {
@@ -32,6 +33,7 @@ const Home = ({ mostrarDatos }) => {
       setIsLoadingCosas(false);
     }, 2000);
   }, []);
+  console.log(mostrarDatos);
 
   return (
     <div className="principalSuperiorHome">

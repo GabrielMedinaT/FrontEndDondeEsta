@@ -1,31 +1,12 @@
-/** --link-water: #dee9f9;
---steel-blue: #4481b2;
---gothic: #748c9c; */
-*,
-*:after,
-*:before {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-}
-.MenuDesplegable--activo {
-  display: none;
-}
-.MenuHamburguesa {
-  display: none;
-}
-.MenuDesplegable {
-  display: none;
-}
 .BarraNavegacion {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 5vh;
   background-color: #ffffff;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   padding: 10px 20px;
-  height: 70px;
+  height: 10vh;
   position: fixed;
   top: 0;
   left: 0;
@@ -62,6 +43,7 @@
 .Botones button:first-of-type {
   background-color: #ff595e;
 }
+
 .Logo {
   background-image: url(../resources/images/LogoCasa.png);
   background-size: contain;
@@ -70,7 +52,58 @@
   height: 70px;
 }
 
-/* Media Queries */
+.MenuHamburguesa {
+  display: none;
+}
+
+.MenuDesplegable {
+  display: none;
+}
+
+.MenuDesplegable--activo {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff;
+  z-index: -9999;
+  width: 100%;
+}
+
+.MenuDesplegable ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.MenuDesplegable li {
+  display: block;
+  padding: 10px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.MenuDesplegable li:last-of-type {
+  border-bottom: none;
+}
+
+.MenuDesplegable a {
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+.MenuDesplegable a:hover {
+  text-decoration: underline;
+}
+
+.Home {
+  margin-top: 70px;
+}
+.principalSuperiorHome {
+  grid-column: 1/3;
+}
+ReactModalPortal {
+  z-index: -9999;
+}
+
 @media only screen and (max-width: 768px) {
   .BarraNavegacion {
     justify-content: space-between;
@@ -88,31 +121,12 @@
   }
 
   .MenuDesplegable {
-    display: none;
     position: absolute;
     top: 70px;
     left: 0;
-    right: 0;
     background-color: #ffffff;
     z-index: 999;
-  }
-
-  .MenuDesplegable li {
-    display: block;
-    padding: 10px;
-    border-bottom: 1px solid #dddddd;
-  }
-
-  .MenuDesplegable li:last-of-type {
-    border-bottom: none;
-  }
-
-  .MenuDesplegable a {
-    color: #4f46e5;
-  }
-
-  .MenuDesplegable a:hover {
-    text-decoration: underline;
+    width: 100%;
   }
 
   .MenuDesplegable--activo {

@@ -5,6 +5,7 @@ import "./Habitaciones.css";
 import { useForm } from "react-hook-form";
 import ConfirmacionModalHabitacion from "./ConfirmacionModalHabitacion";
 import Addhab from "./Addhab";
+import Modal from "react-modal";
 
 const Habitaciones = () => {
   const [habitaciones, setHabitaciones] = useState([]);
@@ -15,13 +16,16 @@ const Habitaciones = () => {
   const [isLoadingCasas, setIsLoadingCasas] = useState(false);
   const [casas, setCasas] = useState([]);
   const [slideIndex, setSlideIndex] = useState(0);
-  const [verFormulario, serVerFormulario] = useState(true);
   const [modalAbierto, setModalAbierto] = useState(false);
   const [habitacionAEliminar, setHabitacionAEliminar] = useState("");
   const [modalAbiertoHabitacion, setModalAbiertoHabitacion] = useState(false);
+  const [modalAbiertoArmarios, setModalAbiertoArmarios] = useState(false);
+  const [selectedHabitacionId, setSelectedHabitacionId] = useState("");
 
-  const verElFormulario = () => {
-    serVerFormulario(!verFormulario);
+  const verArmarios = (habitacionId) => {
+    setSelectedHabitacionId(habitacionId);
+    setModalAbiertoArmarios(true);
+    getArmarios(habitacionId);
   };
 
   const obtenerConfirmacion = (nombre) => {
@@ -55,6 +59,7 @@ const Habitaciones = () => {
 
   useEffect(() => {
     getHabitaciones();
+    getArmarios();
   }, []);
 
   //*EXTRAER DATOS DE USUARIO
@@ -109,6 +114,47 @@ const Habitaciones = () => {
       })
       .catch((error) => console.log(error));
   };
+  //*OBTENER ARMARIOS
+  const getArmarios = async (habitacionId) => {
+    const [token, userId] = extraerDatosDeUsuario();
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_API_URL + "/api/armarios/",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            userId: userId,
+            habitacion: habitacionId,
+          },
+        }
+      );
+      // console.log("Todo correcto", response.data);
+      setArmarios(response.data);
+      setIsLoadingArmarios(false);
+      // console.log(armarios);
+    } catch (error) {
+      // console.log("Error al obtener armarios", error.message);
+    }
+  };
+  //*AGRUPAR ARMARIOS POR HABITACION
+  const armariosGroupedByHabitacion = armarios.reduce((groups, armario) => {
+    const habitacionId = armario.habitacion;
+    const habitacion = habitaciones.find((h) => h._id === habitacionId);
+
+    if (habitacion) {
+      const nombreHabitacion = habitacion._id;
+
+      if (groups[nombreHabitacion]) {
+        groups[nombreHabitacion].push(armario);
+      } else {
+        groups[nombreHabitacion] = [armario];
+      }
+    }
+
+    return groups;
+  }, {});
 
   return (
     <div className="Habitaciones">
@@ -123,7 +169,12 @@ const Habitaciones = () => {
         >
           <div className="listaHabitaciones">
             {habitaciones.map((habitacion) => (
-              <ul className="habitacionConcreta" key={habitacion._id}>
+              <ul
+                // className="VerArmarioenHabitacion"
+                onClick={() => verArmarios(habitacion._id)}
+                className="habitacionConcreta"
+                key={habitacion._id}
+              >
                 <h2>{habitacion.nombre}</h2>
                 <br />
                 <button onClick={() => obtenerConfirmacion(habitacion.nombre)}>
@@ -162,6 +213,25 @@ const Habitaciones = () => {
           getHabitaciones={getHabitaciones}
         />
       )}
+      <Modal
+        isOpen={modalAbiertoArmarios}
+        onRequestClose={() => setModalAbiertoArmarios(false)}
+        className="modal"
+        overlayClassName="overlay"
+      >
+        <h2>Armarios de la habitación </h2>
+        {isloadingarmarios ? (
+          <p>Cargando armarios...</p>
+        ) : armariosGroupedByHabitacion[selectedHabitacionId] ? (
+          armariosGroupedByHabitacion[selectedHabitacionId].map((armario) => (
+            <div key={armario._id}>
+              <p>Nombre: {armario.nombre}</p>
+            </div>
+          ))
+        ) : (
+          <p>No hay armarios disponibles para esta habitación.</p>
+        )}
+      </Modal>
     </div>
   );
 };
