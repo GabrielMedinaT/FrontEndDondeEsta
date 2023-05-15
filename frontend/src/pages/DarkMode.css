@@ -80,7 +80,7 @@ body {
 .VerUOcultar:active + .principalHome {
   animation: wipe-in-down 4.5s cubic-bezier(0.25, 1, 0.3, 1) forwards;
 }
-.verLaCasa {
+.verLaCasa-Dark {
   margin-top: -17vh;
   background-color: #363636;
   width: 100vw;

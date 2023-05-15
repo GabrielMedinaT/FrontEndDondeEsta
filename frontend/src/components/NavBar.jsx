@@ -7,7 +7,7 @@ import Home from "../pages/Home";
 import axios from "axios";
 import { set } from "react-hook-form";
 import "./NavBar.css";
-import MisCasas from "../pages/MisCasas";
+import MisCasas from "./MisCasas";
 
 const NavBar = () => {
   const navegar = useNavigate();
@@ -336,7 +336,6 @@ const NavBar = () => {
         }}
         darkmode={darkmode}
       />
-      <MisCasas darkmode={darkmode} />
     </div>
   );
 };
