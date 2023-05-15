@@ -5,10 +5,10 @@ import LogIn from "./components/LogIn";
 import NavBar from "./components/NavBar";
 import MisCasas from "./pages/MisCasas";
 import Habitaciones from "./components/Habitaciones";
-
 import Home from "./pages/Home";
 import MisArmarios from "./components/MisArmarios";
 import { AuthProvider } from "./context/AuthContext";
+
 function App() {
   const [token, setToken] = React.useState("");
 

@@ -4,8 +4,10 @@ import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import Home from "../pages/Home";
-import "./NavBar.css";
+import light from "./NavBar.css";
 import axios from "axios";
+import Dark from "../components/Darkmode.css";
+import { set } from "react-hook-form";
 
 const NavBar = () => {
   const navegar = useNavigate();
@@ -30,45 +32,86 @@ const NavBar = () => {
   const mostrarCasasFuncion = () => {
     setMostrarCasas(!mostrarCasas);
     setResetAnimation(true);
+    setMostrarHabitacion(false);
+    setMostrarArmarios(false);
+    setMostrarCajones(false);
+    setMostrarCosas(false);
+
     contraerMenuDesplegable();
     setTimeout(() => {
       setResetAnimation(false);
     }, 500);
     setResultadoMostrarCasas(!mostrarCasas);
+    setResultadoMostrarHabitacion(false);
+    setResultadoMostrarArmario(false);
+    setResultadoMostrarCajones(false);
+    setResultadoMostrarCosas(false);
   };
 
   const mostrarHabitacionFuncion = () => {
     setMostrarHabitacion(!mostrarHabitacion);
+    setMostrarCasas(false);
+    setMostrarArmarios(false);
+    setMostrarCajones(false);
+    setMostrarCosas(false);
+
     setResetAnimation(true);
     contraerMenuDesplegable();
     setTimeout(() => {
       setResetAnimation(false);
     }, 500);
     setResultadoMostrarHabitacion(!mostrarHabitacion);
+    setResultadoMostrarCasas(false);
+    setResultadoMostrarArmario(false);
+    setResultadoMostrarCajones(false);
+    setResultadoMostrarCosas(false);
   };
 
   const mostrarArmariosFuncion = () => {
     setMostrarArmarios(!mostrarArmarios);
+    setMostrarCasas(false);
+    setMostrarHabitacion(false);
+    setMostrarCajones(false);
+    setMostrarCosas(false);
+
     setResetAnimation(true);
     contraerMenuDesplegable();
     setTimeout(() => {
       setResetAnimation(false);
     }, 500);
     setResultadoMostrarArmario(!mostrarArmarios);
+    setResultadoMostrarCasas(false);
+    setResultadoMostrarHabitacion(false);
+    setResultadoMostrarCajones(false);
+    setResultadoMostrarCosas(false);
   };
 
   const mostrarCajonesFuncion = () => {
     setMostrarCajones(!mostrarCajones);
+    setMostrarCasas(false);
+    setMostrarHabitacion(false);
+    setMostrarArmarios(false);
+    setMostrarCosas(false);
+
     setResetAnimation(true);
     contraerMenuDesplegable();
     setTimeout(() => {
       setResetAnimation(false);
     }, 500);
     setResultadoMostrarCajones(!mostrarCajones);
+    setResultadoMostrarCasas(false);
+    setResultadoMostrarHabitacion(false);
+    setResultadoMostrarArmario(false);
+    setResultadoMostrarCosas(false);
   };
 
   const mostrarCosasFuncion = () => {
     setMostrarCosas(!mostrarCosas);
+    setMostrarCasas(false);
+    setMostrarHabitacion(false);
+    setMostrarArmarios(false);
+    setMostrarCajones(false);
+
     setResetAnimation(true);
     contraerMenuDesplegable();
 
@@ -76,6 +119,10 @@ const NavBar = () => {
       setResetAnimation(false);
     }, 500);
     setResultadoMostrarCosas(!mostrarCosas);
+    setResultadoMostrarCasas(false);
+    setResultadoMostrarHabitacion(false);
+    setResultadoMostrarArmario(false);
+    setResultadoMostrarCajones(false);
   };
 
   const extraerDatosDeUsuario = (token) => {
@@ -116,8 +163,6 @@ const NavBar = () => {
   useEffect(() => {
     if (isLoggedIn) {
       verUsuario();
-      // navegar("/misCasas");
-      //recargar una sola vez  el navbar para que se vean los otros botones
     }
   }, [isLoggedIn]);
 
@@ -133,7 +178,7 @@ const NavBar = () => {
     navegar("/registro");
   };
   const casas = () => {
-    navegar("/misCasas");
+    navegar("/home");
   };
 
   const toggleMenuDesplegable = () => {
@@ -144,7 +189,7 @@ const NavBar = () => {
   };
 
   return (
-    <div>
+    <div style={Dark}>
       <div className="BarraNavegacion">
         <div className="Logo"></div>
 

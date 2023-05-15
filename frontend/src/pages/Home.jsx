@@ -22,6 +22,7 @@ const Home = ({ mostrarDatos }) => {
   const [isLoadingArmarios, setIsLoadingArmarios] = useState(true);
   const [isLoadingCajones, setIsLoadingCajones] = useState(true);
   const [isLoadingCosas, setIsLoadingCosas] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
 
   //*SIMULACION DE CARGA ASINCRONA DEBIDO A LA LENTITUD DEL SERVIDOR
   useEffect(() => {
@@ -33,11 +34,20 @@ const Home = ({ mostrarDatos }) => {
       setIsLoadingCosas(false);
     }, 2000);
   }, []);
-  console.log(mostrarDatos);
+
+  const toogleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  const HomeStyle = {
+    backgroundColor: darkMode ? "#1f1f1f" : "#f5f5f5",
+    color: darkMode ? "#f5f5f5" : "#1f1f1f",
+  };
 
   return (
     <div className="principalSuperiorHome">
       {/* DIV DONDE SE MUESTRAN U OCULTAN LOS ELEMENTOS CASA, HABITACION, ARMARIO, CAJON, COSAS */}
+
       <div className="principalHomeHome">
         {mostrarCasas && (
           <div className="verLaCasa">

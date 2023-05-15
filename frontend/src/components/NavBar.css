@@ -25,7 +25,9 @@
 }
 
 .Botones button {
-  font-size: 16px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
   font-weight: 600;
   padding: 10px 20px;
   margin-left: 10px;
