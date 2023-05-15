@@ -30,6 +30,7 @@ const NavBar = () => {
   const mostrarCasasFuncion = () => {
     setMostrarCasas(!mostrarCasas);
     setResetAnimation(true);
+    contraerMenuDesplegable();
     setTimeout(() => {
       setResetAnimation(false);
     }, 500);
@@ -39,6 +40,7 @@ const NavBar = () => {
   const mostrarHabitacionFuncion = () => {
     setMostrarHabitacion(!mostrarHabitacion);
     setResetAnimation(true);
+    contraerMenuDesplegable();
     setTimeout(() => {
       setResetAnimation(false);
     }, 500);
@@ -48,6 +50,7 @@ const NavBar = () => {
   const mostrarArmariosFuncion = () => {
     setMostrarArmarios(!mostrarArmarios);
     setResetAnimation(true);
+    contraerMenuDesplegable();
     setTimeout(() => {
       setResetAnimation(false);
     }, 500);
@@ -57,6 +60,7 @@ const NavBar = () => {
   const mostrarCajonesFuncion = () => {
     setMostrarCajones(!mostrarCajones);
     setResetAnimation(true);
+    contraerMenuDesplegable();
     setTimeout(() => {
       setResetAnimation(false);
     }, 500);
@@ -66,6 +70,8 @@ const NavBar = () => {
   const mostrarCosasFuncion = () => {
     setMostrarCosas(!mostrarCosas);
     setResetAnimation(true);
+    contraerMenuDesplegable();
+
     setTimeout(() => {
       setResetAnimation(false);
     }, 500);
@@ -208,8 +214,6 @@ const NavBar = () => {
       </div>
       {isLoggedIn && (
         <div>
-          <button>Bienvenido</button>
-
           <div
             className={`MenuDesplegable ${
               menuDesplegable ? "MenuDesplegable--activo" : ""
@@ -217,19 +221,31 @@ const NavBar = () => {
           >
             <ul>
               <li>
-                <button onClick={() => mostrarCasasFuncion()}> Ver Casa</button>
+                <a onClick={() => mostrarCasasFuncion()}>
+                  {" "}
+                  {mostrarCasas ? "Ocultar Casa" : "Ver Casa"}
+                </a>
               </li>
               <li>
-                <Link
-                  to="AdjuntarHabitacion"
-                  onClick={() => contraerMenuDesplegable()}
-                >
-                  Añadir Habitacion
-                </Link>
+                <a onClick={() => mostrarHabitacionFuncion()}>
+                  {mostrarHabitacion
+                    ? "Ocultar Habitaciones"
+                    : "Ver Habitaciones"}
+                </a>
               </li>
               <li>
-                <a href="#" onClick={Logout}>
-                  Log Out
+                <a onClick={() => mostrarArmariosFuncion()}>
+                  {mostrarArmarios ? "Ocultar Armarios" : "Ver Armarios"}
+                </a>
+              </li>
+              <li>
+                <a onClick={() => mostrarCajonesFuncion()}>
+                  {mostrarCajones ? "Ocultar Cajones" : "Ver Cajones"}
+                </a>
+              </li>
+              <li>
+                <a onClick={() => mostrarCosasFuncion()}>
+                  {mostrarCosas ? "Ocultar Cosas" : "Ver Cosas"}
                 </a>
               </li>
             </ul>
