@@ -6,9 +6,9 @@ import Cajones from "../components/Cajones";
 import Cosas from "../components/Cosas";
 import Addhab from "../components/Addhab";
 // import "./DarkMode.css";
-import "./LightMode.css";
+import "./Home.css";
 
-const Home = ({ mostrarDatos }) => {
+const Home = ({ mostrarDatos, darkmode }) => {
   const {
     mostrarCasas,
     mostrarHabitacion,
@@ -22,7 +22,6 @@ const Home = ({ mostrarDatos }) => {
   const [isLoadingArmarios, setIsLoadingArmarios] = useState(true);
   const [isLoadingCajones, setIsLoadingCajones] = useState(true);
   const [isLoadingCosas, setIsLoadingCosas] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
 
   //*SIMULACION DE CARGA ASINCRONA DEBIDO A LA LENTITUD DEL SERVIDOR
   useEffect(() => {
@@ -35,20 +34,13 @@ const Home = ({ mostrarDatos }) => {
     }, 2000);
   }, []);
 
-  const toogleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
-  const HomeStyle = {
-    backgroundColor: darkMode ? "#1f1f1f" : "#f5f5f5",
-    color: darkMode ? "#f5f5f5" : "#1f1f1f",
-  };
-
   return (
-    <div className="principalSuperiorHome">
+    <div className={"principalSuperiorHome"}>
       {/* DIV DONDE SE MUESTRAN U OCULTAN LOS ELEMENTOS CASA, HABITACION, ARMARIO, CAJON, COSAS */}
 
-      <div className="principalHomeHome">
+      <div
+        className={darkmode ? "principalHomeHome-Dark" : "principalHomeHome"}
+      >
         {mostrarCasas && (
           <div className="verLaCasa">
             {isLoadingCasas ? <div>Cargando casas...</div> : <MisCasas />}

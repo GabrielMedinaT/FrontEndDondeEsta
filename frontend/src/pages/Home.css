@@ -96,6 +96,12 @@ body {
     rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
     rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
+.miscasas-Dark {
+  border-radius: 41px;
+  background: #363636;
+  box-shadow: 27px -27px 36px #232323, -27px 27px 36px #494949;
+  transition: 0.9s ease;
+}
 .VerLaHabitacion {
   animation: wipe-in-down 4.5s cubic-bezier(0.25, 1, 0.3, 1) forwards;
 }
@@ -116,5 +122,129 @@ body {
   to {
     clip-path: inset(0 0 0 0);
     opacity: 1;
+  }
+}
+/* *MIS CASAS */
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+button {
+  transition: background-color 0.5s ease;
+  animation: pulse 2s ease-in-out;
+}
+
+button:hover {
+  background-color: #333;
+}
+
+.miscasas {
+  margin-top: 15vh;
+  background-color: #f8f8f8;
+  padding: 20px;
+  border-radius: 5px;
+  width: 60vw;
+  box-shadow: 5px 5px 5px 5px rgba(128, 128, 128, 0.26);
+}
+
+button[type="submit"] {
+  background-color: blue;
+}
+
+.casasLista {
+  list-style: none;
+  padding: 0;
+}
+
+.casasLista li {
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #4481b2;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+  height: 5vh;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+.mostrar {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.ocultar {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.casasExistentes {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  text-align: left;
+  border: solid #748c9c;
+  border-radius: 15px;
+  margin-top: 5vh;
+  background-image: url(../resources/images/paraFondoCasa.png);
+  background-size: contain;
+  background-position: left;
+  background-repeat: no-repeat;
+}
+
+.botones {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: auto;
+  height: 10vh;
+}
+
+.CasaConcreta {
+  margin-top: 3vh;
+}
+
+.HabitacionesGeneral,
+.Armarios,
+.Cajones,
+.Cosas {
+  border: solid #748c9c;
+  border-radius: 15px;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+.v1 {
+  background-color: red;
+}
+
+@media screen and (max-width: 768px) {
+  .miscasas {
+    margin-top: 15vh;
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-radius: 5px;
+    width: 100vw;
+    box-shadow: 5px 5px 5px 5px rgba(128, 128, 128, 0.26);
   }
 }

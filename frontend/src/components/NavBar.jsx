@@ -6,8 +6,8 @@ import { useEffect } from "react";
 import Home from "../pages/Home";
 import axios from "axios";
 import { set } from "react-hook-form";
-import "../components/Darkmode.css";
 import "./NavBar.css";
+import MisCasas from "../pages/MisCasas";
 
 const NavBar = () => {
   const navegar = useNavigate();
@@ -19,7 +19,6 @@ const NavBar = () => {
   const [mostrarArmarios, setMostrarArmarios] = useState(false);
   const [mostrarCajones, setMostrarCajones] = useState(false);
   const [mostrarCosas, setMostrarCosas] = useState(false);
-
   const [resultadoMostrarCasas, setResultadoMostrarCasas] = useState(false);
   const [resultadoMostrarHabitacion, setResultadoMostrarHabitacion] =
     useState(false);
@@ -27,13 +26,11 @@ const NavBar = () => {
   const [resultadoMostrarCajones, setResultadoMostrarCajones] = useState(false);
   const [resultadoMostrarCosas, setResultadoMostrarCosas] = useState(false);
   const [resetAnimation, setResetAnimation] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkmode, setDarkmode] = useState(false);
 
   const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
+    setDarkmode(!darkmode);
   };
-
-  const navBarStyle = darkMode ? "Darkoode" : "NavBar";
 
   const mostrarCasasFuncion = () => {
     setMostrarCasas(!mostrarCasas);
@@ -195,8 +192,8 @@ const NavBar = () => {
   };
 
   return (
-    <div style={{ navBarStyle }}>
-      <div className="BarraNavegacion">
+    <div className={darkmode ? "darkmode" : "NavBar"}>
+      <div className={darkmode ? "BarraNavegacion-Dark" : "BarraNavegacion"}>
         <div className="Logo"></div>
 
         <div className="Botones">
@@ -204,7 +201,7 @@ const NavBar = () => {
             onClick={toggleDarkMode}
             className={`VerUOculta ${resetAnimation ? "reset-animation" : ""}`}
           >
-            {darkMode ? "Light Mode" : "Dark Mode"}
+            {darkmode ? "Light Mode" : "Dark Mode"}
           </button>
           {isLoggedIn ? (
             <>
@@ -337,7 +334,9 @@ const NavBar = () => {
           mostrarCajones: resultadoMostrarCajones,
           mostrarCosas: resultadoMostrarCosas,
         }}
+        darkmode={darkmode}
       />
+      <MisCasas darkmode={darkmode} />
     </div>
   );
 };
