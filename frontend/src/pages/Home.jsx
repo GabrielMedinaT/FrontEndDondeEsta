@@ -5,8 +5,8 @@ import MisArmarios from "../components/MisArmarios";
 import Cajones from "../components/Cajones";
 import Cosas from "../components/Cosas";
 import Addhab from "../components/Addhab";
-import "./Home.css";
-import "../components/ConfirmacionModal.css";
+// import "./DarkMode.css";
+import "./LightMode.css";
 
 const Home = ({ mostrarDatos }) => {
   const {

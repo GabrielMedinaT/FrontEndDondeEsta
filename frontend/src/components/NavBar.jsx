@@ -4,10 +4,10 @@ import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import Home from "../pages/Home";
-import light from "./NavBar.css";
 import axios from "axios";
-import Dark from "../components/Darkmode.css";
 import { set } from "react-hook-form";
+import "../components/Darkmode.css";
+import "./NavBar.css";
 
 const NavBar = () => {
   const navegar = useNavigate();
@@ -26,8 +26,14 @@ const NavBar = () => {
   const [resultadoMostrarArmario, setResultadoMostrarArmario] = useState(false);
   const [resultadoMostrarCajones, setResultadoMostrarCajones] = useState(false);
   const [resultadoMostrarCosas, setResultadoMostrarCosas] = useState(false);
-
   const [resetAnimation, setResetAnimation] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  const navBarStyle = darkMode ? "Darkoode" : "NavBar";
 
   const mostrarCasasFuncion = () => {
     setMostrarCasas(!mostrarCasas);
@@ -189,11 +195,17 @@ const NavBar = () => {
   };
 
   return (
-    <div style={Dark}>
+    <div style={{ navBarStyle }}>
       <div className="BarraNavegacion">
         <div className="Logo"></div>
 
         <div className="Botones">
+          <button
+            onClick={toggleDarkMode}
+            className={`VerUOculta ${resetAnimation ? "reset-animation" : ""}`}
+          >
+            {darkMode ? "Light Mode" : "Dark Mode"}
+          </button>
           {isLoggedIn ? (
             <>
               <button
