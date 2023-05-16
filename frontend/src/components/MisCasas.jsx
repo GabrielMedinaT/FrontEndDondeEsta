@@ -115,9 +115,10 @@ const MisCasas = ({ darkmode }) => {
                     </div>
                     <div className="botones">
                       <div>
-                        <button onClick={() => mostrarModal(casa._id)}>
-                          Eliminar
-                        </button>
+                        <button
+                          className="eliminar"
+                          onClick={() => mostrarModal(casa._id)}
+                        ></button>
 
                         <ConfirmacionModal
                           casaId={casaId}

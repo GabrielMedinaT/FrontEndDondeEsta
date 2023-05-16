@@ -98,7 +98,7 @@ body {
   animation: wipe-in-down 4.5s cubic-bezier(0.25, 1, 0.3, 1) forwards;
 }
 .verLaCasa {
-  margin-top: -17vh;
+  margin-top: -1vh;
   margin-left: -10vh;
   width: 100vw;
   height: 190vh;
@@ -107,9 +107,23 @@ body {
   align-items: flex-start;
   animation: wipe-in-down 4.5s cubic-bezier(0.25, 1, 0.3, 1) forwards;
 }
+.eliminar {
+  background-image: url(../resources/images/cerrar.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 5px;
+  height: 5px;
+  position: relative;
+  left: 50vh;
+  bottom: 30vh;
+  border-radius: 50%;
+  transform: scaleX(0.6);
+}
+
 .verLaCasa-Dark {
   margin-left: -10vh;
-  margin-top: -17vh;
+  margin-top: -1vh;
   background-color: #363636;
   width: 100vw;
   height: 190vh;
@@ -118,9 +132,18 @@ body {
   align-items: flex-start;
   animation: wipe-in-down 4.5s cubic-bezier(0.25, 1, 0.3, 1) forwards;
 }
+
 .miscasas {
+  display: flex;
+  transition: all 0.5s ease-in-out;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-top: 25vh;
   background: rgb(223, 225, 235);
+  background-position: center;
+  height: 50vh;
+  width: 50vw;
   border-radius: 50px;
   box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
     rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
@@ -129,7 +152,13 @@ body {
     rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 .miscasas-Dark {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: wheat;
+  height: 50vh;
+  width: 50vw;
   margin-top: 25vh;
   border-radius: 50px;
   background: linear-gradient(225deg, #282424, #211f1f);
@@ -143,6 +172,11 @@ body {
   -moz-box-shadow: 0px 0px 105px 53px rgba(60, 96, 240, 0.45);
   box-shadow: 0px 0px 105px 53px rgba(60, 96, 240, 0.45);
 }
+.miscasas:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
 .VerLaHabitacion {
   animation: wipe-in-down 4.5s cubic-bezier(0.25, 1, 0.3, 1) forwards;
 }
@@ -189,6 +223,7 @@ li {
 }
 .Habitaciones {
   display: flex;
+
   flex-direction: column;
   justify-content: start;
   align-items: center;
