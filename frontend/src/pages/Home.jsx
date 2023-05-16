@@ -57,7 +57,7 @@ const Home = ({ mostrarDatos, darkmode }) => {
               <div>Cargando habitaciones...</div>
             ) : (
               <>
-                <Habitaciones />
+                <Habitaciones darkmode={darkmode} />
                 {/* <Addhab /> */}
               </>
             )}

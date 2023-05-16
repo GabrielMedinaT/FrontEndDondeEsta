@@ -1,13 +1,13 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Habitaciones.css";
+import "../pages/Home.css";
 import { useForm } from "react-hook-form";
 import ConfirmacionModalHabitacion from "./ConfirmacionModalHabitacion";
 import Addhab from "./Addhab";
 import Modal from "react-modal";
 
-const Habitaciones = () => {
+const Habitaciones = ({ darkmode }) => {
   const [habitaciones, setHabitaciones] = useState([]);
   const [armarios, setArmarios] = useState([]);
   const [isloadingarmarios, setIsLoadingArmarios] = useState(true);
@@ -157,7 +157,7 @@ const Habitaciones = () => {
   }, {});
 
   return (
-    <div className="Habitaciones">
+    <div className={darkmode ? "Habitaciones-Dark" : "Habitaciones"}>
       <h1>Habitaciones</h1>
       {habitaciones.length === 0 && (
         <h1>No tiene habitaciones puede añadir una </h1>
@@ -172,7 +172,9 @@ const Habitaciones = () => {
               <ul
                 // className="VerArmarioenHabitacion"
 
-                className="habitacionConcreta"
+                className={
+                  darkmode ? "habitacionConcreta-Dark" : "habitacionConcreta"
+                }
                 key={habitacion._id}
               >
                 <h2 onClick={() => verArmarios(habitacion._id)}>
