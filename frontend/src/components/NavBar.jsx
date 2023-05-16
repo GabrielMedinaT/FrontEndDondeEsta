@@ -198,7 +198,7 @@ const NavBar = () => {
   return (
     <div className={darkmode ? "darkmode" : "NavBar"}>
       <div className={darkmode ? "BarraNavegacion-Dark" : "BarraNavegacion"}>
-        <div className="Logo"></div>
+        <div className={darkmode ? "logo-Dark" : "Logo"}></div>
 
         <div className="Botones">
           {isLoggedIn ? (

@@ -87,6 +87,7 @@ const MisCasas = ({ darkmode }) => {
 
   return (
     <div className={darkmode ? "miscasas-Dark" : "miscasas"}>
+      <div className={darkmode ? "imagenCasa-Dark" : "imagenCasa"}></div>
       <div className="casas">
         <ul className="casasLista">
           {casasLength === 0 && (
