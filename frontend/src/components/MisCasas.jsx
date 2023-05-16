@@ -83,7 +83,6 @@ const MisCasas = ({ darkmode }) => {
       .catch((error) => console.log(error));
     // console.log(id);
   };
-  console.log(darkmode);
   const casasLength = casas.length;
 
   return (

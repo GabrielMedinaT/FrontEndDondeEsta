@@ -23,6 +23,18 @@ body {
   margin-top: 1vh;
 }
 
+.principalSuperiorHome-Dark {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10vh;
+  font-size: 1.5rem;
+  gap: 5rem;
+  height: 150vh;
+  margin-top: -7vh;
+  background-color: #363636;
+}
 .principalHome {
   background-color: wheat;
   display: flex;
@@ -52,19 +64,15 @@ body {
 }
 
 .VerUOcultar {
-  padding: 10px 20px;
   border: none;
   font-size: 12px;
   color: #fff;
   border-radius: 7px;
-  letter-spacing: 4px;
   font-weight: 700;
-  text-transform: uppercase;
   transition: 0.5s;
   transition-property: box-shadow;
   background: rgb(0, 140, 255);
   box-shadow: 0 0 25px rgb(0, 140, 255);
-  margin-top: -5vh;
 }
 
 .VerUOcultar:hover {

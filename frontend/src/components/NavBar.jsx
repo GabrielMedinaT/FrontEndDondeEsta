@@ -199,7 +199,11 @@ const NavBar = () => {
         <div className="Botones">
           <button
             onClick={toggleDarkMode}
-            className={`VerUOculta ${resetAnimation ? "reset-animation" : ""}`}
+            className={
+              darkmode
+                ? `VerUOcultar ${resetAnimation ? "reset-animation" : ""}`
+                : `VerUOculta ${resetAnimation ? "reset-animation" : ""}`
+            }
           >
             {darkmode ? "Light Mode" : "Dark Mode"}
           </button>
@@ -207,17 +211,21 @@ const NavBar = () => {
             <>
               <button
                 onClick={mostrarCasasFuncion}
-                className={`VerUOculta ${
-                  resetAnimation ? "reset-animation" : ""
-                }`}
+                className={
+                  darkmode
+                    ? `VerUOcultar ${resetAnimation ? "reset-animation" : ""}`
+                    : `VerUOculta ${resetAnimation ? "reset-animation" : ""}`
+                }
               >
                 {mostrarCasas ? "Ocultar Casa" : "Ver Casa"}
               </button>
               <button
                 onClick={mostrarHabitacionFuncion}
-                className={`VerUOculta ${
-                  resetAnimation ? "reset-animation" : ""
-                }`}
+                className={
+                  darkmode
+                    ? `VerUOcultar ${resetAnimation ? "reset-animation" : ""}`
+                    : `VerUOculta ${resetAnimation ? "reset-animation" : ""}`
+                }
               >
                 {mostrarHabitacion
                   ? "Ocultar Habitaciones"
@@ -225,32 +233,54 @@ const NavBar = () => {
               </button>
               <button
                 onClick={mostrarArmariosFuncion}
-                className={`VerUOculta ${
-                  resetAnimation ? "reset-animation" : ""
-                }`}
+                className={
+                  darkmode
+                    ? `VerUOcultar ${resetAnimation ? "reset-animation" : ""}`
+                    : `VerUOculta ${resetAnimation ? "reset-animation" : ""}`
+                }
               >
                 {mostrarArmarios ? "Ocultar Armarios" : "Ver Armarios"}
               </button>
               <button
                 onClick={mostrarCajonesFuncion}
-                className={`VerUOculta ${
-                  resetAnimation ? "reset-animation" : ""
-                }`}
+                className={
+                  darkmode
+                    ? `VerUOcultar ${resetAnimation ? "reset-animation" : ""}`
+                    : `VerUOculta ${resetAnimation ? "reset-animation" : ""}`
+                }
               >
                 {mostrarCajones ? "Ocultar Cajones" : "Ver Cajones"}
               </button>
               <button
                 onClick={mostrarCosasFuncion}
-                className={`VerUOculta ${
-                  resetAnimation ? "reset-animation" : ""
-                }`}
+                className={
+                  darkmode
+                    ? `VerUOcultar ${resetAnimation ? "reset-animation" : ""}`
+                    : `VerUOculta ${resetAnimation ? "reset-animation" : ""}`
+                }
               >
                 {mostrarCosas ? "Ocultar Cosas" : "Ver Cosas"}
               </button>
-              <button onClick={() => casas()}>
+              <button
+                className={
+                  darkmode
+                    ? `VerUOcultar ${resetAnimation ? "reset-animation" : ""}`
+                    : `VerUOculta ${resetAnimation ? "reset-animation" : ""}`
+                }
+                onClick={() => casas()}
+              >
                 Bienvenido/a {nombreUsuario}
               </button>
-              <button onClick={Logout}>Log Out</button>
+              <button
+                className={
+                  darkmode
+                    ? `VerUOcultar ${resetAnimation ? "reset-animation" : ""}`
+                    : `VerUOculta ${resetAnimation ? "reset-animation" : ""}`
+                }
+                onClick={Logout}
+              >
+                Log Out
+              </button>
             </>
           ) : (
             <>

@@ -33,7 +33,11 @@ const Home = ({ mostrarDatos, darkmode }) => {
   }, []);
 
   return (
-    <div className={"principalSuperiorHome"}>
+    <div
+      className={
+        darkmode ? "principalSuperiorHome-Dark" : "principalSuperiorHome"
+      }
+    >
       {/* DIV DONDE SE MUESTRAN U OCULTAN LOS ELEMENTOS CASA, HABITACION, ARMARIO, CAJON, COSAS */}
       <div
         className={darkmode ? "principalHomeHome-Dark" : "principalHomeHome"}
