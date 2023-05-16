@@ -28,6 +28,10 @@ const NavBar = () => {
   const [resetAnimation, setResetAnimation] = useState(false);
   const [darkmode, setDarkmode] = useState(false);
 
+  useEffect(() => {
+    localStorage.setItem("darkMode", darkmode);
+  }, [darkmode]);
+
   const toggleDarkMode = () => {
     setDarkmode(!darkmode);
   };
@@ -197,18 +201,36 @@ const NavBar = () => {
         <div className="Logo"></div>
 
         <div className="Botones">
-          <button
-            onClick={toggleDarkMode}
-            className={
-              darkmode
-                ? `VerUOcultar ${resetAnimation ? "reset-animation" : ""}`
-                : `VerUOculta ${resetAnimation ? "reset-animation" : ""}`
-            }
-          >
-            {darkmode ? "Light Mode" : "Dark Mode"}
-          </button>
           {isLoggedIn ? (
             <>
+              <div className="CambiarTema">
+                <label for="theme" class="theme">
+                  <span class="theme__toggle-wrap">
+                    <input
+                      id="theme"
+                      class="theme__toggle"
+                      type="checkbox"
+                      role="switch"
+                      name="theme"
+                      value="dark"
+                      checked={darkmode}
+                      onChange={toggleDarkMode}
+                    />
+                    {/* <span class="theme__fill"></span> */}
+                    <span class="theme__icon">
+                      <span class="theme__icon-part"></span>
+                      <span class="theme__icon-part"></span>
+                      <span class="theme__icon-part"></span>
+                      <span class="theme__icon-part"></span>
+                      <span class="theme__icon-part"></span>
+                      <span class="theme__icon-part"></span>
+                      <span class="theme__icon-part"></span>
+                      <span class="theme__icon-part"></span>
+                      <span class="theme__icon-part"></span>
+                    </span>
+                  </span>
+                </label>
+              </div>
               <button
                 onClick={mostrarCasasFuncion}
                 className={
