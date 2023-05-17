@@ -19,7 +19,7 @@ body {
   padding: 10vh;
   font-size: 1.5rem;
   gap: 5rem;
-  height: 150vh;
+  height: 100vh;
   /* background-color: tomato; */
   margin-top: -7vh;
 }
@@ -120,6 +120,28 @@ body {
   border-radius: 50%;
   transform: scaleX(0.6);
 }
+.eliminarHabitacion {
+  background-image: url(../resources/images/cerrar.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 5px;
+  height: 5px;
+  position: relative;
+  border-radius: 50%;
+  transform: scaleX(0.6);
+}
+.eliminarArmario {
+  background-image: url(../resources/images/cerrar.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 5px;
+  height: 5px;
+  position: relative;
+  border-radius: 50%;
+  transform: scaleX(0.6);
+}
 
 .verLaCasa-Dark {
   margin-left: -10vh;
@@ -188,9 +210,7 @@ body {
 .miscasas-Dark:hover {
   cursor: pointer;
   transform: scale(1.1);
-  -webkit-box-shadow: 0px 0px 105px 53px rgba(60, 96, 240, 0.45);
-  -moz-box-shadow: 0px 0px 105px 53px rgba(60, 96, 240, 0.45);
-  box-shadow: 0px 0px 105px 53px rgba(60, 96, 240, 0.45);
+  box-shadow: 0px 0px 25px 3px rgba(60, 96, 240, 0.45);
 }
 .miscasas:hover {
   cursor: pointer;
@@ -229,21 +249,31 @@ li {
   position: relative;
   width: 100vw;
 }
+.carousel-container-armario {
+  display: flex;
+  overflow: hidden;
+  flex-direction: column;
+  margin-top: 15vh;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  width: 90vw;
+}
 
 .Habitaciones-Dark {
+  color: wheat;
   background-color: #363636;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
   margin-top: 10vh;
-  height: 150vh;
+  height: 100vh;
   width: 90vw;
   border-radius: 68px;
 }
 .Habitaciones {
   display: flex;
-
   flex-direction: column;
   justify-content: start;
   align-items: center;
@@ -268,7 +298,16 @@ li {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
+.listaHabitaciones-Dark {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 .habitacionConcreta {
   transition: transform 0.5s ease-in-out;
   cursor: pointer;
@@ -371,6 +410,217 @@ li {
 
 .ReactModalPortal {
   z-index: 1000;
+}
+
+/* * ARMARIOS  */
+
+.armario {
+  border: solid 2px black;
+  background-image: url(../resources/images/madera.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+.armario-Dark {
+  border: solid 2px black;
+
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  background-color: #282424;
+  border-radius: 50px;
+  background: linear-gradient(225deg, #282424, #211f1f);
+  box-shadow: -10px 10px 21px #1f1d1d, 10px -10px 21px #2b2727;
+  transition: 0.9s ease;
+}
+.cajon {
+  background-color: wheat;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.VerLosArmarios {
+  margin-top: 15vh;
+}
+.Armarios-Dark {
+  color: wheat;
+}
+.carousel-container {
+  position: relative;
+  margin-bottom: 20px;
+  overflow: hidden;
+  padding: 2vh;
+}
+.habitacionConcreta {
+  border: solid 2px black;
+}
+
+.carousel-items {
+  /* border: solid 2px black; */
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.listaArmarios {
+  display: flex;
+  width: 85vw;
+  flex-wrap: wrap; /* Evita el salto de línea */
+  overflow-x: auto; /* Permite desplazarse horizontalmente */
+  -webkit-overflow-scrolling: touch; /* Desplazamiento suave en iOS */
+}
+
+.armariosHabitacion {
+  display: flex;
+  flex-direction: column;
+  min-width: 50vh;
+  margin: 0 4px;
+  margin-right: 10px;
+  flex: 0 0 auto;
+}
+.armariosHabitacion-Dark {
+  display: flex;
+  flex-direction: column;
+  min-width: 50vh;
+  margin: 0 4px;
+  margin-right: 10px;
+  flex: 0 0 auto;
+}
+
+.armarioConcreto {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  text-align: center;
+  flex: 0 0 auto; /* No se expande más allá del tamaño contenido */
+  /* width: 20vw; */
+}
+.armarioConcreto-Dark {
+  color: wheat;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 25px;
+  text-align: center;
+  flex: 0 0 auto; /* No se expande más allá del tamaño contenido */
+  background-color: #282424;
+  border-radius: 50px;
+  background: linear-gradient(225deg, #282424, #211f1f);
+  box-shadow: -10px 10px 21px #1f1d1d, 10px -10px 21px #2b2727;
+  transition: 0.9s ease;
+}
+.armarioConcreto-Dark:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  box-shadow: 0px 0px 25px 3px rgba(60, 96, 240, 0.45);
+}
+
+.armarioConcreto h2 {
+  margin: 0;
+}
+
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 10px;
+  font-size: 1.5rem;
+  background-color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.carousel-button-left {
+  left: 10px;
+}
+
+.carousel-button-right {
+  right: 10px;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+select {
+  appearance: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+button {
+  padding: 10px;
+  background-color: #4481b2;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  transition: 1s;
+}
+
+button:hover {
+  background-color: #748c9c;
+}
+.armariosHabitacion {
+  background: rgb(223, 225, 235);
+  border-radius: 50px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 4px;
+  padding: 20px;
+  width: 400px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.814);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal h2 {
+  margin-bottom: 10px;
+}
+
+.modal p {
+  margin-bottom: 5px;
 }
 
 @media screen and (max-width: 768px) {

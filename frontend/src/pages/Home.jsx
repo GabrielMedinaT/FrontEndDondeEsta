@@ -68,7 +68,7 @@ const Home = ({ mostrarDatos, darkmode }) => {
             {isLoadingArmarios ? (
               <div>Cargando armarios...</div>
             ) : (
-              <MisArmarios />
+              <MisArmarios darkmode={darkmode} />
             )}
           </div>
         )}

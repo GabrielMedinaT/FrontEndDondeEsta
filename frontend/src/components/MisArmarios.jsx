@@ -1,25 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { set, useForm } from "react-hook-form";
-import "./MisArmarios.css";
+import { useForm } from "react-hook-form";
+import "../pages/Home.css";
 import Modal from "react-modal";
 
-const MisArmarios = () => {
+const MisArmarios = ({ darkmode }) => {
   //*CONST NECESARIAS PARA LA LÓGICA DEL COMPONENTE
-
   const [armarios, setArmarios] = useState([]);
-  const [isLoadingArmarios, setIsLoadingArmarios] = useState(true);
   const [isLoadingHabitacion, setIsLoadingHabitacion] = useState(false);
   const [habitacion, setHabitacion] = useState([]);
   const [isLoadingCasas, setIsLoadingCasas] = useState(false);
   const [casas, setCasas] = useState([]);
-  const navigate = useNavigate();
   const { token, userId } = useContext(AuthContext);
   const [slideIndex, setSlideIndex] = useState(0);
-  const [confirmacion, setConfirmacion] = useState(true);
-  const [verFormulario, serVerFormulario] = useState(true);
   const [modalAbierto, setModalAbierto] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
   const [nombreArmario, setNombreArmario] = useState("");
@@ -33,14 +27,6 @@ const MisArmarios = () => {
     setModalEliminar(true);
   };
 
-  //* FUNCION PARA EL SLIDE O CARROSUEL
-  const slide = (amount) => {
-    const newSlideIndex = slideIndex + amount;
-    const maxSlideIndex = (armarios.length - 1) * -100;
-    if (newSlideIndex < maxSlideIndex) {
-      setSlideIndex(newSlideIndex);
-    }
-  };
   //*USE EFECCT
   useEffect(() => {
     getArmarios();
@@ -76,12 +62,8 @@ const MisArmarios = () => {
           },
         }
       );
-      // console.log("Todo correcto", response.data);
       setArmarios(response.data);
-      // console.log(armarios);
-    } catch (error) {
-      // console.log("Error al obtener armarios", error.message);
-    }
+    } catch (error) {}
   };
   //*OBTENER CASAS
   const obtenerCasas = async () => {
@@ -202,50 +184,42 @@ const MisArmarios = () => {
 
   const armariosLength = armarios.length;
   return (
-    <div>
+    <div className={darkmode ? "Armarios-Dark" : "Armarios"}>
       <h1>Mis armarios</h1>
-      <div className="carousel-container">
-        <div
-          className="carousel-items"
-          style={{ transform: `translateX(${slideIndex}%)` }}
-        >
-          <div className="listaArmarios">
-            {Object.entries(armariosGroupedByHabitacion).map(
-              ([nombreHabitacion, armarios]) => (
-                <div className="armariosHabitacion" key={nombreHabitacion}>
-                  <h1 className="nombrehabitacion">{nombreHabitacion}</h1>
-                  {armarios.map((armario) => (
-                    <div className="armarioConcreto" key={armario._id}>
-                      <h2>{armario.nombre}</h2>
-                      <button onClick={() => verElFormulario(armario.nombre)}>
-                        Eliminar
-                      </button>
-                    </div>
-                  ))}
-                  <Modal className="modal" isOpen={modalEliminar}>
-                    <h1>¿Estás seguro de que quieres eliminarlo?</h1>
-                    <button onClick={() => eliminarArmario(nombreArmario)}>
-                      Sí
-                    </button>
-                    <button onClick={() => setModalEliminar(false)}>No</button>
-                  </Modal>
+      <div className="listaArmarios">
+        {Object.entries(armariosGroupedByHabitacion).map(
+          ([nombreHabitacion, armarios]) => (
+            <div
+              className={
+                darkmode ? "armariosHabitacion-Dark" : "armariosHabitacion"
+              }
+              key={nombreHabitacion}
+            >
+              <h1 className="nombrehabitacion">{nombreHabitacion}</h1>
+              {armarios.map((armario) => (
+                <div
+                  className={
+                    darkmode ? "armarioConcreto-Dark" : "armarioConcreto"
+                  }
+                  key={armario._id}
+                >
+                  <h4>{armario.nombre}</h4>
+                  <button
+                    className="eliminarArmario"
+                    onClick={() => verElFormulario(armario.nombre)}
+                  ></button>
                 </div>
-              )
-            )}
-          </div>
-        </div>
-        <button
-          className="carousel-button carousel-button-left-armario"
-          onClick={() => slide(10)}
-        >
-          ◀
-        </button>
-        <button
-          className="carousel-button carousel-button-right"
-          onClick={() => slide(-10)}
-        >
-          ▶
-        </button>
+              ))}
+              <Modal className="modal" isOpen={modalEliminar}>
+                <h1>¿Estás seguro de que quieres eliminarlo?</h1>
+                <button onClick={() => eliminarArmario(nombreArmario)}>
+                  Sí
+                </button>
+                <button onClick={() => setModalEliminar(false)}>No</button>
+              </Modal>
+            </div>
+          )
+        )}
       </div>
       {armariosLength === 0 && <h1>No tiene armarios </h1>}
       {/* //*CREAR ARMARIOS */}

@@ -26,7 +26,9 @@ const NavBar = () => {
   const [resultadoMostrarCajones, setResultadoMostrarCajones] = useState(false);
   const [resultadoMostrarCosas, setResultadoMostrarCosas] = useState(false);
   const [resetAnimation, setResetAnimation] = useState(false);
-  const [darkmode, setDarkmode] = useState(false);
+  const [darkmode, setDarkmode] = useState(
+    localStorage.getItem("darkMode") === "true"
+  );
 
   useEffect(() => {
     localStorage.setItem("darkMode", darkmode);

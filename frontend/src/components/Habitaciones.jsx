@@ -12,9 +12,6 @@ const Habitaciones = ({ darkmode }) => {
   const [armarios, setArmarios] = useState([]);
   const [isloadingarmarios, setIsLoadingArmarios] = useState(true);
   const navigate = useNavigate();
-  const [isLoadingHabitaciones, setIsLoadingHabitaciones] = useState(false);
-  const [isLoadingCasas, setIsLoadingCasas] = useState(false);
-  const [casas, setCasas] = useState([]);
   const [slideIndex, setSlideIndex] = useState(0);
   const [modalAbierto, setModalAbierto] = useState(false);
   const [habitacionAEliminar, setHabitacionAEliminar] = useState("");
@@ -44,7 +41,6 @@ const Habitaciones = ({ darkmode }) => {
     const maxSlideIndex = (habitaciones.length - 1) * -100;
 
     if (newSlideIndex > 0 || newSlideIndex < maxSlideIndex) {
-      // Si la nueva posición estaría fuera de los límites, no actualizamos el estado
       return;
     }
 
@@ -167,11 +163,13 @@ const Habitaciones = ({ darkmode }) => {
           className="carousel-items"
           style={{ transform: `translateX(${slideIndex}%)` }}
         >
-          <div className="listaHabitaciones">
+          <div
+            className={
+              darkmode ? "listaHabitaciones-Dark" : "listaHabitaciones"
+            }
+          >
             {habitaciones.map((habitacion) => (
               <ul
-                // className="VerArmarioenHabitacion"
-
                 className={
                   darkmode ? "habitacionConcreta-Dark" : "habitacionConcreta"
                 }
@@ -181,9 +179,10 @@ const Habitaciones = ({ darkmode }) => {
                   {habitacion.nombre}
                 </h2>
                 <br />
-                <button onClick={() => obtenerConfirmacion(habitacion.nombre)}>
-                  Eliminar
-                </button>
+                <button
+                  className="eliminarHabitacion"
+                  onClick={() => obtenerConfirmacion(habitacion.nombre)}
+                ></button>
               </ul>
             ))}
           </div>
