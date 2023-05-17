@@ -142,7 +142,39 @@ body {
   border-radius: 50%;
   transform: scaleX(0.6);
 }
-
+.agregarMueble {
+  background-image: url(../resources/images/además-de-un-botón-verde-icono-dibujos_csp50675695.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 5px;
+  height: 5px;
+  position: relative;
+  border-radius: 50%;
+  transform: scaleX(0.6);
+}
+.cabeceraHabitaciones {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90vw;
+}
+h1 {
+  font-size: 8vh;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+.CrearHabitación {
+  background-image: url(../resources/images/además-de-un-botón-verde-icono-dibujos_csp50675695.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  width: 5px;
+  height: 5px;
+  position: relative;
+  border-radius: 50%;
+  transform: scaleX(0.6);
+}
 .verLaCasa-Dark {
   margin-left: -10vh;
   margin-top: -1vh;
@@ -241,6 +273,34 @@ li {
     clip-path: inset(0 0 0 0);
     opacity: 1;
   }
+}
+.principal {
+  display: flex;
+  gap: 5vw;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 90vw;
+  border-radius: 68px;
+}
+.present {
+  width: 40vw;
+}
+.principal-Dark {
+  color: wheat;
+  margin-top: -150vh;
+  display: flex;
+  gap: 5vw;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 90vw;
+  border-radius: 68px;
+}
+.present-Dark {
+  width: 40vw;
 }
 /** HABITACIONES  */
 .carousel-container {
@@ -474,7 +534,10 @@ h1 {
 
 .listaArmarios {
   display: flex;
+  gap: 5vh;
+  justify-content: center;
   width: 85vw;
+  height: 100vh;
   flex-wrap: wrap; /* Evita el salto de línea */
   overflow-x: auto; /* Permite desplazarse horizontalmente */
   -webkit-overflow-scrolling: touch; /* Desplazamiento suave en iOS */
@@ -622,7 +685,13 @@ button:hover {
 .modal p {
   margin-bottom: 5px;
 }
-
+.tituloArmarios {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
 @media screen and (max-width: 768px) {
   .miscasas {
     margin-top: 15vh;

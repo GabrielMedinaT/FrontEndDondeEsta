@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import Home from "../pages/Home";
 import axios from "axios";
-import { set } from "react-hook-form";
 import "./NavBar.css";
 import MisCasas from "./MisCasas";
+import LogIn from "./LogIn";
 
 const NavBar = () => {
   const navegar = useNavigate();
@@ -29,6 +29,7 @@ const NavBar = () => {
   const [darkmode, setDarkmode] = useState(
     localStorage.getItem("darkMode") === "true"
   );
+  const [prueba, setPrueba] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("darkMode", darkmode);
@@ -177,6 +178,16 @@ const NavBar = () => {
 
   const Logout = () => {
     gestionarLogOut();
+    setResultadoMostrarCosas(false);
+    setResultadoMostrarCasas(false);
+    setResultadoMostrarHabitacion(false);
+    setResultadoMostrarArmario(false);
+    setResultadoMostrarCajones(false);
+    setMostrarCosas(false);
+    setMostrarCasas(false);
+    setMostrarHabitacion(false);
+    setMostrarArmarios(false);
+    setMostrarCajones(false);
     navegar("/");
   };
   const login = () => {
@@ -308,8 +319,12 @@ const NavBar = () => {
             </>
           ) : (
             <>
-              <button onClick={() => login()}>Login</button>
-              <button>Bienvenido/a</button>
+              <div className="botonessinlogear">
+                <button className="botonlogin" onClick={() => login()}>
+                  Login
+                </button>
+                <button className="botonbienvenido">Bienvenido/a</button>
+              </div>
             </>
           )}
         </div>
@@ -380,6 +395,7 @@ const NavBar = () => {
           </ul>
         </div>
       )}
+
       <Home
         mostrarDatos={{
           mostrarCasas: resultadoMostrarCasas,

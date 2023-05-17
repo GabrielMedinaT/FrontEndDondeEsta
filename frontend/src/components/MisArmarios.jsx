@@ -107,6 +107,7 @@ const MisArmarios = ({ darkmode }) => {
         // console.log(nombre);
         console.log(res.data);
         setArmarios(armarios.filter((h) => h.nombre !== nombre));
+        setModalEliminar(false);
       })
       .catch((error) => console.log(error));
   };
@@ -185,7 +186,13 @@ const MisArmarios = ({ darkmode }) => {
   const armariosLength = armarios.length;
   return (
     <div className={darkmode ? "Armarios-Dark" : "Armarios"}>
-      <h1>Mis armarios</h1>
+      <div className="tituloArmarios">
+        <h1>Mis armarios</h1>
+        <button
+          className="agregarMueble"
+          onClick={() => setModalAbierto(true)}
+        ></button>
+      </div>
       <div className="listaArmarios">
         {Object.entries(armariosGroupedByHabitacion).map(
           ([nombreHabitacion, armarios]) => (
@@ -210,7 +217,11 @@ const MisArmarios = ({ darkmode }) => {
                   ></button>
                 </div>
               ))}
-              <Modal className="modal" isOpen={modalEliminar}>
+              <Modal
+                className="modal"
+                isOpen={modalEliminar}
+                isClose={cerrarModal}
+              >
                 <h1>¿Estás seguro de que quieres eliminarlo?</h1>
                 <button onClick={() => eliminarArmario(nombreArmario)}>
                   Sí
@@ -223,7 +234,6 @@ const MisArmarios = ({ darkmode }) => {
       </div>
       {armariosLength === 0 && <h1>No tiene armarios </h1>}
       {/* //*CREAR ARMARIOS */}
-      <button onClick={() => setModalAbierto(true)}>Agregar Armario</button>
 
       <br />
       <br />

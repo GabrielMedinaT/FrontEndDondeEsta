@@ -154,7 +154,14 @@ const Habitaciones = ({ darkmode }) => {
 
   return (
     <div className={darkmode ? "Habitaciones-Dark" : "Habitaciones"}>
-      <h1>Habitaciones</h1>
+      <div className="cabeceraHabitaciones">
+        <h1>Habitaciones</h1>
+        <button
+          className="CrearHabitación"
+          onClick={abrirModalHabitacion}
+        ></button>
+      </div>
+
       {habitaciones.length === 0 && (
         <h1>No tiene habitaciones puede añadir una </h1>
       )}
@@ -208,7 +215,7 @@ const Habitaciones = ({ darkmode }) => {
           nombreHabitacion={habitacionAEliminar}
         />
       )}
-      <button onClick={abrirModalHabitacion}>Añadir habitación</button>
+
       {modalAbiertoHabitacion && (
         <Addhab
           modalAbiertoHabitacion={modalAbiertoHabitacion}

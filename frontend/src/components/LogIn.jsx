@@ -7,13 +7,16 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import Registro from "./Registro";
 import ModificarPass from "./ModificarPass";
-import "./LogIn.css";
+import "../pages/Home.css";
 
 const LogIn = () => {
   const [passwordError, setPasswordError] = useState("");
   const { gestionarLogIn } = useContext(AuthContext);
   const [showLogin, setShowLogin] = useState(true);
   const [verCambiar, setVerCambiar] = useState(true);
+  const [darkmode, setDarkmode] = useState(
+    localStorage.getItem("darkMode") === "true"
+  );
 
   const cambiarpass = () => {
     setVerCambiar(false);
@@ -67,15 +70,15 @@ const LogIn = () => {
   } = useForm();
 
   return (
-    <div className="principal">
-      <div className="present">
+    <div className={darkmode ? "principal-Dark" : "principal"}>
+      <div className={darkmode ? "present-Dark" : "present"}>
         <h1 className="titulo">Encuentra tus cosas en segundos con Where Is</h1>
         <h2 className="subtitulo">
           Crea tu propia base de datos de tu casa y organiza tus cosas como
           nunca antes
         </h2>
         <br />
-        <p className="descripcion">
+        <p className={darkmode ? "descripcion-Dark" : "descripcion"}>
           ¿Alguna vez has perdido algo en tu casa y no sabes por dónde empezar a
           buscar? Where is es la solución que estabas buscando. Con nuestra
           aplicación, podrás crear tu propia base de datos de tu casa y
