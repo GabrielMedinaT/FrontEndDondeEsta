@@ -29,8 +29,7 @@ const NavBar = () => {
   const [darkmode, setDarkmode] = useState(
     localStorage.getItem("darkMode") === "true"
   );
-  const [prueba, setPrueba] = useState(false);
-
+ 
   useEffect(() => {
     localStorage.setItem("darkMode", darkmode);
   }, [darkmode]);
@@ -395,7 +394,7 @@ const NavBar = () => {
           </ul>
         </div>
       )}
-
+      
       <Home
         mostrarDatos={{
           mostrarCasas: resultadoMostrarCasas,
