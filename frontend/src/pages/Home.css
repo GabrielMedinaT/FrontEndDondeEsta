@@ -426,7 +426,7 @@ li {
 .listaHabitaciones {
   display: flex;
   flex-wrap: wrap;
-  gap: 50px;
+  gap: 15vh;
   width: 100vw;
   justify-content: center;
   align-items: center;
@@ -619,6 +619,7 @@ h1 {
 }
 
 .armariosHabitacion {
+  gap: 5vh;
   display: flex;
   flex-direction: column;
   min-width: 50vh;

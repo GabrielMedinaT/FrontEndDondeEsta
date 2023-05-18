@@ -6,8 +6,7 @@ import { useEffect } from "react";
 import Home from "../pages/Home";
 import axios from "axios";
 import "./NavBar.css";
-import MisCasas from "./MisCasas";
-import LogIn from "./LogIn";
+
 
 const NavBar = () => {
   const navegar = useNavigate();
@@ -45,7 +44,6 @@ const NavBar = () => {
     setMostrarArmarios(false);
     setMostrarCajones(false);
     setMostrarCosas(false);
-
     contraerMenuDesplegable();
     setTimeout(() => {
       setResetAnimation(false);
@@ -63,7 +61,6 @@ const NavBar = () => {
     setMostrarArmarios(false);
     setMostrarCajones(false);
     setMostrarCosas(false);
-
     setResetAnimation(true);
     contraerMenuDesplegable();
     setTimeout(() => {
@@ -82,7 +79,6 @@ const NavBar = () => {
     setMostrarHabitacion(false);
     setMostrarCajones(false);
     setMostrarCosas(false);
-
     setResetAnimation(true);
     contraerMenuDesplegable();
     setTimeout(() => {
@@ -101,7 +97,6 @@ const NavBar = () => {
     setMostrarHabitacion(false);
     setMostrarArmarios(false);
     setMostrarCosas(false);
-
     setResetAnimation(true);
     contraerMenuDesplegable();
     setTimeout(() => {
@@ -120,10 +115,8 @@ const NavBar = () => {
     setMostrarHabitacion(false);
     setMostrarArmarios(false);
     setMostrarCajones(false);
-
     setResetAnimation(true);
     contraerMenuDesplegable();
-
     setTimeout(() => {
       setResetAnimation(false);
     }, 500);
@@ -190,7 +183,7 @@ const NavBar = () => {
     navegar("/");
   };
   const login = () => {
-    navegar("/");
+    navegar("/home");
   };
 
   const registro = () => {
@@ -394,7 +387,6 @@ const NavBar = () => {
           </ul>
         </div>
       )}
-      
       <Home
         mostrarDatos={{
           mostrarCasas: resultadoMostrarCasas,
