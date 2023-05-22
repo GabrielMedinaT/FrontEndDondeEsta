@@ -159,21 +159,22 @@ body {
   align-items: center;
   width: 90vw;
 }
-h1 {
-  font-size: 8vh;
-  margin-top: 5vh;
-  margin-bottom: 5vh;
+.h1Habitaciones {
+  font-size: 6vh;
 }
 .CrearHabitación {
-  background-image: url(../resources/images/además-de-un-botón-verde-icono-dibujos_csp50675695.webp);
+  background-image: url(../resources/images/agregar.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  width: 5px;
-  height: 5px;
   position: relative;
   border-radius: 50%;
-  transform: scaleX(0.6);
+  height: 5vh;
+  width: 5vh;
+  transition: all 0.5s ease-in-out;
+}
+.CrearHabitación:hover {
+  transform: scale(1.2);
 }
 .verLaCasa-Dark {
   margin-left: -10vh;
@@ -379,7 +380,10 @@ li {
 }
 /** HABITACIONES  */
 .carousel-container {
+  padding: 4vh;
   display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
   overflow: hidden;
   position: relative;
   width: 100vw;
@@ -426,7 +430,7 @@ li {
 .listaHabitaciones {
   display: flex;
   flex-wrap: wrap;
-  gap: 15vh;
+  gap: 10vh;
   width: 100vw;
   justify-content: center;
   align-items: center;
@@ -447,8 +451,8 @@ li {
   transition: transform 0.5s ease-in-out;
   cursor: pointer;
   flex: 0 0 auto;
-  width: 250px;
-  height: 200px;
+  width: 25vh;
+  height: 20vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -470,8 +474,8 @@ li {
   color: wheat;
   cursor: pointer;
   flex: 0 0 auto;
-  width: 250px;
-  height: 200px;
+  width: 25vh;
+  height: 20vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
