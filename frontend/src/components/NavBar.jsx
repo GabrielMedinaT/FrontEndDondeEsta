@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import Home from "../pages/Home";
 import axios from "axios";
+import Buscador from "./Buscador";
 import "./NavBar.css";
+
 
 
 const NavBar = () => {
@@ -18,16 +20,22 @@ const NavBar = () => {
   const [mostrarArmarios, setMostrarArmarios] = useState(false);
   const [mostrarCajones, setMostrarCajones] = useState(false);
   const [mostrarCosas, setMostrarCosas] = useState(false);
+  const [mostrarBuscador , setMostrarBuscador] = useState(false);
   const [resultadoMostrarCasas, setResultadoMostrarCasas] = useState(false);
   const [resultadoMostrarHabitacion, setResultadoMostrarHabitacion] =
     useState(false);
   const [resultadoMostrarArmario, setResultadoMostrarArmario] = useState(false);
   const [resultadoMostrarCajones, setResultadoMostrarCajones] = useState(false);
   const [resultadoMostrarCosas, setResultadoMostrarCosas] = useState(false);
+  const [resultadoMostrarBuscador , setResultadoMostrarBuscador] = useState(false);
   const [resetAnimation, setResetAnimation] = useState(false);
   const [darkmode, setDarkmode] = useState(
     localStorage.getItem("darkMode") === "true"
   );
+  const [query, setQuery] = useState('');
+  const [error, setError] = useState('');
+  const [loadingCosas, setLoadingCosas] = useState(false);
+  const [cosas, setCosas] = useState([]);
  
   useEffect(() => {
     localStorage.setItem("darkMode", darkmode);
@@ -37,6 +45,28 @@ const NavBar = () => {
     setDarkmode(!darkmode);
   };
 
+  const mostrarBuscadorFuncion = () => {
+    setMostrarBuscador(!mostrarBuscador);
+    setMostrarCasas(false);
+    setMostrarHabitacion(false);
+    setMostrarArmarios(false);
+    setMostrarCajones(false);
+    setMostrarCosas(false);
+
+    setResetAnimation(true);
+    setTimeout(() => {
+      setResetAnimation(false);
+    }, 500);
+    setResultadoMostrarBuscador(!mostrarBuscador);
+    setResultadoMostrarCasas(false);
+    setResultadoMostrarHabitacion(false);
+    setResultadoMostrarArmario(false);
+    setResultadoMostrarCajones(false);
+    setResultadoMostrarCosas(false);
+
+    contraerMenuDesplegable();
+  };
+
   const mostrarCasasFuncion = () => {
     setMostrarCasas(!mostrarCasas);
     setResetAnimation(true);
@@ -44,6 +74,7 @@ const NavBar = () => {
     setMostrarArmarios(false);
     setMostrarCajones(false);
     setMostrarCosas(false);
+    setMostrarBuscador(false);
     contraerMenuDesplegable();
     setTimeout(() => {
       setResetAnimation(false);
@@ -53,6 +84,7 @@ const NavBar = () => {
     setResultadoMostrarArmario(false);
     setResultadoMostrarCajones(false);
     setResultadoMostrarCosas(false);
+    setResultadoMostrarBuscador(false);
   };
 
   const mostrarHabitacionFuncion = () => {
@@ -62,6 +94,7 @@ const NavBar = () => {
     setMostrarCajones(false);
     setMostrarCosas(false);
     setResetAnimation(true);
+    setMostrarBuscador(false);
     contraerMenuDesplegable();
     setTimeout(() => {
       setResetAnimation(false);
@@ -71,6 +104,7 @@ const NavBar = () => {
     setResultadoMostrarArmario(false);
     setResultadoMostrarCajones(false);
     setResultadoMostrarCosas(false);
+    setResultadoMostrarBuscador(false);
   };
 
   const mostrarArmariosFuncion = () => {
@@ -80,6 +114,7 @@ const NavBar = () => {
     setMostrarCajones(false);
     setMostrarCosas(false);
     setResetAnimation(true);
+    setMostrarBuscador(false);
     contraerMenuDesplegable();
     setTimeout(() => {
       setResetAnimation(false);
@@ -89,10 +124,12 @@ const NavBar = () => {
     setResultadoMostrarHabitacion(false);
     setResultadoMostrarCajones(false);
     setResultadoMostrarCosas(false);
+    setResultadoMostrarBuscador(false);
   };
 
   const mostrarCajonesFuncion = () => {
     setMostrarCajones(!mostrarCajones);
+    setMostrarBuscador(false);
     setMostrarCasas(false);
     setMostrarHabitacion(false);
     setMostrarArmarios(false);
@@ -107,10 +144,12 @@ const NavBar = () => {
     setResultadoMostrarHabitacion(false);
     setResultadoMostrarArmario(false);
     setResultadoMostrarCosas(false);
+    setResultadoMostrarBuscador(false);
   };
 
   const mostrarCosasFuncion = () => {
     setMostrarCosas(!mostrarCosas);
+    setMostrarBuscador(false);
     setMostrarCasas(false);
     setMostrarHabitacion(false);
     setMostrarArmarios(false);
@@ -125,18 +164,17 @@ const NavBar = () => {
     setResultadoMostrarHabitacion(false);
     setResultadoMostrarArmario(false);
     setResultadoMostrarCajones(false);
+    setResultadoMostrarBuscador(false);
   };
 
-  const extraerDatosDeUsuario = (token) => {
-    const datos = localStorage.getItem("datosUsuario");
-    if (datos) {
-      const datosRecuperar = JSON.parse(datos);
-      return { userId: datosRecuperar.userId, nombre: datosRecuperar.nombre };
+  const extraerDatosDeUsuario = () => {
+    const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
+    if (datosRecuperar && datosRecuperar.token) {
+      return [datosRecuperar.token, datosRecuperar.userId];
     } else {
-      // navegar("/login");
+      // navigate("/");
     }
   };
-
   const verUsuario = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -202,9 +240,9 @@ const NavBar = () => {
 
   return (
     <div className={darkmode ? "darkmode" : "NavBar"}>
+      
       <div className={darkmode ? "BarraNavegacion-Dark" : "BarraNavegacion"}>
         <div className={darkmode ? "logo-Dark" : "Logo"}></div>
-
         <div className="Botones">
           {isLoggedIn ? (
             <>
@@ -236,6 +274,13 @@ const NavBar = () => {
                   </span>
                 </label>
               </div>
+              <button onClick={mostrarBuscadorFuncion}
+              className={
+                darkmode
+                  ? `VerUOcultar ${resetAnimation ? "reset-animation" : ""}`
+                  : `VerUOculta ${resetAnimation ? "reset-animation" : ""}`
+              }
+              >Buscar</button>
               <button
                 onClick={mostrarCasasFuncion}
                 className={
@@ -394,6 +439,7 @@ const NavBar = () => {
           mostrarArmarios: resultadoMostrarArmario,
           mostrarCajones: resultadoMostrarCajones,
           mostrarCosas: resultadoMostrarCosas,
+          mostrarBuscador: resultadoMostrarBuscador,
         }}
         darkmode={darkmode}
       />

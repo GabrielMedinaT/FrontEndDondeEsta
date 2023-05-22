@@ -25,7 +25,6 @@ function App() {
           <Routes>
             <Route path="/home" element={<Home />}></Route>
             <Route path="/" element={<LogIn />}></Route>
-            <Route path="/buscador" element={<Buscador />}></Route>
           </Routes>
         </Router>
       </div>

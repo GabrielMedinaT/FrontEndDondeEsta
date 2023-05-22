@@ -779,19 +779,109 @@ button:hover {
   align-items: center;
   margin-bottom: 20px;
 }
-.resultados {
-  background-color: yellow;
-  width: 40vh;
-  height: 40vh;
+/* *BUSCADOR */
+.contenedorBuscador {
+  margin-top: 10vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  flex-direction: row;
+  gap: 10vh;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100vh;
+  width: 90vw;
 }
+.contenedorBuscador-Dark {
+  margin-top: 10vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  flex-direction: row;
+  gap: 10vh;
+  align-items: flex-start;
+  justify-content: center;
+  height: 100vh;
+  width: 90vw;
+}
+
 .buscador {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: flex-start;
   margin-bottom: 20px;
-  margin-top: 20vh;
 }
+
+.buscador form {
+  display: flex;
+  align-items: center;
+}
+
+.buscador input[type="text"] {
+  padding: 10px;
+  border: solid 2px #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.buscador button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.resultados {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 10px;
+  border-radius: 54px;
+  background: linear-gradient(315deg, #f0f0f0, #cacaca);
+  box-shadow: -24px -24px 48px #bebebe, 24px 24px 48px #ffffff;
+}
+.resultados-Dark {
+  color: wheat;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 10px;
+  background-color: #282424;
+  border-radius: 50px;
+  background: linear-gradient(225deg, #282424, #211f1f);
+  box-shadow: -10px 10px 21px #1f1d1d, 10px -10px 21px #2b2727;
+  transition: 0.9s ease;
+}
+.resultados-Dark:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+  box-shadow: 0px 0px 25px 3px rgba(60, 96, 240, 0.45);
+}
+
+.resultados h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.resultados h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+.resultados-Dark h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.resultados-Dark h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.error-message {
+  font-size: 18px;
+  color: red;
+}
+
 @media screen and (max-width: 768px) {
   .miscasas {
     margin-top: 15vh;
