@@ -187,7 +187,7 @@ const MisArmarios = ({ darkmode }) => {
   return (
     <div className={darkmode ? "Armarios-Dark" : "Armarios"}>
       <div className="tituloArmarios">
-        <h1>Mis armarios</h1>
+        <h1 className="h1muebles">Mis muebles</h1>
         <button
           className="agregarMueble"
           onClick={() => setModalAbierto(true)}
@@ -245,6 +245,17 @@ const MisArmarios = ({ darkmode }) => {
             {...register("nombre", { required: true })}
           />
           {errors.nombre && <span>Este campo es obligatorio</span>}
+          <select {...register("casa", { required: true })}>
+            {isLoadingCasas ? (
+              <option>Cargando...</option>
+            ) : (
+              casas.map((casa) => (
+                <option key={casa.id} value={casa.id}>
+                  {casa.nombre}
+                </option>
+              ))
+            )}
+          </select>
           <select {...register("habitacion", { required: true })}>
             <option value="">Seleccione una habitación</option>
             {isLoadingHabitacion ? (
@@ -257,18 +268,7 @@ const MisArmarios = ({ darkmode }) => {
               ))
             )}
           </select>
-          <select {...register("casa", { required: true })}>
-            <option value="">Seleccione una casa</option>
-            {isLoadingCasas ? (
-              <option>Cargando...</option>
-            ) : (
-              casas.map((casa) => (
-                <option key={casa.id} value={casa.id}>
-                  {casa.nombre}
-                </option>
-              ))
-            )}
-          </select>
+
           <button onClick={addArmarios}>Añadir armario</button>
         </form>
         <button onClick={() => setModalAbierto(false)}>Cerrar</button>

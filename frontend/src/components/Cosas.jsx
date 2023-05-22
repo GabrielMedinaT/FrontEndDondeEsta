@@ -64,6 +64,7 @@ const Cosas = () => {
       )
       .then((res) => {
         console.log(res);
+        console.log(data.cajon);
         console.log(res.data);
         setLoadingCosas(false);
         setShouldReload(true); // actualizar la variable para que se recargue la lista de cosas
@@ -320,7 +321,7 @@ const Cosas = () => {
             <option>Loading...</option>
           ) : (
             filteredCajones.map((cajon) => (
-              <option key={cajon._id} value={cajon._id}>
+              <option key={cajon.id} value={cajon.id}>
                 {cajon.nombre}
               </option>
             ))

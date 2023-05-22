@@ -209,11 +209,11 @@ const NavBar = () => {
           {isLoggedIn ? (
             <>
               <div className="CambiarTema">
-                <label for="theme" class="theme">
-                  <span class="theme__toggle-wrap">
+                <label htmlFor="theme" className="theme">
+                  <span className="theme__toggle-wrap">
                     <input
                       id="theme"
-                      class="theme__toggle"
+                      className="theme__toggle"
                       type="checkbox"
                       role="switch"
                       name="theme"
@@ -221,17 +221,17 @@ const NavBar = () => {
                       checked={darkmode}
                       onChange={toggleDarkMode}
                     />
-                    {/* <span class="theme__fill"></span> */}
-                    <span class="theme__icon">
-                      <span class="theme__icon-part"></span>
-                      <span class="theme__icon-part"></span>
-                      <span class="theme__icon-part"></span>
-                      <span class="theme__icon-part"></span>
-                      <span class="theme__icon-part"></span>
-                      <span class="theme__icon-part"></span>
-                      <span class="theme__icon-part"></span>
-                      <span class="theme__icon-part"></span>
-                      <span class="theme__icon-part"></span>
+                    {/* <span className="theme__fill"></span> */}
+                    <span className="theme__icon">
+                      <span className="theme__icon-part"></span>
+                      <span className="theme__icon-part"></span>
+                      <span className="theme__icon-part"></span>
+                      <span className="theme__icon-part"></span>
+                      <span className="theme__icon-part"></span>
+                      <span className="theme__icon-part"></span>
+                      <span className="theme__icon-part"></span>
+                      <span className="theme__icon-part"></span>
+                      <span className="theme__icon-part"></span>
                     </span>
                   </span>
                 </label>

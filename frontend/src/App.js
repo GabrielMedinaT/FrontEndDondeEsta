@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LogIn from "./components/LogIn";
 import NavBar from "./components/NavBar";
 import Home from "./pages/Home";
+import Buscador from "./components/Buscador";
 import { AuthProvider } from "./context/AuthContext";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Routes>
             <Route path="/home" element={<Home />}></Route>
             <Route path="/" element={<LogIn />}></Route>
+            <Route path="/buscador" element={<Buscador />}></Route>
           </Routes>
         </Router>
       </div>

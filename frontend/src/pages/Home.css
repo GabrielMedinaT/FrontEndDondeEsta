@@ -143,15 +143,22 @@ body {
   transform: scaleX(0.6);
 }
 .agregarMueble {
-  background-image: url(../resources/images/además-de-un-botón-verde-icono-dibujos_csp50675695.webp);
+  background-image: url(../resources/images/agregar.png);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  width: 5px;
-  height: 5px;
+  width: 5vh;
+  height: 5vh;
   position: relative;
   border-radius: 50%;
-  transform: scaleX(0.6);
+  transition: all 0.3s ease-in-out;
+}
+
+.agregarMueble:hover {
+  transform: scale(0.95);
+}
+.h1muebles {
+  font-size: 6vh;
 }
 .cabeceraHabitaciones {
   display: flex;
@@ -771,6 +778,19 @@ button:hover {
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+}
+.resultados {
+  background-color: yellow;
+  width: 40vh;
+  height: 40vh;
+}
+.buscador {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 20vh;
 }
 @media screen and (max-width: 768px) {
   .miscasas {
