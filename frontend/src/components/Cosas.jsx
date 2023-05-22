@@ -3,9 +3,10 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
+import Modal from "react-modal";
 import "../components/Cosas.css";
 
-const Cosas = () => {
+const Cosas = ({darkmode}) => {
   const [cosas, setCosas] = useState([]);
   const [isLoadingCosas, setLoadingCosas] = useState(false);
   const [isLoadingArmarios, setIsLoadingArmarios] = useState(false);
@@ -19,6 +20,14 @@ const Cosas = () => {
   const [isLoadingCasas, setIsLoadingCasas] = useState(false);
   const [casas, setCasas] = useState([]);
   const [cajones, setCajones] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const abrirModal = () => {
+    setModalIsOpen(true);
+  };
+  const cerrarModal = () => {
+    setModalIsOpen(false);
+  };
   const handleHabitacionChange = (event) => {
     setSelectedHabitacion(event.target.value);
   };
@@ -34,6 +43,30 @@ const Cosas = () => {
     (cajon) =>
       cajon.nombreArmario === selectedArmario && cajon.nombreCajon !== ""
   );
+  const modalStyles = {
+    overlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "rgba(0, 0, 0, 0.75)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 9999, // Asegúrate de que el valor del zIndex sea mayor que cualquier otro elemento en la página
+    },
+    content: {
+      position: "absolute",
+      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)",
+      borderRadius: "4px",
+      backgroundColor: "#fff",
+      padding: "20px",
+      maxWidth: "500px",
+      margin: "0 auto",
+      zIndex: 99999, // Asegúrate de que el valor del zIndex sea mayor que cualquier otro elemento en la página
+    },
+  };
 
   const {
     register,
@@ -239,7 +272,11 @@ const Cosas = () => {
       </div>
       {/* AÑADIR COSAS  */}
       <h1>Cosas</h1>
-
+      <button onClick={abrirModal}>Agregar Cosas</button>
+        <Modal
+          style={modalStyles}
+          isOpen={modalIsOpen}
+        >
       <form action="" onSubmit={handleSubmit(gestorFormulario)}>
         <input
           type="text"
@@ -253,6 +290,13 @@ const Cosas = () => {
           name="descripcion"
         >
           <option value="">Selecciona una descripción</option>
+          <option value="Electronica">Electronica</option>
+          <option value="Personal">Personal</option>
+          <option value="Hogar">Hogar</option>
+          <option value="Oficina">Oficina</option>
+          <option value="Deporte">Deporte</option>
+          <option value="Mascotas">Mascotas</option>
+          
           <option value="Herramienta">Herramienta</option>
           <option value="Escolar">Escolar</option>
           <option value="Informática">Informática</option>
@@ -278,7 +322,6 @@ const Cosas = () => {
           <option value="Normal">Normal</option>
         </select>
         <select {...register("casa", { required: true })}>
-          <option value="">Seleccione una casa</option>
           {isLoadingCasas ? (
             <option>Cargando...</option>
           ) : (
@@ -329,7 +372,9 @@ const Cosas = () => {
         </select>
 
         <button>Añadir</button>
+        <button onClick={cerrarModal}>Cerrar</button>
       </form>
+      </Modal>
     </div>
   );
 };

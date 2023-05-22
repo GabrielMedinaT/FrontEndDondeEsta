@@ -86,7 +86,7 @@ const Home = ({ mostrarDatos, darkmode }) => {
         )}
         {mostrarCosas && (
           <div className="VerLasCosas">
-            {isLoadingCosas ? <div>Cargando cosas...</div> : <Cosas  darkmode = {darkmode} />}
+            {isLoadingCosas ? <div>Cargando cosas...</div> : <Cosas  darkmode = {darkmode}  />}
           </div>
         )}
       </div>
