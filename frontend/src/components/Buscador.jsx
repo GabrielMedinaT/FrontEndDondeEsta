@@ -75,7 +75,7 @@ const Buscador = ({darkmode}) => {
         setLoadingCosas(false);
         setTimeout(() => {
 
-        setError('Hubo un problema con la búsqueda');
+        setError('No se han encontrado resultados');
         }, 2000);
         
       }
