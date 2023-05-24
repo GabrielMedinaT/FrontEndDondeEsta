@@ -1,0 +1,46 @@
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+.NavBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: rgb(240, 10, 10);
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ddd;
+  height: 100vh;
+  width: 2.5vw;
+  transition: all 0.9s ease-in-out;
+}
+.NavBar:hover {
+  background-color: rgb(10, 10, 240);
+}
+/* hacer que se agrande en el eje x */
+
+.X {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  background-color: green;
+  height: 100vh;
+  width: 5vw;
+  /* z-index: -1; */
+  transition: transform 0.3s ease-in-out;
+}
+
+.X:hover {
+  transform: scaleX(5.2);
+}
+.X:hover > h1 {
+  transform: scaleX(0.1);
+}
+.MenuDesplegable {
+  display: none;
+}
