@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import Home from "../pages/Home";
 import axios from "axios";
 import Buscador from "./Buscador";
-import "./NavBar.css";
+
 
 
 
@@ -241,7 +241,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className={darkmode ? "darkmode" : "NavBar"}>
+    <div className={darkmode ? "NavBar-Dark" : "NavBar"}>
       
       <div className={darkmode ? "BarraNavegacion-Dark" : "BarraNavegacion"}>
         <div className={darkmode ? "logo-Dark" : "Logo"}></div>

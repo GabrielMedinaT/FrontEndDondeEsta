@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
-import "../components/Cosas.css";
+
 
 const Cosas = ({darkmode}) => {
   const [cosas, setCosas] = useState([]);

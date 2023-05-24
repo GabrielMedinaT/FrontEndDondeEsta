@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import "../components/Addcasa.css";
+
 
 const Addcasa = () => {
   const { t } = useTranslation("global");

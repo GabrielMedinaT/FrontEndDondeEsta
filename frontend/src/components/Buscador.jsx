@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
-import "../pages/Home.css";
+
 import { useNavigate } from 'react-router-dom';
 
 const Buscador = ({darkmode}) => {

@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
-import "./ConfirmacionModal.css";
+
 
 const modalStyles = {
   overlay: {

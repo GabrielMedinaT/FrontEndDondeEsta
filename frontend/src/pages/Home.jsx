@@ -5,7 +5,7 @@ import Cajones from "../components/Cajones";
 import Cosas from "../components/Cosas";
 import MisCasas from "../components/MisCasas";
 import Buscador from "../components/Buscador";
-import "./Home.css";
+
 
 const Home = ({ mostrarDatos, darkmode }) => {
   const {

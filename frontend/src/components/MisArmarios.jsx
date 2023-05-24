@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
-import "../pages/Home.css";
+
 import Modal from "react-modal";
 
 const MisArmarios = ({ darkmode }) => {

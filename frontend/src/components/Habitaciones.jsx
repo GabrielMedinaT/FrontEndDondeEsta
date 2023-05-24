@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../pages/Home.css";
 import { useForm } from "react-hook-form";
 import ConfirmacionModalHabitacion from "./ConfirmacionModalHabitacion";
 import Addhab from "./Addhab";

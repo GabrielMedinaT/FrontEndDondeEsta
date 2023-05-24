@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import "./Cajones.css";
+
 
 export const Cajones = () => {
   const [cajones, setCajones] = useState([]);

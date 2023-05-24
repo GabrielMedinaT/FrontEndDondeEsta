@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import Registro from "./Registro";
 import ModificarPass from "./ModificarPass";
-import "../pages/Home.css";
+
 
 const LogIn = () => {
   const [passwordError, setPasswordError] = useState("");
