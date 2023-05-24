@@ -73,7 +73,11 @@ const Buscador = ({darkmode}) => {
       } catch (error) {
         console.log(error);
         setLoadingCosas(false);
+        setTimeout(() => {
+
         setError('Hubo un problema con la búsqueda');
+        }, 2000);
+        
       }
     }
   };
@@ -90,7 +94,7 @@ return (
     <div className='buscador'>
       <form onSubmit={handleSubmit}>
         <input placeholder='Introduce término a buscar' type="text" value={query} onChange={handleChange} />
-        <button type="submit">Buscar</button>
+        <button className='botonBuscar' type="submit">Buscar</button>
       </form>
     </div>
     {cosas.length > 0 ? (
