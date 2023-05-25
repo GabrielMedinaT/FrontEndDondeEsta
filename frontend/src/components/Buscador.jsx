@@ -85,7 +85,7 @@ const Buscador = ({darkmode}) => {
   const addRecentSearch = (searchQuery) => {
     setBusquedasRecientes(prevBusquedas => [searchQuery, ...prevBusquedas.slice(0, 6)]);
   };
-  console.log(busquedasRecientes)
+  
 
  
 

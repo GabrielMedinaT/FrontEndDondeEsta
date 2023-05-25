@@ -6,33 +6,105 @@
   box-sizing: border-box;
   text-decoration: none;
 }
+.Botones {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(217, 217, 217);
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ddd;
+  height: 10vh;
+  width: 19vw;
+
+  transition: all 0.9s ease-in-out;
+}
 .NavBar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: flex-start;
-  background-color: rgb(240, 10, 10);
+  align-items: center;
+  background-color: rgb(217, 217, 217);
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ddd;
+  height: 10vh;
+  width: 100vw;
+  transition: all 0.9s ease-in-out;
+}
+.BarraNavegacion {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(217, 217, 217);
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ddd;
+  height: 10vh;
+  width: 100vw;
+  transition: all 0.9s ease-in-out;
+}
+.botonlogin {
+  margin: 10px 10px 10px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1vw;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.lateral {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(217, 217, 217);
   padding: 0.5rem 1rem;
   border-bottom: 1px solid #ddd;
   height: 100vh;
-  width: 2.5vw;
+  width: 5vw;
   transition: all 0.9s ease-in-out;
 }
-.NavBar:hover {
-  background-color: rgb(10, 10, 240);
-}
-/* hacer que se agrande en el eje x */
-
-.X {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  background-color: green;
+.lateral-Dark {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(0, 0, 0);
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ddd;
   height: 100vh;
   width: 5vw;
-  /* z-index: -1; */
-  transition: transform 0.3s ease-in-out;
+  transition: all 0.9s ease-in-out;
+}
+.lateral-ext {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: -5vh;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(9, 214, 57);
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #ddd;
+  height: 100vh;
+  width: 15vw;
+  transition: all 0.9s ease-in-out;
+  z-index: -1;
+}
+.lateral:hover > .lateral-ext {
+  transform: translateX(5vh);
+  transition: all 0.9s ease-in-out;
+  background-color: rgb(9, 23, 214);
+}
+.lateral-ext:hover {
+  transform: translateX(5vh);
+  transition: all 0.9s ease-in-out;
+  background-color: rgb(9, 23, 214);
 }
 
 .X:hover {
@@ -43,4 +115,91 @@
 }
 .MenuDesplegable {
   display: none;
+}
+
+.verCasa {
+  background-image: url("../resources/images/casaIcono.png");
+  background-repeat: no-repeat;
+  background-size: 90% 90%;
+  width: 2vw;
+  height: 2vw;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background-color: rgb(217, 217, 217);
+}
+
+/** --------------------------------MENÚ HAMBURGUESA--------------------------------- */
+.MenuHamburguesa {
+  display: none;
+}
+
+.MenuDesplegable {
+  display: none;
+}
+
+.MenuDesplegable--activo {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #ffffff;
+  z-index: 999;
+  width: 100%;
+}
+
+.MenuDesplegable ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.MenuDesplegable li {
+  display: block;
+  padding: 10px;
+  border-bottom: 1px solid #dddddd;
+}
+
+.MenuDesplegable li:last-of-type {
+  border-bottom: none;
+}
+
+.MenuDesplegable a {
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+.MenuDesplegable a:hover {
+  text-decoration: underline;
+}
+@media only screen and (max-width: 768px) {
+  .BarraNavegacion {
+    justify-content: space-between;
+    max-width: 100vw;
+    padding: 10px;
+  }
+
+  .Botones {
+    display: none;
+  }
+
+  .MenuHamburguesa {
+    display: block;
+    font-size: 24px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .MenuDesplegable {
+    top: 70px;
+    left: 0;
+    background-color: #ffffff;
+    z-index: 999;
+    width: 100%;
+  }
+
+  .MenuDesplegable--activo {
+    display: block;
+  }
 }

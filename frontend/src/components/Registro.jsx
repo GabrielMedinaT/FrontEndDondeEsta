@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import emailJS from "emailjs-com";
+import "./Registro.css"
 
 const Alta = () => {
   const [showVerificationInput, setShowVerificationInput] = useState(false);
@@ -65,7 +66,6 @@ const Alta = () => {
       <div className="title">
         <h1>Crear cuenta</h1>
       </div>
-      <br />
       <form onSubmit={handleSubmit(gestorFormulario)}>
         <div className="user-details">
           <div className="input-box">

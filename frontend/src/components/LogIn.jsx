@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import Registro from "./Registro";
 import ModificarPass from "./ModificarPass";
+import "./Login.css";
 
 
 const LogIn = () => {
@@ -154,8 +155,7 @@ const LogIn = () => {
         ) : (
           <div className="formulario">
             <Registro />
-            <br />
-            <br />
+
             <button onClick={toggleForm}>Log in</button>
           </div>
         )}
