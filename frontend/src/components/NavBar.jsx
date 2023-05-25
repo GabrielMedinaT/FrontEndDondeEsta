@@ -254,7 +254,7 @@ const NavBar = () => {
   const contraerMenuDesplegable = () => {
     setMenuDesplegable(false);
   };
-  console.log(nombreUsuario);
+  
 
   return (
     <div className="NavBarSuperior">
@@ -263,7 +263,7 @@ const NavBar = () => {
       <div className={isExpanded ? "lateral-expandido" : "lateral"}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}>    
-        <div className="CambiarTema">
+        <div className="cambiarTema">
           <label htmlFor="theme" className="theme">
             <span className="theme__toggle-wrap">
               <input
@@ -291,18 +291,33 @@ const NavBar = () => {
           </label>
         </div>
         <button
-            className={`VerUOcultar ${resetAnimation ? "reset-animation" : ""}`}
+        id="iconosBarraLateral"
+            className={`verUsuario ${resetAnimation ? "reset-animation" : ""}`}
             onClick={() => casas()}
           >
-             {nombreUsuario}
+             
           </button>
+          {isExpanded ? (<div className="textoLateralExpandido">
+            <h1>{nombreUsuario}</h1>
+            <h1>Buscar</h1>
+            <h1>{setResultadoMostrarCasas? "Ver casa":"Ocultar casa"}</h1>
+            <h1>Habitacion</h1>
+            <h1>Mueble</h1>
+            <h1>Cajon</h1>
+            <h1>Ver Cosas</h1>
+            <h1>Logout</h1>
+            
+          </div>):(null)}
           <button
+          id="iconosBarraLateral"
             onClick={mostrarBuscadorFuncion}
-            className="BuscarVerUOcultar"
+            className="verBuscar"
           >
-            Buscar
+           
           </button>
+          
           <button
+          id="iconosBarraLateral"
             onClick={mostrarCasasFuncion}
             className={`verCasa ${
               darkmode ? "reset-animation" : ""
@@ -311,48 +326,49 @@ const NavBar = () => {
             
           </button>
           <button
+          id="iconosBarraLateral"
             onClick={mostrarHabitacionFuncion}
-            className={`VerUOcultar ${
+            className={`verHabitacion ${
               darkmode ? "reset-animation" : ""
             }`}
           >
-            {mostrarHabitacion ? "Ocultar Habitaciones" : "Ver Habitaciones"}
+            
           </button>
           <button
+          id="iconosBarraLateral"
             onClick={mostrarArmariosFuncion}
-            className={`VerUOcultar ${
+            className={`verMueble ${
               darkmode ? "reset-animation" : ""
             }`}
           >
-            {mostrarArmarios ? "Ocultar Mueble" : "Ver Mueble"}
+            
           </button>
           <button
+          id="iconosBarraLateral"
             onClick={mostrarCajonesFuncion}
-            className={`VerUOcultar ${
+            className={`verCajones ${
               darkmode ? "reset-animation" : ""
             }`}
           >
-            {mostrarCajones ? "Ocultar Cajones" : "Ver Cajones"}
+            
           </button>
           <button
+          id="iconosBarraLateral"
             onClick={mostrarCosasFuncion}
-            className={`VerUOcultar ${
+            className={`verCosas ${
               darkmode ? "reset-animation" : ""
             }`}
           >
-            {mostrarCosas ? "Ocultar Cosas" : "Ver Cosas"}
+            
           </button>
 
           <button
-            className={`btn ${resetAnimation ? "reset-animation" : ""}`}
+          id="iconosBarraLateral"
+            className={`verSalir ${resetAnimation ? "reset-animation" : ""}`}
             onClick={Logout}
           >
-            <div className="sign">
-              <svg viewBox="0 0 512 512">
-                <path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path>
-              </svg>
-            </div>
-            <div className="text">Logout</div>
+
+            
           </button>
       </div>
     </>
