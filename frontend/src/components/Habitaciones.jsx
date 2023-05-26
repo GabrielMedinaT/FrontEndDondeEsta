@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import ConfirmacionModalHabitacion from "./ConfirmacionModalHabitacion";
 import Addhab from "./Addhab";
 import Modal from "react-modal";
+import "./Habitaciones.css";
 
 const Habitaciones = ({ darkmode }) => {
   const [habitaciones, setHabitaciones] = useState([]);
@@ -193,18 +194,7 @@ const Habitaciones = ({ darkmode }) => {
             ))}
           </div>
         </div>
-        <button
-          className="carousel-button carousel-button-left"
-          onClick={() => slide(10)}
-        >
-          ◀
-        </button>
-        <button
-          className="carousel-button carousel-button-right"
-          onClick={() => slide(-10)}
-        >
-          ▶
-        </button>
+
       </div>
       {modalAbierto && (
         <ConfirmacionModalHabitacion

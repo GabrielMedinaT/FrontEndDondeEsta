@@ -8,6 +8,8 @@ body {
 }
 html {
   background-image: url(./resources/images/fondoWeb.jpg);
+  background-repeat: repeat;
+  background-size: 20%;
 }
 
 code {

@@ -1,0 +1,65 @@
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+.Habitaciones {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+  height: 75vh;
+  margin-top: -20vh;
+}
+.listaHabitaciones {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0 auto;
+  gap: 5vh;
+}
+.habitacionConcreta {
+  background: rgba(116, 201, 253, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(12.5px);
+  -webkit-backdrop-filter: blur(12.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  width: 15vw;
+  height: 20vh;
+  transition: all 0.5s ease;
+}
+.habitacionConcreta:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+h2:hover {
+  cursor: pointer;
+}
+.cabeceraHabitaciones {
+  margin-bottom: 15vh;
+  background: rgba(116, 201, 253, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(12.5px);
+  -webkit-backdrop-filter: blur(12.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  width: 15vw;
+  height: 10vh;
+}
+.CrearHabitación {
+  background-image: url(../resources/images/agregar.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 1vw;
+  height: 4vh;
+  border-radius: 50%;
+}
