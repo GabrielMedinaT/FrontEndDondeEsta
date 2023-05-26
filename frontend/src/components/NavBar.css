@@ -8,19 +8,19 @@
 }
 .app {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: rgb(217, 217, 217);
   height: 100vh;
-  width: 100vw;
+  width: 80vw;
   transition: all 0.9s ease-in-out;
 }
 .NavbarSuperior {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: start;
-  align-items: flex-start;
+  align-items: center;
   background-color: rgb(217, 217, 217);
   padding: 0.5rem 1rem;
   border-bottom: 1px solid #ddd;
@@ -101,10 +101,32 @@
   height: 100vh;
   background-color: rgb(179, 179, 179);
   transition: width 1s ease;
-
   transition: width 1s ease;
   height: 100vh;
   width: 200px;
+}
+
+.lateral:hover {
+  width: 200px;
+}
+
+.MenuDesplegable {
+  display: none;
+}
+.textoDeIconos {
+  opacity: 0;
+  color: black;
+  position: relative;
+  margin-left: 3vw;
+  width: 10vw;
+  white-space: nowrap;
+  text-align: left;
+  transition: all 0.9s ease-in-out;
+}
+
+.iconosBarraLateral:hover .textoDeIconos {
+  background-color: #4f46e5;
+  opacity: 1;
 }
 #iconosBarraLateral {
   position: relative;
@@ -113,86 +135,8 @@
   margin-bottom: 4vh;
   transition: all 0.9s ease-in-out;
 }
-
-.lateral:hover {
-  width: 200px;
-}
-
-.lateral:hover .texto-mostrado {
+.lateral-expandido:hover .textoDeIconos {
   opacity: 1;
-}
-
-.reset-animation {
-  animation: none !important;
-}
-.textoMenu {
-  position: absolute;
-  top: 12vh;
-  left: 5vw;
-}
-.textoLateralExpandido {
-  position: absolute;
-  text-align: left;
-  top: 13vh;
-  left: 5vw;
-  margin-bottom: 2vh;
-  opacity: 0;
-  transform: translateY(-10px);
-  animation: fadeSlideIn 0.6s ease-in-out forwards;
-}
-.lateral-expandido:hover .textoLateralExpandido {
-  animation: fadeSlideOut 0.3s ease-in-out forwards;
-}
-
-@keyframes fadeSlideIn {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeSlideOut {
-  0% {
-    opacity: 0;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(-10px);
-  }
-}
-.textoLateralExpandido h1 {
-  margin-bottom: 5.4vh;
-  transition: all 0.9s ease-in-out;
-}
-.textoLateralExpandido h1:hover {
-  cursor: pointer;
-}
-
-@keyframes slideInRight {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes slideOutRight {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(100%);
-  }
-}
-
-.MenuDesplegable {
-  display: none;
 }
 
 .verCasa {
@@ -205,12 +149,8 @@
   border: none;
   cursor: pointer;
   background-color: rgb(217, 217, 217);
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin: 1vh;
-  margin-bottom: 4vh;
 }
+
 .verHabitacion {
   background-image: url("../resources/images/cosas-de-la-casa.png");
   background-repeat: no-repeat;
@@ -287,6 +227,13 @@
   border: none;
   cursor: pointer;
   background-color: rgb(217, 217, 217);
+}
+.principalSuperiorHome {
+  position: absolute;
+
+  top: 25vh;
+  left: 15vw;
+  width: 75%;
 }
 
 /** --------------------------------MENÚ HAMBURGUESA--------------------------------- */

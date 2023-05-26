@@ -295,17 +295,17 @@ const NavBar = () => {
             className={`verUsuario ${resetAnimation ? "reset-animation" : ""}`}
             onClick={() => casas()}
           >
-             
+             <h3 className="textoDeIconos">{nombreUsuario}</h3>
           </button>
           {isExpanded ? (<div className="textoLateralExpandido">
-            <h1>{nombreUsuario}</h1>
+            {/* <h1>{nombreUsuario}</h1>
             <h1>Buscar</h1>
             <h1>{setResultadoMostrarCasas? "Ver casa":"Ocultar casa"}</h1>
             <h1>Habitacion</h1>
             <h1>Mueble</h1>
             <h1>Cajon</h1>
             <h1>Ver Cosas</h1>
-            <h1>Logout</h1>
+            <h1>Logout</h1> */}
             
           </div>):(null)}
           <button
@@ -313,7 +313,7 @@ const NavBar = () => {
             onClick={mostrarBuscadorFuncion}
             className="verBuscar"
           >
-           
+           <h3 className="textoDeIconos">Buscar</h3>
           </button>
           
           <button
@@ -323,8 +323,9 @@ const NavBar = () => {
               darkmode ? "reset-animation" : ""
             }`}
           >
-            
+             <h3 className="textoDeIconos">Casa</h3>
           </button>
+          
           <button
           id="iconosBarraLateral"
             onClick={mostrarHabitacionFuncion}
@@ -332,7 +333,7 @@ const NavBar = () => {
               darkmode ? "reset-animation" : ""
             }`}
           >
-            
+            <h3 className="textoDeIconos">Habitaciones</h3>
           </button>
           <button
           id="iconosBarraLateral"
@@ -341,7 +342,7 @@ const NavBar = () => {
               darkmode ? "reset-animation" : ""
             }`}
           >
-            
+             <h3 className="textoDeIconos">Muebles</h3>
           </button>
           <button
           id="iconosBarraLateral"
@@ -350,7 +351,7 @@ const NavBar = () => {
               darkmode ? "reset-animation" : ""
             }`}
           >
-            
+            <h3 className="textoDeIconos">Cajones</h3>
           </button>
           <button
           id="iconosBarraLateral"
@@ -359,7 +360,7 @@ const NavBar = () => {
               darkmode ? "reset-animation" : ""
             }`}
           >
-            
+             <h3 className="textoDeIconos">Cosas</h3>
           </button>
 
           <button
@@ -367,7 +368,7 @@ const NavBar = () => {
             className={`verSalir ${resetAnimation ? "reset-animation" : ""}`}
             onClick={Logout}
           >
-
+             <h3 className="textoDeIconos">Salir</h3>
             
           </button>
       </div>

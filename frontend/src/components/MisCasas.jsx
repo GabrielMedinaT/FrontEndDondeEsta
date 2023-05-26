@@ -2,17 +2,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Modal from "react";
 import { useNavigate } from "react-router-dom";
-
 import { AuthContext } from "../context/AuthContext";
 import Addcasa from "./Addcasa";
-
 import ConfirmacionModal from "./ConfirmacionModal";
+import "./MisCasas.css";
+
 
 const MisCasas = ({ darkmode }) => {
   const [casas, setCasas] = useState([]);
   const [mostrar, setMostrar] = useState(true);
   const [modalAbierto, setModalAbierto] = useState(false);
   const [casaId, setCasaId] = useState(null);
+  const [isLoadingCasas, setIsLoadingCasas] = useState(true);
 
   const mostrarModal = (id) => {
     setCasaId(id);
@@ -60,6 +61,7 @@ const MisCasas = ({ darkmode }) => {
         }
       );
       setCasas(response.data);
+      setIsLoadingCasas(false);
     } catch (error) {}
   };
   //*ELIMINAR CASA
@@ -89,26 +91,18 @@ const MisCasas = ({ darkmode }) => {
     <div className={darkmode ? "miscasas-Dark" : "miscasas"}>
       <div className={darkmode ? "imagenCasa-Dark" : "imagenCasa"}></div>
       <div className="casas">
+        {isLoadingCasas && (<div className="arc"></div>
+        )}
+
+              
         <ul className="casasLista">
-          {casasLength === 0 && (
-            <li>
-              <h1>
-                No tienes casas añadidas, añade una con el siguiente formulario
-              </h1>
-              <button onClick={() => mostrarBoton()}>Agregar</button>
-              {mostrar === false && (
-                <div>
-                  <Addcasa />
-                </div>
-              )}
-            </li>
-          )}
           {casas &&
             casas.length > 0 &&
             casas.map((casa) => (
               <li key={casa._id}>
-                <h1>Mi casa</h1>
+                
                 <div className="misCasas">
+                <h1>Mi casa</h1>
                   <div className="casasExistentes">
                     <div className="CasaConcreta">
                       <h1>Nombre de la casa : {casa.nombre}</h1>{" "}
