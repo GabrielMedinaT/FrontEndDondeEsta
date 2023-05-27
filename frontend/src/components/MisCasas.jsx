@@ -15,10 +15,7 @@ const MisCasas = ({ darkmode }) => {
   const [modalAgregar, setModalAgregar] = useState(false);
 
   const abrirModalCasas = () => {
-    setModalAgregar(true);
-  };
-  const cerrarModalCasas = () => {
-    setModalAgregar(false);
+    setModalAgregar(!setModalAgregar);
   };
 
   const mostrarModal = (id) => {
@@ -131,6 +128,7 @@ const MisCasas = ({ darkmode }) => {
             <div className="agregarCasa">
               <h1>Agregue la casa</h1>
               <button onClick={abrirModalCasas}>Añadir</button>
+              <Addcasa />
             </div>
           </>
         ) : (
@@ -170,13 +168,6 @@ const MisCasas = ({ darkmode }) => {
                             <button className="botonNo" onClick={cerrarModal}>
                               No
                             </button>
-                          </Modal>
-
-                          <Modal
-                            isOpen={modalAgregar}
-                            onClose={cerrarModalCasas}
-                            style={modalStyles}>
-                            <Addcasa modalAgregar={modalAgregar} />
                           </Modal>
                         </div>
                       </div>
