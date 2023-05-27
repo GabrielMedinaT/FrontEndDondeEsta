@@ -157,7 +157,7 @@ const Habitaciones = ({ darkmode }) => {
       <div className="cabeceraHabitaciones">
         <h1 className="h1Habitaciones">Habitaciones</h1>
         <button
-          className="CrearHabitación"
+          className="Crear"
           onClick={abrirModalHabitacion}
         ></button>
       </div>

@@ -55,11 +55,22 @@ h2:hover {
   width: 15vw;
   height: 10vh;
 }
-.CrearHabitación {
+.Crear {
   background-image: url(../resources/images/agregar.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   width: 1vw;
   height: 4vh;
   border-radius: 50%;
+}
+.eliminarHabitacion {
+  background-image: url(../resources/images/eliminar.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 1vw;
+  height: 4vh;
+  border-radius: 50%;
+  position: absolute;
+  top: 15vh;
+  left: 6.5vw;
 }
