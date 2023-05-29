@@ -38,6 +38,10 @@
 .misCasas:hover {
   transform: scale(1.1);
   cursor: pointer;
+  -webkit-box-shadow: 0px 0px 230px 133px rgba(116, 201, 253, 0.48);
+  -moz-box-shadow: 0px 0px 230px 133px rgba(116, 201, 253, 0.48);
+  box-shadow: 0px 0px 230px 133px rgba(116, 201, 253, 0.48);
+  border: rgba(116, 201, 253, 0.2) solid 4px;
 }
 .eliminarCasa {
   background-color: transparent;

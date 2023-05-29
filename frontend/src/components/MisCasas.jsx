@@ -138,10 +138,9 @@ const MisCasas = ({ darkmode }) => {
               casas.map((casa) => (
                 <li key={casa._id}>
                   <div className="misCasas">
-                    <h1>Mi casa</h1>
                     <div className="casasExistentes">
                       <div className="CasaConcreta">
-                        <h1>Nombre de la casa : {casa.nombre}</h1>{" "}
+                        <h1>Nombre : {casa.nombre}</h1> <br />
                         <h1>Ciudad : {casa.ciudad} </h1>
                       </div>
                       <div className="botones">
