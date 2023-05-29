@@ -225,9 +225,15 @@
 }
 .principalSuperiorHome {
   position: absolute;
-
-  top: 25vh;
-  left: 15vw;
+  top: 15vh;
+  left: 12vw;
+  width: 75%;
+  border: #444 1px solid;
+}
+.VerLaHabitacion {
+  position: absolute;
+  top: 4vh;
+  left: 12vw;
   width: 75%;
 }
 

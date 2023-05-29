@@ -8,9 +8,6 @@ import axios from "axios";
 import Buscador from "./Buscador";
 import "./NavBar.css";
 
-
-
-
 const NavBar = () => {
   const navegar = useNavigate();
   const { gestionarLogOut, isLoggedIn } = useContext(AuthContext);
@@ -21,20 +18,21 @@ const NavBar = () => {
   const [mostrarArmarios, setMostrarArmarios] = useState(false);
   const [mostrarCajones, setMostrarCajones] = useState(false);
   const [mostrarCosas, setMostrarCosas] = useState(false);
-  const [mostrarBuscador , setMostrarBuscador] = useState(false);
+  const [mostrarBuscador, setMostrarBuscador] = useState(false);
   const [resultadoMostrarCasas, setResultadoMostrarCasas] = useState(false);
   const [resultadoMostrarHabitacion, setResultadoMostrarHabitacion] =
     useState(false);
   const [resultadoMostrarArmario, setResultadoMostrarArmario] = useState(false);
   const [resultadoMostrarCajones, setResultadoMostrarCajones] = useState(false);
   const [resultadoMostrarCosas, setResultadoMostrarCosas] = useState(false);
-  const [resultadoMostrarBuscador , setResultadoMostrarBuscador] = useState(false);
+  const [resultadoMostrarBuscador, setResultadoMostrarBuscador] =
+    useState(false);
   const [resetAnimation, setResetAnimation] = useState(false);
   const [darkmode, setDarkmode] = useState(
     localStorage.getItem("darkMode") === "true"
   );
-  const [query, setQuery] = useState('');
-  const [error, setError] = useState('');
+  const [query, setQuery] = useState("");
+  const [error, setError] = useState("");
   const [loadingCosas, setLoadingCosas] = useState(false);
   const [cosas, setCosas] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -109,10 +107,10 @@ const NavBar = () => {
       setResetAnimation(false);
     }, 500);
     setResultadoMostrarHabitacion(!mostrarHabitacion);
-    setResultadoMostrarCasas(false);
-    setResultadoMostrarArmario(false);
-    setResultadoMostrarCajones(false);
-    setResultadoMostrarCosas(false);
+    // setResultadoMostrarCasas(false);
+    // setResultadoMostrarArmario(false);
+    // setResultadoMostrarCajones(false);
+    // setResultadoMostrarCosas(false);
     setResultadoMostrarBuscador(false);
   };
 
@@ -183,13 +181,13 @@ const NavBar = () => {
       return {
         token: datosRecuperar.token,
         userId: datosRecuperar.userId,
-        nombre: datosRecuperar.nombre
+        nombre: datosRecuperar.nombre,
       };
     } else {
       // navigate("/");
     }
   };
-  
+
   const verUsuario = async () => {
     try {
       const { token, userId } = extraerDatosDeUsuario();
@@ -206,14 +204,12 @@ const NavBar = () => {
       );
       const usuario = response.data.usuarios.find((u) => u._id === userId);
       console.log(userId);
-  
+
       setNombreUsuario(usuario.nombre);
     } catch (error) {
       console.log("no se puede obtener el usuario");
     }
   };
-  
-  
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -254,51 +250,53 @@ const NavBar = () => {
   const contraerMenuDesplegable = () => {
     setMenuDesplegable(false);
   };
-  
 
   return (
     <div className="NavBarSuperior">
-  {isLoggedIn ? (
-    <>
-      <div className={isExpanded ? "lateral-expandido" : "lateral"}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}>    
-        <div className="cambiarTema">
-          <label htmlFor="theme" className="theme">
-            <span className="theme__toggle-wrap">
-              <input
-                id="theme"
-                className="theme__toggle"
-                type="checkbox"
-                role="switch"
-                name="theme"
-                value="dark"
-                checked={darkmode}
-                onChange={toggleDarkMode}
-              />
-              <span className="theme__icon">
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-                <span className="theme__icon-part"></span>
-              </span>
-            </span>
-          </label>
-        </div>
-        <button
-        id="iconosBarraLateral"
-            className={`verUsuario ${resetAnimation ? "reset-animation" : ""}`}
-            onClick={() => casas()}
-          >
-             <h3 className="textoDeIconos">{nombreUsuario}</h3>
-          </button>
-          {isExpanded ? (<div className="textoLateralExpandido">
-            {/* <h1>{nombreUsuario}</h1>
+      {isLoggedIn ? (
+        <>
+          <div
+            className={isExpanded ? "lateral-expandido" : "lateral"}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}>
+            <div className="cambiarTema">
+              <label htmlFor="theme" className="theme">
+                <span className="theme__toggle-wrap">
+                  <input
+                    id="theme"
+                    className="theme__toggle"
+                    type="checkbox"
+                    role="switch"
+                    name="theme"
+                    value="dark"
+                    checked={darkmode}
+                    onChange={toggleDarkMode}
+                  />
+                  <span className="theme__icon">
+                    <span className="theme__icon-part"></span>
+                    <span className="theme__icon-part"></span>
+                    <span className="theme__icon-part"></span>
+                    <span className="theme__icon-part"></span>
+                    <span className="theme__icon-part"></span>
+                    <span className="theme__icon-part"></span>
+                    <span className="theme__icon-part"></span>
+                    <span className="theme__icon-part"></span>
+                    <span className="theme__icon-part"></span>
+                  </span>
+                </span>
+              </label>
+            </div>
+            <button
+              id="iconosBarraLateral"
+              className={`verUsuario ${
+                resetAnimation ? "reset-animation" : ""
+              }`}
+              onClick={() => casas()}>
+              <h3 className="textoDeIconos">{nombreUsuario}</h3>
+            </button>
+            {isExpanded ? (
+              <div className="textoLateralExpandido">
+                {/* <h1>{nombreUsuario}</h1>
             <h1>Buscar</h1>
             <h1>{setResultadoMostrarCasas? "Ver casa":"Ocultar casa"}</h1>
             <h1>Habitacion</h1>
@@ -306,165 +304,145 @@ const NavBar = () => {
             <h1>Cajon</h1>
             <h1>Ver Cosas</h1>
             <h1>Logout</h1> */}
-            
-          </div>):(null)}
-          <button
-          id="iconosBarraLateral"
-            onClick={mostrarBuscadorFuncion}
-            className="verBuscar"
-          >
-           <h3 className="textoDeIconos">Buscar</h3>
-          </button>
-          
-          <button
-          id="iconosBarraLateral"
-            onClick={mostrarCasasFuncion}
-            className={`verCasa ${
-              darkmode ? "reset-animation" : ""
-            }`}
-          >
-             <h3 className="textoDeIconos">Casa</h3>
-          </button>
-          
-          <button
-          id="iconosBarraLateral"
-            onClick={mostrarHabitacionFuncion}
-            className={`verHabitacion ${
-              darkmode ? "reset-animation" : ""
-            }`}
-          >
-            <h3 className="textoDeIconos">Habitaciones</h3>
-          </button>
-          <button
-          id="iconosBarraLateral"
-            onClick={mostrarArmariosFuncion}
-            className={`verMueble ${
-              darkmode ? "reset-animation" : ""
-            }`}
-          >
-             <h3 className="textoDeIconos">Muebles</h3>
-          </button>
-          <button
-          id="iconosBarraLateral"
-            onClick={mostrarCajonesFuncion}
-            className={`verCajones ${
-              darkmode ? "reset-animation" : ""
-            }`}
-          >
-            <h3 className="textoDeIconos">Cajones</h3>
-          </button>
-          <button
-          id="iconosBarraLateral"
-            onClick={mostrarCosasFuncion}
-            className={`verCosas ${
-              darkmode ? "reset-animation" : ""
-            }`}
-          >
-             <h3 className="textoDeIconos">Cosas</h3>
-          </button>
-
-          <button
-          id="iconosBarraLateral"
-            className={`verSalir ${resetAnimation ? "reset-animation" : ""}`}
-            onClick={Logout}
-          >
-             <h3 className="textoDeIconos">Salir</h3>
-            
-          </button>
-      </div>
-    </>
-  ) : (
-    <>
-      <div className={darkmode ? "NavBar-Dark" : "NavBar"}>
-        <div className={darkmode ? "BarraNavegacion-Dark" : "BarraNavegacion"}>
-          <div className={darkmode ? "logo-Dark" : "Logo"}></div>
-          <div className="botonessinlogear">
-            <button className="botonlogin" onClick={() => login()}>
-              Login
+              </div>
+            ) : null}
+            <button
+              id="iconosBarraLateral"
+              onClick={mostrarBuscadorFuncion}
+              className="verBuscar">
+              <h3 className="textoDeIconos">Buscar</h3>
             </button>
-            <button className="botonbienvenido">Bienvenido/a</button>
+
+            <button
+              id="iconosBarraLateral"
+              onClick={mostrarCasasFuncion}
+              className={`verCasa ${darkmode ? "reset-animation" : ""}`}>
+              <h3 className="textoDeIconos">Casa</h3>
+            </button>
+
+            <button
+              id="iconosBarraLateral"
+              onClick={mostrarHabitacionFuncion}
+              className={`verHabitacion ${darkmode ? "reset-animation" : ""}`}>
+              <h3 className="textoDeIconos">Habitaciones</h3>
+            </button>
+            <button
+              id="iconosBarraLateral"
+              onClick={mostrarArmariosFuncion}
+              className={`verMueble ${darkmode ? "reset-animation" : ""}`}>
+              <h3 className="textoDeIconos">Muebles</h3>
+            </button>
+            <button
+              id="iconosBarraLateral"
+              onClick={mostrarCajonesFuncion}
+              className={`verCajones ${darkmode ? "reset-animation" : ""}`}>
+              <h3 className="textoDeIconos">Cajones</h3>
+            </button>
+            <button
+              id="iconosBarraLateral"
+              onClick={mostrarCosasFuncion}
+              className={`verCosas ${darkmode ? "reset-animation" : ""}`}>
+              <h3 className="textoDeIconos">Cosas</h3>
+            </button>
+
+            <button
+              id="iconosBarraLateral"
+              className={`verSalir ${resetAnimation ? "reset-animation" : ""}`}
+              onClick={Logout}>
+              <h3 className="textoDeIconos">Salir</h3>
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className={darkmode ? "NavBar-Dark" : "NavBar"}>
+            <div
+              className={darkmode ? "BarraNavegacion-Dark" : "BarraNavegacion"}>
+              <div className={darkmode ? "logo-Dark" : "Logo"}></div>
+              <div className="botonessinlogear">
+                <button className="botonlogin" onClick={() => login()}>
+                  Login
+                </button>
+                <button className="botonbienvenido">Bienvenido/a</button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+      <div className="MenuHamburguesa" onClick={() => toggleMenuDesplegable()}>
+        &#9776;
+      </div>
+
+      {isLoggedIn && (
+        <div>
+          <div
+            className={`MenuDesplegable ${
+              menuDesplegable ? "MenuDesplegable--activo" : ""
+            }`}>
+            <ul>
+              <li>
+                <a onClick={() => mostrarCasasFuncion()}>
+                  {mostrarCasas ? "Ocultar Casa" : "Ver Casa"}
+                </a>
+              </li>
+              <li>
+                <a onClick={() => mostrarHabitacionFuncion()}>
+                  {mostrarHabitacion
+                    ? "Ocultar Habitaciones"
+                    : "Ver Habitaciones"}
+                </a>
+              </li>
+              <li>
+                <a onClick={() => mostrarArmariosFuncion()}>
+                  {mostrarArmarios ? "Ocultar Armarios" : "Ver Armarios"}
+                </a>
+              </li>
+              <li>
+                <a onClick={() => mostrarCajonesFuncion()}>
+                  {mostrarCajones ? "Ocultar Cajones" : "Ver Cajones"}
+                </a>
+              </li>
+              <li>
+                <a onClick={() => mostrarCosasFuncion()}>
+                  {mostrarCosas ? "Ocultar Cosas" : "Ver Cosas"}
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-    </>
-  )}
-  <div
-    className="MenuHamburguesa"
-    onClick={() => toggleMenuDesplegable()}
-  >
-    &#9776;
-  </div>
-
-{isLoggedIn && (
-  <div>
-    <div
-      className={`MenuDesplegable ${
-        menuDesplegable ? "MenuDesplegable--activo" : ""
-      }`}
-    >
-      <ul>
-        <li>
-          <a onClick={() => mostrarCasasFuncion()}>
-            {mostrarCasas ? "Ocultar Casa" : "Ver Casa"}
-          </a>
-        </li>
-        <li>
-          <a onClick={() => mostrarHabitacionFuncion()}>
-            {mostrarHabitacion ? "Ocultar Habitaciones" : "Ver Habitaciones"}
-          </a>
-        </li>
-        <li>
-          <a onClick={() => mostrarArmariosFuncion()}>
-            {mostrarArmarios ? "Ocultar Armarios" : "Ver Armarios"}
-          </a>
-        </li>
-        <li>
-          <a onClick={() => mostrarCajonesFuncion()}>
-            {mostrarCajones ? "Ocultar Cajones" : "Ver Cajones"}
-          </a>
-        </li>
-        <li>
-          <a onClick={() => mostrarCosasFuncion()}>
-            {            mostrarCosas ? "Ocultar Cosas" : "Ver Cosas"}
-          </a>
-        </li>
-      </ul>
+      )}
+      {!isLoggedIn && (
+        <div
+          className={`MenuDesplegable ${
+            menuDesplegable ? "MenuDesplegable--activo" : ""
+          }`}>
+          <ul>
+            <li>
+              <a href="#" onClick={() => login()}>
+                Log In
+              </a>
+            </li>
+            <li>
+              <a href="#" onClick={() => registro()}>
+                Registro
+              </a>
+            </li>
+          </ul>
+        </div>
+      )}
+      <Home
+        mostrarDatos={{
+          mostrarCasas: resultadoMostrarCasas,
+          mostrarHabitacion: resultadoMostrarHabitacion,
+          mostrarArmarios: resultadoMostrarArmario,
+          mostrarCajones: resultadoMostrarCajones,
+          mostrarCosas: resultadoMostrarCosas,
+          mostrarBuscador: resultadoMostrarBuscador,
+        }}
+        darkmode={darkmode}
+      />
     </div>
-  </div>
-)}
-{!isLoggedIn && (
-  <div
-    className={`MenuDesplegable ${
-      menuDesplegable ? "MenuDesplegable--activo" : ""
-    }`}
-  >
-    <ul>
-      <li>
-        <a href="#" onClick={() => login()}>
-          Log In
-        </a>
-      </li>
-      <li>
-        <a href="#" onClick={() => registro()}>
-          Registro
-        </a>
-      </li>
-    </ul>
-  </div>
-)}
-<Home
-  mostrarDatos={{
-    mostrarCasas: resultadoMostrarCasas,
-    mostrarHabitacion: resultadoMostrarHabitacion,
-    mostrarArmarios: resultadoMostrarArmario,
-    mostrarCajones: resultadoMostrarCajones,
-    mostrarCosas: resultadoMostrarCosas,
-    mostrarBuscador: resultadoMostrarBuscador,
-  }}
-  darkmode={darkmode}
-/>
-</div>
-);
+  );
 };
 
 export default NavBar;

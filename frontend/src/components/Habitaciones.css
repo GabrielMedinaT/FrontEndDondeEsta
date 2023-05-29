@@ -6,16 +6,38 @@
   box-sizing: border-box;
   text-decoration: none;
 }
-.Habitaciones {
+.carousel-container {
+  width: 100%;
+  height: 400px; /* Altura deseada del carrusel */
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.carousel-item {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 15vh;
+  transition: transform 0.5s ease-in-out;
+  border: 1px solid black;
+}
+.Habitaciones {
+  display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  width: 100%;
-  height: 75vh;
-  margin-top: -20vh;
+  width: 20vw;
+  height: 70vh;
+  position: absolute;
+  left: 10vw;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(25, 25, 25, 0.37);
+  -webkit-backdrop-filter: blur(12.5px);
+  backdrop-filter: blur(12.5px);
+  border-radius: 10px;
+  border: 1px solid rgb(0, 0, 0);
 }
 .listaHabitaciones {
   display: flex;

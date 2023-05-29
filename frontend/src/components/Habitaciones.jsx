@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ConfirmacionModalHabitacion from "./ConfirmacionModalHabitacion";
@@ -18,6 +18,7 @@ const Habitaciones = ({ darkmode }) => {
   const [modalAbiertoHabitacion, setModalAbiertoHabitacion] = useState(false);
   const [modalAbiertoArmarios, setModalAbiertoArmarios] = useState(false);
   const [selectedHabitacionId, setSelectedHabitacionId] = useState("");
+  const carouselContainerRef = useRef(null);
 
   const verArmarios = (habitacionId) => {
     setSelectedHabitacionId(habitacionId);
@@ -38,7 +39,7 @@ const Habitaciones = ({ darkmode }) => {
   };
   const slide = (amount) => {
     const newSlideIndex = slideIndex + amount;
-    const maxSlideIndex = (habitaciones.length - 1) * -100;
+    const maxSlideIndex = (habitaciones.length - 1) * -10;
 
     if (newSlideIndex > 0 || newSlideIndex < maxSlideIndex) {
       return;
@@ -56,6 +57,31 @@ const Habitaciones = ({ darkmode }) => {
   useEffect(() => {
     getHabitaciones();
     getArmarios();
+
+    const handleScroll = () => {
+      if (carouselContainerRef.current) {
+        const { scrollTop, clientHeight, scrollHeight } =
+          carouselContainerRef.current;
+
+        const scrollPercentage =
+          (scrollTop / (scrollHeight - clientHeight)) * 100;
+
+        setSlideIndex(scrollPercentage);
+      }
+    };
+
+    if (carouselContainerRef.current) {
+      carouselContainerRef.current.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (carouselContainerRef.current) {
+        carouselContainerRef.current.removeEventListener(
+          "scroll",
+          handleScroll
+        );
+      }
+    };
   }, []);
 
   //*EXTRAER DATOS DE USUARIO
@@ -80,7 +106,6 @@ const Habitaciones = ({ darkmode }) => {
           },
         }
       );
-      // console.log("Todo correcto", response.data);
       setHabitaciones(response.data);
     } catch (error) {
       console.log("Error al obtener habitaciones", error.message);
@@ -105,11 +130,11 @@ const Habitaciones = ({ darkmode }) => {
       .then((res) => {
         console.log(nombre);
         console.log(res.data);
-        // Actualizar la lista de habitaciones después de eliminar una habitación
         setHabitaciones(habitaciones.filter((h) => h.nombre !== nombre));
       })
       .catch((error) => console.log(error));
   };
+
   //*OBTENER ARMARIOS
   const getArmarios = async (habitacionId) => {
     const [token, userId] = extraerDatosDeUsuario();
@@ -126,111 +151,34 @@ const Habitaciones = ({ darkmode }) => {
           },
         }
       );
-      // console.log("Todo correcto", response.data);
       setArmarios(response.data);
       setIsLoadingArmarios(false);
-      // console.log(armarios);
     } catch (error) {
-      // console.log("Error al obtener armarios", error.message);
+      console.log("Error al obtener armarios", error.message);
     }
   };
-  //*AGRUPAR ARMARIOS POR HABITACION
-  const armariosGroupedByHabitacion = armarios.reduce((groups, armario) => {
-    const habitacionId = armario.habitacion;
-    const habitacion = habitaciones.find((h) => h._id === habitacionId);
 
-    if (habitacion) {
-      const nombreHabitacion = habitacion._id;
-
-      if (groups[nombreHabitacion]) {
-        groups[nombreHabitacion].push(armario);
-      } else {
-        groups[nombreHabitacion] = [armario];
-      }
-    }
-
-    return groups;
-  }, {});
+  // ...
 
   return (
-    <div className={darkmode ? "Habitaciones-Dark" : "Habitaciones"}>
-      <div className="cabeceraHabitaciones">
-        <h1 className="h1Habitaciones">Habitaciones</h1>
-        <button
-          className="Crear"
-          onClick={abrirModalHabitacion}
-        ></button>
-      </div>
-
-      {habitaciones.length === 0 && (
-        <h1>No tiene habitaciones puede añadir una </h1>
-      )}
-      <div className="carousel-container">
+    <div className={"Habitaciones"}>
+      <h1>Habitaciones</h1>
+      <button className="Crear"> </button>
+      <div className="carousel-container" ref={carouselContainerRef}>
         <div
           className="carousel-items"
-          style={{ transform: `translateX(${slideIndex}%)` }}
-        >
-          <div
-            className={
-              darkmode ? "listaHabitaciones-Dark" : "listaHabitaciones"
-            }
-          >
-            {habitaciones.map((habitacion) => (
-              <ul
-                className={
-                  darkmode ? "habitacionConcreta-Dark" : "habitacionConcreta"
-                }
-                key={habitacion._id}
-              >
-                <h2 onClick={() => verArmarios(habitacion._id)}>
-                  {habitacion.nombre}
-                </h2>
-                <br />
-                <button
-                  className="eliminarHabitacion"
-                  onClick={() => obtenerConfirmacion(habitacion.nombre)}
-                ></button>
-              </ul>
-            ))}
-          </div>
-        </div>
-
-      </div>
-      {modalAbierto && (
-        <ConfirmacionModalHabitacion
-          modalAbierto={modalAbierto}
-          cerrarModal={() => setModalAbierto(false)}
-          eliminarHabitacion={eliminarHabitacion}
-          nombreHabitacion={habitacionAEliminar}
-        />
-      )}
-
-      {modalAbiertoHabitacion && (
-        <Addhab
-          modalAbiertoHabitacion={modalAbiertoHabitacion}
-          cerrarModalHabitacion={cerrarModalHabitacion}
-          getHabitaciones={getHabitaciones}
-        />
-      )}
-      <Modal
-        isOpen={modalAbiertoArmarios}
-        onRequestClose={() => setModalAbiertoArmarios(false)}
-        className="modal"
-        overlayClassName="overlay"
-      >
-        <h2>Armarios de la habitación </h2>
-        {isloadingarmarios ? (
-          <p>Cargando armarios...</p>
-        ) : armariosGroupedByHabitacion[selectedHabitacionId] ? (
-          armariosGroupedByHabitacion[selectedHabitacionId].map((armario) => (
-            <div key={armario._id}>
-              <p>Nombre: {armario.nombre}</p>
+          style={{ transform: `translateY(${slideIndex}%)` }}>
+          {habitaciones.map((habitacion) => (
+            <div className="carousel-item" key={habitacion._id}>
+              <div className="carousel-item-content">
+                <div className="carousel-item-header">
+                  <h2>{habitacion.nombre}</h2>
+                </div>
+              </div>
             </div>
-          ))
-        ) : (
-          <p>No hay armarios disponibles para esta habitación.</p>
-        )}
-      </Modal>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
