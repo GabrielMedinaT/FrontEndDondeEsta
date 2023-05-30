@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
-
 import Modal from "react-modal";
+import "./MisArmarios.css";
 
 const MisArmarios = ({ darkmode }) => {
   //*CONST NECESARIAS PARA LA LÓGICA DEL COMPONENTE
@@ -182,7 +182,31 @@ const MisArmarios = ({ darkmode }) => {
     }
     return groups;
   }, {});
-
+  //*ESTILO DE MODAL
+  const modalStyles = {
+    overlay: {
+      position: "fixed",
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      backgroundColor: "rgba(0, 0, 0, 0.75)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 9999, // Asegúrate de que el valor del zIndex sea mayor que cualquier otro elemento en la página
+    },
+    content: {
+      position: "absolute",
+      boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)",
+      borderRadius: "4px",
+      backgroundColor: "#fff",
+      padding: "20px",
+      maxWidth: "500px",
+      margin: "0 auto",
+      zIndex: 99999, // Asegúrate de que el valor del zIndex sea mayor que cualquier otro elemento en la página
+    },
+  };
   const armariosLength = armarios.length;
   return (
     <div className={darkmode ? "Armarios-Dark" : "Armarios"}>
@@ -190,8 +214,7 @@ const MisArmarios = ({ darkmode }) => {
         <h1 className="h1muebles">Mis muebles</h1>
         <button
           className="agregarMueble"
-          onClick={() => setModalAbierto(true)}
-        ></button>
+          onClick={() => setModalAbierto(true)}></button>
       </div>
       <div className="listaArmarios">
         {Object.entries(armariosGroupedByHabitacion).map(
@@ -200,28 +223,24 @@ const MisArmarios = ({ darkmode }) => {
               className={
                 darkmode ? "armariosHabitacion-Dark" : "armariosHabitacion"
               }
-              key={nombreHabitacion}
-            >
+              key={nombreHabitacion}>
               <h1 className="nombrehabitacion">{nombreHabitacion}</h1>
               {armarios.map((armario) => (
                 <div
                   className={
                     darkmode ? "armarioConcreto-Dark" : "armarioConcreto"
                   }
-                  key={armario._id}
-                >
-                  <h4>{armario.nombre}</h4>
+                  key={armario._id}>
+                  <h1>{armario.nombre}</h1>
                   <button
                     className="eliminarArmario"
-                    onClick={() => verElFormulario(armario.nombre)}
-                  ></button>
+                    onClick={() => verElFormulario(armario.nombre)}></button>
                 </div>
               ))}
               <Modal
                 className="modal"
                 isOpen={modalEliminar}
-                isClose={cerrarModal}
-              >
+                isClose={cerrarModal}>
                 <h1>¿Estás seguro de que quieres eliminarlo?</h1>
                 <button onClick={() => eliminarArmario(nombreArmario)}>
                   Sí
@@ -237,7 +256,7 @@ const MisArmarios = ({ darkmode }) => {
 
       <br />
       <br />
-      <Modal className="modal" isOpen={modalAbierto}>
+      <Modal style={modalStyles} className="modal" isOpen={modalAbierto}>
         <form action="" onSubmit={handleSubmit(addArmarios)}>
           <input
             type="text"

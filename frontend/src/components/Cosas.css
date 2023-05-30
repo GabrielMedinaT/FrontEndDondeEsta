@@ -1,0 +1,53 @@
+.cosas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.h2cosas {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.listaCosas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.cosaConcreta {
+  background: rgba(116, 201, 253, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(12.5px);
+  -webkit-backdrop-filter: blur(12.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  width: 15vw;
+  height: 20vh;
+  transition: all 0.5s ease;
+}
+
+.cosaConcreta:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+h2:hover {
+  cursor: pointer;
+}
+
+.eliminarCosa {
+  background-image: url(../resources/images/eliminar.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 1vw;
+  height: 4vh;
+  border-radius: 50%;
+  position: absolute;
+  top: 15vh;
+  left: 6.5vw;
+}

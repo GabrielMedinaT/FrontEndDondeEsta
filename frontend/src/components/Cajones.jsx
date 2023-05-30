@@ -3,7 +3,8 @@ import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import Modal from "react-modal";
+import "./Cajones.css";
 
 export const Cajones = () => {
   const [cajones, setCajones] = useState([]);
@@ -13,9 +14,18 @@ export const Cajones = () => {
   const [isLoadingArmarios, setIsLoadingArmarios] = useState(false);
   const navigate = useNavigate();
   const [selectedHabitacion, setSelectedHabitacion] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const handleHabitacionChange = (event) => {
     setSelectedHabitacion(event.target.value);
   };
+
+  const abrirModal = () => {
+    setModalIsOpen(true);
+  };
+  const cerrarModal = () => {
+    setModalIsOpen(false);
+  };
+
   const filteredArmarios = armarios.filter(
     (armario) =>
       armario.nombreHabitacion === selectedHabitacion &&
@@ -169,9 +179,12 @@ export const Cajones = () => {
                         .map((cajon) => (
                           <div key={cajon._id} className="cajon">
                             <h4>{cajon.nombre}</h4>
-                            <button onClick={() => eliminarCajon(cajon.nombre)}>
-                              Eliminar
-                            </button>
+                            <button
+                              className="eliminarCajon"
+                              onClick={() =>
+                                eliminarCajon(cajon.nombre)
+                              }></button>
+                            <button onClick={abrirModal}></button>
                           </div>
                         ))}
                     </div>
@@ -182,39 +195,40 @@ export const Cajones = () => {
           )
         )}
       </div>
-      <div className="cajones-form">
-        <form onSubmit={handleSubmit(gestorFormulario)}>
-          <input
-            type="text"
-            placeholder="Nombre"
-            {...register("nombre", { required: true })}
-          />
-          <select
-            {...register("habitacion", { required: true })}
-            onChange={handleHabitacionChange}
-          >
-            <option value="">Seleccione una habitación</option>
-            {habitaciones.map((habitacion) => (
-              <option key={habitacion.id} value={habitacion.id}>
-                {habitacion.nombre}
-              </option>
-            ))}
-          </select>
-          <select {...register("armario", { required: true })}>
-            <option value="">Seleccione un armario</option>
-            {isLoadingArmarios ? (
-              <option>Loading...</option>
-            ) : (
-              filteredArmarios.map((armario) => (
-                <option key={armario.id} value={armario.id}>
-                  {armario.nombre}
+      <Modal isOpen={modalIsOpen} contentLabel="Example Modal">
+        <div className="cajones-form">
+          <form onSubmit={handleSubmit(gestorFormulario)}>
+            <input
+              type="text"
+              placeholder="Nombre"
+              {...register("nombre", { required: true })}
+            />
+            <select
+              {...register("habitacion", { required: true })}
+              onChange={handleHabitacionChange}>
+              <option value="">Seleccione una habitación</option>
+              {habitaciones.map((habitacion) => (
+                <option key={habitacion.id} value={habitacion.id}>
+                  {habitacion.nombre}
                 </option>
-              ))
-            )}
-          </select>
-          <button type="submit">Guardar</button>
-        </form>
-      </div>
+              ))}
+            </select>
+            <select {...register("armario", { required: true })}>
+              <option value="">Seleccione un armario</option>
+              {isLoadingArmarios ? (
+                <option>Loading...</option>
+              ) : (
+                filteredArmarios.map((armario) => (
+                  <option key={armario.id} value={armario.id}>
+                    {armario.nombre}
+                  </option>
+                ))
+              )}
+            </select>
+            <button type="submit">Guardar</button>
+          </form>
+        </div>
+      </Modal>
     </div>
   );
 };

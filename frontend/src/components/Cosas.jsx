@@ -4,9 +4,9 @@ import { useNavigate } from "react-router";
 import { AuthContext } from "../context/AuthContext";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal";
+import "./Cosas.css";
 
-
-const Cosas = ({darkmode}) => {
+const Cosas = ({ darkmode }) => {
   const [cosas, setCosas] = useState([]);
   const [isLoadingCosas, setLoadingCosas] = useState(false);
   const [isLoadingArmarios, setIsLoadingArmarios] = useState(false);
@@ -21,6 +21,7 @@ const Cosas = ({darkmode}) => {
   const [casas, setCasas] = useState([]);
   const [cajones, setCajones] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalIsOpen2, setModalIsOpen2] = useState(false);
 
   const abrirModal = () => {
     setModalIsOpen(true);
@@ -28,12 +29,19 @@ const Cosas = ({darkmode}) => {
   const cerrarModal = () => {
     setModalIsOpen(false);
   };
+  const abrirModal2 = () => {
+    setModalIsOpen2(true);
+  };
+  const cerrarModal2 = () => {
+    setModalIsOpen2(false);
+  };
   const handleHabitacionChange = (event) => {
     setSelectedHabitacion(event.target.value);
   };
   const handleArmarioChange = (event) => {
     setSelectedArmario(event.target.value);
   };
+
   const filteredArmarios = armarios.filter(
     (armario) =>
       armario.nombreHabitacion === selectedHabitacion &&
@@ -57,13 +65,23 @@ const Cosas = ({darkmode}) => {
       zIndex: 9999, // Asegúrate de que el valor del zIndex sea mayor que cualquier otro elemento en la página
     },
     content: {
+      backgroundColor: "white",
       position: "absolute",
       boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.5)",
       borderRadius: "4px",
-      backgroundColor: "#fff",
       padding: "20px",
-      maxWidth: "500px",
+      maxWidth: "50vw",
       margin: "0 auto",
+      zIndex: 99999, // Asegúrate de que el valor del zIndex sea mayor que cualquier otro elemento en la página
+    },
+    button: {
+      color: "Black",
+      marginTop: "10px",
+      padding: "8px 16px",
+      backgroundColor: "blue",
+      borderRadius: "4px",
+      border: "none",
+      cursor: "pointer",
       zIndex: 99999, // Asegúrate de que el valor del zIndex sea mayor que cualquier otro elemento en la página
     },
   };
@@ -142,7 +160,7 @@ const Cosas = ({darkmode}) => {
     const [token, userId] = extraerDatosDeUsuario();
 
     try {
-      const response = await axios.delete(
+      await axios.delete(
         process.env.REACT_APP_API_URL + "/api/cosas/borrar/" + nombre,
         {
           headers: {
@@ -159,6 +177,44 @@ const Cosas = ({darkmode}) => {
       console.log(error);
       setLoadingCosas(false);
     }
+  };
+
+  //*------------------------MODIFICAR COSAS------------------------//
+
+  const modificarCosas = async (data) => {
+    const [token, userId] = extraerDatosDeUsuario();
+    setLoadingCosas(true);
+    await axios
+      .patch(
+        process.env.REACT_APP_API_URL + "/api/cosas/editar/" + data.nombre,
+        {
+          descripcion: data.descripcion,
+          clasificacion: data.clasificacion,
+          cajon: data.cajon,
+          armario: data.armario,
+          habitacion: data.habitacion,
+          casa: data.casa,
+          nombreHabitacion: data.nombreHabitacion,
+          nombreArmario: data.nombreArmario ? data.nombreArmario : null,
+          nombreCajon: data.nombreCajon ? data.nombreCajon : null,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        console.log(data.cajon);
+        console.log(res.data);
+        setLoadingCosas(false);
+        setShouldReload(true); // actualizar la variable para que se recargue la lista de cosas
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoadingCosas(false);
+      });
   };
 
   //*OBTENER HABITACIONES
@@ -258,122 +314,216 @@ const Cosas = ({darkmode}) => {
   return (
     <div>
       {/* VER LAS COSAS  */}
-      <div className="cosas">
-        {cosas.map((cosa, index) => {
-          return (
-            <div key={cosa._id}>
-              <h2>{cosa.nombre}</h2>
-              <button onClick={() => eliminarCosas(cosa.nombre)}>
-                Eliminar
-              </button>
-            </div>
-          );
-        })}
+      <div>
+        {/* VER LAS COSAS  */}
+        <div className="cosas">
+          <h2 className="h2cosas">Cosas</h2>
+          <div className="listaCosas">
+            {cosas.map((cosa, index) => {
+              return (
+                <div key={cosa._id} className="cosaConcreta">
+                  <h2>{cosa.nombre}</h2>
+                  <button>Editar</button>
+                  <h3>{cosa.nombreHabitacion}</h3>
+                  <h3>{cosa.nombreArmario}</h3>
+                  <h3>{cosa.nombreCajon}</h3>
+                  <button onClick={() => eliminarCosas(cosa.nombre)}>
+                    Eliminar
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
       {/* AÑADIR COSAS  */}
       <h1>Cosas</h1>
       <button onClick={abrirModal}>Agregar Cosas</button>
-        <Modal
-          style={modalStyles}
-          isOpen={modalIsOpen}
-        >
-      <form action="" onSubmit={handleSubmit(gestorFormulario)}>
-        <input
-          type="text"
-          placeholder="Nombre"
-          {...register("nombre", { required: true })}
-        />
-
-        <br />
-        <select
-          {...register("descripcion", { required: true })}
-          name="descripcion"
-        >
-          <option value="">Selecciona una descripción</option>
-          <option value="Electronica">Electronica</option>
-          <option value="Personal">Personal</option>
-          <option value="Hogar">Hogar</option>
-          <option value="Oficina">Oficina</option>
-          <option value="Deporte">Deporte</option>
-          <option value="Mascotas">Mascotas</option>
-          
-          <option value="Herramienta">Herramienta</option>
-          <option value="Escolar">Escolar</option>
-          <option value="Informática">Informática</option>
-          <option value="Cocina">Cocina</option>
-          <option value="Ropa">Ropa</option>
-          <option value="Jueguetes">Juguetes</option>
-          <option value="Salun y bienestar">Salud y Bienestar</option>
-          <option value="Jardineria">Jardineria</option>
-          <option value="Cine y peliculas">Cine y Peliculas</option>
-          <option value="Arte y manualidades">Arte y manualidades</option>
-          <option value="Libros">Libros</option>
-          <option value="Comics, manga y novela gráfica">
-            Comics, manga y novela gráfica
-          </option>
-        </select>
-        <select
-          {...register("clasificacion", { required: true })}
-          name="clasificacion"
-        >
-          <option value="">Selecciona una clasificación</option>
-          <option value="Importante">Importante</option>
-          <option value="Imprescindible">Imprescindible</option>
-          <option value="Normal">Normal</option>
-        </select>
-        <select {...register("casa", { required: true })}>
-          {isLoadingCasas ? (
-            <option>Cargando...</option>
-          ) : (
-            casas.map((casa) => (
-              <option key={casa.id} value={casa.id}>
-                {casa.nombre}
-              </option>
-            ))
-          )}
-        </select>
-        <select
-          {...register("habitacion", { required: false })}
-          onChange={handleHabitacionChange}
-        >
-          <option value="">Seleccione una habitación</option>
-          {habitaciones.map((habitacion) => (
-            <option key={habitacion._id} value={habitacion.nombre}>
-              {habitacion.nombre}
+      <Modal isOpen={modalIsOpen}>
+        <form action="" onSubmit={handleSubmit(gestorFormulario)}>
+          <input
+            type="text"
+            placeholder="NombreCosa"
+            {...register("nombre", { required: true })}
+          />
+          <select
+            {...register("descripcion", { required: true })}
+            name="descripcion">
+            <option value="">Selecciona una descripción</option>
+            <option value="Electronica">Electronica</option>
+            <option value="Personal">Personal</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Oficina">Oficina</option>
+            <option value="Deporte">Deporte</option>
+            <option value="Mascotas">Mascotas</option>
+            <option value="Herramienta">Herramienta</option>
+            <option value="Escolar">Escolar</option>
+            <option value="Informática">Informática</option>
+            <option value="Cocina">Cocina</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Jueguetes">Juguetes</option>
+            <option value="Salun y bienestar">Salud y Bienestar</option>
+            <option value="Jardineria">Jardineria</option>
+            <option value="Cine y peliculas">Cine y Peliculas</option>
+            <option value="Arte y manualidades">Arte y manualidades</option>
+            <option value="Libros">Libros</option>
+            <option value="Comics, manga y novela gráfica">
+              Comics, manga y novela gráfica
             </option>
-          ))}
-        </select>
-        <select
-          {...register("armario", { required: true })}
-          onChange={handleArmarioChange}
-        >
-          <option value="">Seleccione un armario</option>
-          {isLoadingArmarios ? (
-            <option>Loading...</option>
-          ) : (
-            filteredArmarios.map((armario) => (
-              <option key={armario.id} value={armario.id}>
-                {armario.nombre}
+          </select>
+          <select
+            {...register("clasificacion", { required: true })}
+            name="clasificacion">
+            <option value="">Selecciona una clasificación</option>
+            <option value="Importante">Importante</option>
+            <option value="Imprescindible">Imprescindible</option>
+            <option value="Normal">Normal</option>
+          </select>
+          <select {...register("casa", { required: true })}>
+            {isLoadingCasas ? (
+              <option>Cargando...</option>
+            ) : (
+              casas.map((casa) => (
+                <option key={casa.id} value={casa.id}>
+                  {casa.nombre}
+                </option>
+              ))
+            )}
+          </select>
+          <select
+            {...register("habitacion", { required: false })}
+            onChange={handleHabitacionChange}>
+            <option value="">Seleccione una habitación</option>
+            {habitaciones.map((habitacion) => (
+              <option key={habitacion._id} value={habitacion.nombre}>
+                {habitacion.nombre}
               </option>
-            ))
-          )}
-        </select>
-        <select {...register("cajon", { required: false })}>
-          <option value="">Seleccione cajón</option>
-          {isLoadingCajones ? (
-            <option>Loading...</option>
-          ) : (
-            filteredCajones.map((cajon) => (
-              <option key={cajon.id} value={cajon.id}>
-                {cajon.nombre}
-              </option>
-            ))
-          )}
-        </select>
+            ))}
+          </select>
+          <select
+            {...register("armario", { required: true })}
+            onChange={handleArmarioChange}>
+            <option value="">Seleccione un armario</option>
+            {isLoadingArmarios ? (
+              <option>Loading...</option>
+            ) : (
+              filteredArmarios.map((armario) => (
+                <option key={armario.id} value={armario.id}>
+                  {armario.nombre}
+                </option>
+              ))
+            )}
+          </select>
+          <select {...register("cajon", { required: false })}>
+            <option value="">Seleccione cajón</option>
+            {isLoadingCajones ? (
+              <option>Loading...</option>
+            ) : (
+              filteredCajones.map((cajon) => (
+                <option key={cajon.id} value={cajon.id}>
+                  {cajon.nombre}
+                </option>
+              ))
+            )}
+          </select>
+          <button>Añadir</button>
+          <button onClick={cerrarModal}>Cerrar</button>
+        </form>
+      </Modal>
+      {/* MODIFICAR COSA */}
+      <Modal style={modalStyles} isOpen={modalIsOpen2}>
+        <form action="" onSubmit={handleSubmit(modificarCosas)}>
+          <input
+            type="text"
+            placeholder="Nombre"
+            {...register("nombre", { required: true })}
+          />
 
-        <button>Añadir</button>
-        <button onClick={cerrarModal}>Cerrar</button>
-      </form>
+          <br />
+          <select
+            {...register("descripcion", { required: true })}
+            name="descripcion">
+            <option value="">Selecciona una descripción</option>
+            <option value="Electronica">Electronica</option>
+            <option value="Personal">Personal</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Oficina">Oficina</option>
+            <option value="Deporte">Deporte</option>
+            <option value="Mascotas">Mascotas</option>
+            <option value="Herramienta">Herramienta</option>
+            <option value="Escolar">Escolar</option>
+            <option value="Informática">Informática</option>
+            <option value="Cocina">Cocina</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Jueguetes">Juguetes</option>
+            <option value="Salun y bienestar">Salud y Bienestar</option>
+            <option value="Jardineria">Jardineria</option>
+            <option value="Cine y peliculas">Cine y Peliculas</option>
+            <option value="Arte y manualidades">Arte y manualidades</option>
+            <option value="Libros">Libros</option>
+            <option value="Comics, manga y novela gráfica">
+              Comics, manga y novela gráfica
+            </option>
+          </select>
+          <select
+            {...register("clasificacion", { required: true })}
+            name="clasificacion">
+            <option value="">Selecciona una clasificación</option>
+            <option value="Importante">Importante</option>
+            <option value="Imprescindible">Imprescindible</option>
+            <option value="Normal">Normal</option>
+          </select>
+          <select {...register("casa", { required: true })}>
+            {isLoadingCasas ? (
+              <option>Cargando...</option>
+            ) : (
+              casas.map((casa) => (
+                <option key={casa.id} value={casa.id}>
+                  {casa.nombre}
+                </option>
+              ))
+            )}
+          </select>
+          <select
+            {...register("habitacion", { required: false })}
+            onChange={handleHabitacionChange}>
+            <option value="">Seleccione una habitación</option>
+            {habitaciones.map((habitacion) => (
+              <option key={habitacion._id} value={habitacion.nombre}>
+                {habitacion.nombre}
+              </option>
+            ))}
+          </select>
+          <select
+            {...register("armario", { required: false })}
+            onChange={handleArmarioChange}>
+            <option value="">Seleccione un armario</option>
+            {isLoadingArmarios ? (
+              <option>Loading...</option>
+            ) : (
+              filteredArmarios.map((armario) => (
+                <option key={armario.id} value={armario.id}>
+                  {armario.nombre}
+                </option>
+              ))
+            )}
+          </select>
+          <select {...register("cajon", { required: false })}>
+            <option value="">Seleccione cajón</option>
+            {isLoadingCajones ? (
+              <option>Loading...</option>
+            ) : (
+              filteredCajones.map((cajon) => (
+                <option key={cajon.id} value={cajon.id}>
+                  {cajon.nombre}
+                </option>
+              ))
+            )}
+          </select>
+
+          <button>Modificar</button>
+          <button onClick={cerrarModal2}>Cerrar</button>
+        </form>
       </Modal>
     </div>
   );
