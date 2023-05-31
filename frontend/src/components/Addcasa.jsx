@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 
-
 const Addcasa = () => {
   const { t } = useTranslation("global");
   // const navigate = useNavigate();
@@ -52,17 +51,16 @@ const Addcasa = () => {
       <form
         className="addCasa"
         action=""
-        onSubmit={handleSubmit(gestorFormulario)}
-      >
+        onSubmit={handleSubmit(gestorFormulario)}>
         <input
           type="text"
-          placeholder="Nombre de casa"
+          placeholder="Nombre del primer nivel"
           {...register("nombre", { minLength: 2, required: true })}
         />
         <br />
         <input
           type="text"
-          placeholder="Dirección"
+          placeholder="Nombre"
           {...register("direccion", { minLength: 5, required: true })}
         />
         <br />

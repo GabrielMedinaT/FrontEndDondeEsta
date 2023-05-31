@@ -190,11 +190,13 @@ const Cosas = ({ darkmode }) => {
         {
           descripcion: data.descripcion,
           clasificacion: data.clasificacion,
-          cajon: data.cajon,
-          armario: data.armario,
-          habitacion: data.habitacion,
+          cajon: data.cajon ? data.cajon : null,
+          armario: data.armario ? data.armario : null,
+          habitacion: data.habitacion ? data.habitacion : null,
           casa: data.casa,
-          nombreHabitacion: data.nombreHabitacion,
+          nombreHabitacion: data.nombreHabitacion
+            ? data.nombreHabitacion
+            : null,
           nombreArmario: data.nombreArmario ? data.nombreArmario : null,
           nombreCajon: data.nombreCajon ? data.nombreCajon : null,
         },
@@ -401,7 +403,7 @@ const Cosas = ({ darkmode }) => {
             ))}
           </select>
           <select
-            {...register("armario", { required: true })}
+            {...register("armario", { required: false })}
             onChange={handleArmarioChange}>
             <option value="">Seleccione un armario</option>
             {isLoadingArmarios ? (

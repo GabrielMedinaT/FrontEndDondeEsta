@@ -13,6 +13,18 @@
   font-weight: bold;
   margin-bottom: 20px;
 }
+.formulario {
+  width: 50vw;
+  border: #555555 1px solid;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+  box-shadow: #555555 10px 10px 10px 5px;
+}
 
 .subtitulo {
   font-size: 20px;
@@ -27,7 +39,12 @@
 }
 
 .formulariosLoginSingUp {
+  height: 65vh;
   margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .login h2 {
@@ -38,7 +55,7 @@
 
 .formulario input[type="text"],
 .formulario input[type="password"] {
-  width: 100%;
+  width: 30vw;
   padding: 1vh;
   margin-bottom: 10px;
   border: 1px solid #cccccc;

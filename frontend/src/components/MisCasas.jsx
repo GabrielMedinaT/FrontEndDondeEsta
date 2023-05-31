@@ -47,7 +47,7 @@ const MisCasas = ({ darkmode }) => {
       navigate.push("/login");
     }
   };
-
+  //*OBTENER CASAS
   const getCasas = async () => {
     const [token, userId] = extraerDatosDeUsuario();
     try {
@@ -140,7 +140,7 @@ const MisCasas = ({ darkmode }) => {
                   <div className="misCasas">
                     <div className="casasExistentes">
                       <div className="CasaConcreta">
-                        <h1>Nombre : {casa.nombre}</h1> <br />
+                        <h1>Nombre : {casa.direccion}</h1> <br />
                         <h1>Ciudad : {casa.ciudad} </h1>
                       </div>
                       <div className="botones">
