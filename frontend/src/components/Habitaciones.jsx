@@ -103,9 +103,6 @@ const Habitaciones = ({ darkmode }) => {
         }
       )
       .then((res) => {
-        console.log(nombre);
-        console.log(res.data);
-        // Actualizar la lista de habitaciones después de eliminar una habitación
         setHabitaciones(habitaciones.filter((h) => h.nombre !== nombre));
       })
       .catch((error) => console.log(error));
@@ -126,10 +123,8 @@ const Habitaciones = ({ darkmode }) => {
           },
         }
       );
-      // console.log("Todo correcto", response.data);
       setArmarios(response.data);
       setIsLoadingArmarios(false);
-      // console.log(armarios);
     } catch (error) {
       // console.log("Error al obtener armarios", error.message);
     }
@@ -155,11 +150,8 @@ const Habitaciones = ({ darkmode }) => {
   return (
     <div className={darkmode ? "Habitaciones-Dark" : "Habitaciones"}>
       <div className="cabeceraHabitaciones">
-        <h1 className="h1Habitaciones">Habitaciones</h1>
-        <button
-          className="Crear"
-          onClick={abrirModalHabitacion}
-        ></button>
+        <h1 className="h1Habitaciones">{habitaciones.nombre}</h1>
+        <button className="Crear" onClick={abrirModalHabitacion}></button>
       </div>
 
       {habitaciones.length === 0 && (
@@ -168,33 +160,30 @@ const Habitaciones = ({ darkmode }) => {
       <div className="carousel-container">
         <div
           className="carousel-items"
-          style={{ transform: `translateX(${slideIndex}%)` }}
-        >
+          style={{ transform: `translateX(${slideIndex}%)` }}>
           <div
             className={
               darkmode ? "listaHabitaciones-Dark" : "listaHabitaciones"
-            }
-          >
+            }>
             {habitaciones.map((habitacion) => (
               <ul
                 className={
                   darkmode ? "habitacionConcreta-Dark" : "habitacionConcreta"
                 }
-                key={habitacion._id}
-              >
+                key={habitacion._id}>
                 <h2 onClick={() => verArmarios(habitacion._id)}>
                   {habitacion.nombre}
                 </h2>
                 <br />
                 <button
                   className="eliminarHabitacion"
-                  onClick={() => obtenerConfirmacion(habitacion.nombre)}
-                ></button>
+                  onClick={() =>
+                    obtenerConfirmacion(habitacion.nombre)
+                  }></button>
               </ul>
             ))}
           </div>
         </div>
-
       </div>
       {modalAbierto && (
         <ConfirmacionModalHabitacion
@@ -216,8 +205,7 @@ const Habitaciones = ({ darkmode }) => {
         isOpen={modalAbiertoArmarios}
         onRequestClose={() => setModalAbiertoArmarios(false)}
         className="modal"
-        overlayClassName="overlay"
-      >
+        overlayClassName="overlay">
         <h2>Armarios de la habitación </h2>
         {isloadingarmarios ? (
           <p>Cargando armarios...</p>

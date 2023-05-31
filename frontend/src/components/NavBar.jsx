@@ -13,7 +13,6 @@ const NavBar = () => {
   const { gestionarLogOut, isLoggedIn } = useContext(AuthContext);
   const [menuDesplegable, setMenuDesplegable] = useState(false);
   const [nombreUsuario, setNombreUsuario] = useState("");
-  const [nombreCasa, setNombreCasa] = useState("");
   const [mostrarCasas, setMostrarCasas] = useState(false);
   const [mostrarHabitacion, setMostrarHabitacion] = useState(false);
   const [mostrarArmarios, setMostrarArmarios] = useState(false);
@@ -32,12 +31,11 @@ const NavBar = () => {
   const [darkmode, setDarkmode] = useState(
     localStorage.getItem("darkMode") === "true"
   );
-  const [query, setQuery] = useState("");
-  const [error, setError] = useState("");
-  const [loadingCosas, setLoadingCosas] = useState(false);
-  const [cosas, setCosas] = useState([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const [casa, setCasas] = useState([]);
+  const [isLoadingCasas, setIsLoadingCasas] = useState(true);
+  const [habitaciones, setHabitaciones] = useState([]);
+  const [isLoadingHabitaciones, setIsLoadingHabitaciones] = useState(true);
 
   const handleMouseEnter = () => {
     setIsExpanded(true);
@@ -226,13 +224,36 @@ const NavBar = () => {
           },
           params: {
             userId: userId,
-            casaId: casas._id,
+            casaId: casa._id,
           },
         }
       );
       setCasas(response.data);
+      setIsLoadingCasas(false);
     } catch (error) {
       console.log("no se puede obtener las casas");
+    }
+  };
+  //*OBTENER HABITACIONES
+
+  const getHabitaciones = async () => {
+    const { token, userId } = extraerDatosDeUsuario();
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_API_URL + "/api/habitaciones/",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            userId: userId,
+          },
+        }
+      );
+      setHabitaciones(response.data);
+      setIsLoadingHabitaciones(false);
+    } catch (error) {
+      console.log("no se puede obtener las habitaciones");
     }
   };
 
@@ -240,6 +261,7 @@ const NavBar = () => {
     if (isLoggedIn) {
       verUsuario();
       getCasas();
+      getHabitaciones();
     }
   }, [isLoggedIn]);
 
@@ -266,7 +288,7 @@ const NavBar = () => {
   const registro = () => {
     navegar("/registro");
   };
-  const casas = () => {
+  const home = () => {
     navegar("/home");
   };
 
@@ -276,6 +298,8 @@ const NavBar = () => {
   const contraerMenuDesplegable = () => {
     setMenuDesplegable(false);
   };
+  const casasLength = casa.length;
+  const habitacionesLength = habitaciones.length;
 
   return (
     <div className="NavBarSuperior">
@@ -317,7 +341,7 @@ const NavBar = () => {
               className={`verUsuario ${
                 resetAnimation ? "reset-animation" : ""
               }`}
-              onClick={() => casas()}>
+              onClick={() => home()}>
               <h3 className="textoDeIconos">{nombreUsuario}</h3>
             </button>
             {isExpanded ? <div className="textoLateralExpandido"></div> : null}
@@ -332,14 +356,26 @@ const NavBar = () => {
               id="iconosBarraLateral"
               onClick={mostrarCasasFuncion}
               className={`verCasa ${darkmode ? "reset-animation" : ""}`}>
-              <h3 className="textoDeIconos">{casa[0].nombre}</h3>
+              <h3 className="textoDeIconos">
+                {casasLength === 0
+                  ? "Nivel 1"
+                  : isLoadingCasas
+                  ? "Cargando "
+                  : casa[0].nombre}
+              </h3>
             </button>
 
             <button
               id="iconosBarraLateral"
               onClick={mostrarHabitacionFuncion}
               className={`verHabitacion ${darkmode ? "reset-animation" : ""}`}>
-              <h3 className="textoDeIconos">Habitaciones</h3>
+              <h3 className="textoDeIconos">
+                {habitacionesLength === 0
+                  ? "Nivel 2"
+                  : isLoadingHabitaciones
+                  ? "Cargando "
+                  : habitaciones[0].tipo}
+              </h3>
             </button>
             <button
               id="iconosBarraLateral"
