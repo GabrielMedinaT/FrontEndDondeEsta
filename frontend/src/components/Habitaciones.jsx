@@ -150,13 +150,15 @@ const Habitaciones = ({ darkmode }) => {
   return (
     <div className={darkmode ? "Habitaciones-Dark" : "Habitaciones"}>
       <div className="cabeceraHabitaciones">
+        {habitaciones.length === 0 && <h1>Agregar nivel 2</h1>}
         <h1 className="h1Habitaciones">{habitaciones.nombre}</h1>
-        <button className="Crear" onClick={abrirModalHabitacion}></button>
+        <button
+          id="crear"
+          className="Crear"
+          onClick={abrirModalHabitacion}></button>
+        <div id="textoEmergente">Crear</div>
       </div>
 
-      {habitaciones.length === 0 && (
-        <h1>No tiene habitaciones puede añadir una </h1>
-      )}
       <div className="carousel-container">
         <div
           className="carousel-items"

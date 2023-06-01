@@ -80,7 +80,7 @@ const MisCasas = ({ darkmode }) => {
         },
       })
       .then((res) => {
-        // window.location.reload();
+        window.location.reload();
         console.log(id);
         console.log(res.data);
         cerrarModal();
@@ -124,10 +124,9 @@ const MisCasas = ({ darkmode }) => {
           <div className="arc"></div>
         ) : casasLength === 0 ? (
           <>
-            <p>No hay casas disponibles.</p>
             <div className="agregarCasa">
-              <h1>Agregue la casa</h1>
-              <button onClick={abrirModalCasas}>Añadir</button>
+              <h1>Agregue el primer nivel</h1>
+
               <Addcasa />
             </div>
           </>

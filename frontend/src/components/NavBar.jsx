@@ -357,11 +357,13 @@ const NavBar = () => {
               onClick={mostrarCasasFuncion}
               className={`verCasa ${darkmode ? "reset-animation" : ""}`}>
               <h3 className="textoDeIconos">
-                {casasLength === 0
-                  ? "Nivel 1"
-                  : isLoadingCasas
-                  ? "Cargando "
-                  : casa[0].nombre}
+                {casasLength === 0 ? (
+                  "Nivel 1"
+                ) : isLoadingCasas ? (
+                  <div className="arc"></div>
+                ) : (
+                  casa[0].nombre
+                )}
               </h3>
             </button>
 

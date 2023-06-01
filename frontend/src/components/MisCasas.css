@@ -57,11 +57,32 @@
 }
 
 .agregarCasa {
-  width: 20vh;
-  height: 20vh;
-
-  position: absolute;
-  top: 25vh;
-  left: 14vw;
-  background-color: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgba(116, 201, 253, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  -webkit-backdrop-filter: blur(12.5px);
+  backdrop-filter: blur(12.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  max-width: 30vw;
+  height: 50vh;
+  padding: 2vw;
+  transition: all 0.5s ease;
+}
+.agregarCasa input {
+  width: 20vw;
+  height: 4vh;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(116, 201, 253, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  -webkit-backdrop-filter: blur(12.5px);
+  backdrop-filter: blur(12.5px);
+  margin: 1vh;
+}
+.casasLista {
+  list-style-type: none;
 }
