@@ -1,31 +1,74 @@
-*,
-*:after,
-*:before {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-}
-.Habitaciones {
+.habitaciones {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
-  margin: 0 auto;
-  width: 100%;
-  height: 75vh;
-  margin-top: -20vh;
+  width: 100vw;
+  height: 100vh;
 }
+
+.cabeceraHabitaciones {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15vw;
+  height: 10vh;
+  margin-bottom: 20px;
+  background: rgba(116, 201, 253, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(12.5px);
+  -webkit-backdrop-filter: blur(12.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  position: relative;
+}
+
+.h1Habitaciones {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.Crear {
+  background-image: url(../resources/images/agregar.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+#textoEmergente {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  transform: translate(-5px, -50%);
+  color: black;
+  font-weight: 900;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+#crear:hover + #textoEmergente {
+  display: block;
+}
+
 .listaHabitaciones {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: flex-start;
-  margin: 0 auto;
-  gap: 5vh;
+  align-items: center;
+  width: 80vw;
+  height: 60vh;
+  margin-right: 30vw;
+  margin-bottom: 60vh;
+  background-color: yellow;
 }
+
 .habitacionConcreta {
   background: rgba(116, 201, 253, 0.2);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
@@ -36,55 +79,40 @@
   width: 15vw;
   height: 20vh;
   transition: all 0.5s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  position: relative;
+  z-index: 1;
 }
+
 .habitacionConcreta:hover {
   transform: scale(1.1);
   cursor: pointer;
+  z-index: 2;
 }
-h2:hover {
+
+.habitacionConcreta h2 {
+  margin: 0;
+  padding: 0;
+  font-size: 1.2rem;
+  text-align: center;
   cursor: pointer;
 }
-.cabeceraHabitaciones {
-  margin-bottom: 15vh;
-  background: rgba(116, 201, 253, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(12.5px);
-  -webkit-backdrop-filter: blur(12.5px);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  width: 15vw;
-  height: 10vh;
-}
-.Crear {
-  background-image: url(../resources/images/agregar.png);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  width: 1vw;
-  height: 4vh;
-  border-radius: 50%;
-}
+
 .eliminarHabitacion {
+  display: none;
   background-image: url(../resources/images/eliminar.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  width: 1vw;
-  height: 4vh;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 50%;
   position: absolute;
-  top: 15vh;
-  left: 6.5vw;
-}
-#textoEmergente {
-  display: none;
-  position: absolute;
-  top: 5vh;
-  left: 6vw;
-  color: black;
-  font-weight: 900;
-  padding: 5px;
-  border-radius: 4px 4px;
-}
-
-#crear:hover + #textoEmergente {
-  display: block;
+  top: 1rem;
+  right: 1rem;
+  border: none;
+  cursor: pointer;
 }

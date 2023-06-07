@@ -14,12 +14,13 @@ const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
   const [isLoadingCasas, setIsLoadingCasas] = useState(false);
   const [casas, setCasas] = useState([]);
   const [notificacionVisible, setNotificacionVisible] = useState(false); // Estado de visibilidad de la notificación
-
+  const [value, setValue] = useState(""); // Estado del valor del select
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const habitacionesLength = habitaciones.length;
   //*----------------------Obtener casas----------------------*//
   const obtenerCasas = async () => {
     const [token, userId] = extraerDatosDeUsuario();
@@ -40,9 +41,19 @@ const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
       });
   };
   //*----------------------UseEffect----------------------*//
+
   useEffect(() => {
+    obtenerHabitaciones();
+    if (habitacionesLength > 0) {
+      setValue("tipo", habitaciones[0].tipo, { shouldDirty: true });
+    }
+  }, [habitacionesLength, habitaciones, setValue]);
+
+  useEffect(() => {
+    obtenerHabitaciones();
     obtenerCasas();
   }, []);
+
   //*----------------------Extraer datos de usuario----------------------*//
   const extraerDatosDeUsuario = () => {
     const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
@@ -58,7 +69,7 @@ const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
       const response = await axios.post(
         process.env.REACT_APP_API_URL + "/api/habitaciones/nueva",
         {
-          tipo: data.tipo,
+          tipo: habitacionesLength === 0 ? data.tipo : habitaciones[0].tipo,
           casa: data.nombre,
           nombre: data.habitacion,
           userId: userId,
@@ -74,7 +85,6 @@ const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
       );
 
       setIsLoadingHabitaciones(false);
-      console.log(response.data);
 
       if (response.status === 200) {
         setHabitaciones([...habitaciones, { nombre: data.habitacion }]);
@@ -92,6 +102,26 @@ const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
       setIsLoadingHabitaciones(false);
       console.log(error.response.data);
     }
+  };
+
+  //*------------------OBTENER HABITACIONES------------------*//
+  const obtenerHabitaciones = async () => {
+    const [token, userId] = extraerDatosDeUsuario();
+    setIsLoadingHabitaciones(true);
+    await axios
+      .get(process.env.REACT_APP_API_URL + `/api/habitaciones`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setHabitaciones(response.data);
+        setIsLoadingHabitaciones(false);
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+        setIsLoadingHabitaciones(false);
+      });
   };
 
   const modalStyles = {
@@ -126,13 +156,32 @@ const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
       className="modal"
       overlayClassName="overlay"
       style={modalStyles}>
-      <h1>Nueva Habitación</h1>
+      {habitaciones.length > 0 && <h1>Nueva {habitaciones[0].tipo}</h1>}
+
       <form action="" onSubmit={handleSubmit(gestorFormulario)}>
-        <input
-          type="text"
-          placeholder="Tipo"
-          {...register("tipo", { minLength: 3, required: true })}
-        />
+        {habitacionesLength === 0 ? (
+          <input
+            type="text"
+            placeholder="Tipo"
+            {...register("tipo", { minLength: 3, required: true })}
+          />
+        ) : (
+          <input
+            type="text"
+            placeholder="Tipo"
+            {...register("tipo", { minLength: 3, required: false })}
+            defaultValue={habitaciones[0].tipo}
+            readOnly
+            hidden
+          />
+        )}
+        {errors.tipo && errors.tipo.type === "required" && (
+          <p className="error">El tipo es obligatorio</p>
+        )}
+        {errors.tipo && errors.tipo.type === "minLength" && (
+          <p className="error">El tipo debe tener al menos 3 caracteres</p>
+        )}
+
         <select {...register("nombre", { required: true })}>
           {isLoadingCasas ? (
             <option value="">{t("loading")}</option>
@@ -141,7 +190,7 @@ const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
             casas.length > 0 &&
             casas.map((casa) => (
               <option key={casa._id} value={casa.nombre}>
-                {casa.nombre}
+                {casa.direccion}
               </option>
             ))
           )}

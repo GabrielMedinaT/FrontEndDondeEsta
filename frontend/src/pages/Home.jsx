@@ -6,6 +6,7 @@ import Cosas from "../components/Cosas";
 import MisCasas from "../components/MisCasas";
 import Buscador from "../components/Buscador";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 const Home = ({ mostrarDatos, darkmode }) => {
   const {
@@ -23,6 +24,7 @@ const Home = ({ mostrarDatos, darkmode }) => {
   const [isLoadingCajones, setIsLoadingCajones] = useState(true);
   const [isLoadingCosas, setIsLoadingCosas] = useState(true);
   const [casas, setCasas] = useState([]);
+  const navigate = useNavigate();
 
   //* SIMULACION DE CARGA ASINCRONA DEBIDO A LA LENTITUD DEL SERVIDOR
   useEffect(() => {
@@ -41,7 +43,11 @@ const Home = ({ mostrarDatos, darkmode }) => {
   const extraerDatosDeUsuario = () => {
     const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
     if (datosRecuperar && datosRecuperar.token) {
+      navigate("/home");
       return [datosRecuperar.token, datosRecuperar.userId];
+    } else {
+      navigate("/");
+      return [null, null];
     }
   };
 

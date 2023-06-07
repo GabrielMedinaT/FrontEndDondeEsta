@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ConfirmacionModalHabitacion from "./ConfirmacionModalHabitacion";
@@ -11,6 +11,7 @@ const Habitaciones = ({ darkmode }) => {
   const [habitaciones, setHabitaciones] = useState([]);
   const [armarios, setArmarios] = useState([]);
   const [isloadingarmarios, setIsLoadingArmarios] = useState(true);
+  const [isloadingHabitaciones, setIsLoadingHabitaciones] = useState(false);
   const navigate = useNavigate();
   const [slideIndex, setSlideIndex] = useState(0);
   const [modalAbierto, setModalAbierto] = useState(false);
@@ -35,16 +36,6 @@ const Habitaciones = ({ darkmode }) => {
   };
   const cerrarModalHabitacion = () => {
     setModalAbiertoHabitacion(false);
-  };
-  const slide = (amount) => {
-    const newSlideIndex = slideIndex + amount;
-    const maxSlideIndex = (habitaciones.length - 1) * -100;
-
-    if (newSlideIndex > 0 || newSlideIndex < maxSlideIndex) {
-      return;
-    }
-
-    setSlideIndex(newSlideIndex);
   };
 
   const {
@@ -82,6 +73,7 @@ const Habitaciones = ({ darkmode }) => {
       );
       // console.log("Todo correcto", response.data);
       setHabitaciones(response.data);
+      setIsLoadingHabitaciones(true);
     } catch (error) {
       console.log("Error al obtener habitaciones", error.message);
     }
@@ -148,7 +140,7 @@ const Habitaciones = ({ darkmode }) => {
   }, {});
 
   return (
-    <div className={darkmode ? "Habitaciones-Dark" : "Habitaciones"}>
+    <div className="habitaciones">
       <div className="cabeceraHabitaciones">
         {habitaciones.length === 0 && <h1>Agregar nivel 2</h1>}
         <h1 className="h1Habitaciones">{habitaciones.nombre}</h1>
@@ -159,20 +151,11 @@ const Habitaciones = ({ darkmode }) => {
         <div id="textoEmergente">Crear</div>
       </div>
 
-      <div className="carousel-container">
-        <div
-          className="carousel-items"
-          style={{ transform: `translateX(${slideIndex}%)` }}>
-          <div
-            className={
-              darkmode ? "listaHabitaciones-Dark" : "listaHabitaciones"
-            }>
+      <div>
+        <div className="listaHabitaciones">
+          <div className="lista">
             {habitaciones.map((habitacion) => (
-              <ul
-                className={
-                  darkmode ? "habitacionConcreta-Dark" : "habitacionConcreta"
-                }
-                key={habitacion._id}>
+              <ul className="habitacionConcreta" key={habitacion._id}>
                 <h2 onClick={() => verArmarios(habitacion._id)}>
                   {habitacion.nombre}
                 </h2>
