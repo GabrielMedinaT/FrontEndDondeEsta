@@ -1,0 +1,24 @@
+{
+  "name": "router-react",
+  "version": "0.0.1",
+  "description": "a better router for React",
+  "keywords": [
+    "router",
+    "react"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "start": "react-scripts start",
+    "lint": "eslint src --ext .ts"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.10.2",
+    "eslint": "^5.16.0",
+    "typescript": "^3.5.1"
+  }
+}
