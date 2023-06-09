@@ -151,24 +151,18 @@ const Habitaciones = ({ darkmode }) => {
         <div id="textoEmergente">Crear</div>
       </div>
 
-      <div>
-        <div className="listaHabitaciones">
-          <div className="lista">
-            {habitaciones.map((habitacion) => (
-              <ul className="habitacionConcreta" key={habitacion._id}>
-                <h2 onClick={() => verArmarios(habitacion._id)}>
-                  {habitacion.nombre}
-                </h2>
-                <br />
-                <button
-                  className="eliminarHabitacion"
-                  onClick={() =>
-                    obtenerConfirmacion(habitacion.nombre)
-                  }></button>
-              </ul>
-            ))}
-          </div>
-        </div>
+      <div className="listaSuperiorHabitaciones">
+        {habitaciones.map((habitacion) => (
+          <ul className="habitacionConcreta" key={habitacion._id}>
+            <h2 onClick={() => verArmarios(habitacion._id)}>
+              {habitacion.nombre}
+            </h2>
+            <br />
+            <button
+              className="eliminarHabitacion"
+              onClick={() => obtenerConfirmacion(habitacion.nombre)}></button>
+          </ul>
+        ))}
       </div>
       {modalAbierto && (
         <ConfirmacionModalHabitacion

@@ -1,3 +1,10 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+}
+
 .habitaciones {
   display: flex;
   flex-direction: column;
@@ -12,11 +19,6 @@
   justify-content: center;
   width: 15vw;
   height: 10vh;
-  margin-bottom: 20px;
-  background: rgba(116, 201, 253, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  backdrop-filter: blur(12.5px);
-  -webkit-backdrop-filter: blur(12.5px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   position: relative;
@@ -31,11 +33,19 @@
   background-image: url(../resources/images/agregar.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  width: 16px;
-  height: 16px;
+  background-color: transparent;
+  width: 6vh;
+  height: 6vh;
   border-radius: 50%;
   border: none;
   cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.Crear:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(0.95);
+  box-shadow: rgba(31, 38, 135, 0.37);
 }
 
 #textoEmergente {
@@ -56,17 +66,17 @@
   display: block;
 }
 
-.listaHabitaciones {
+.listaSuperiorHabitaciones {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  gap: 2rem;
   width: 80vw;
   height: 60vh;
   margin-right: 30vw;
   margin-bottom: 60vh;
-  background-color: yellow;
 }
 
 .habitacionConcreta {
@@ -115,4 +125,86 @@
   right: 1rem;
   border: none;
   cursor: pointer;
+}
+
+/* Estilos para modales */
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  z-index: 9999;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+/* Estilos específicos para ConfirmacionModalHabitacion */
+
+.confirmacionModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.confirmacionModal h2 {
+  margin-bottom: 1rem;
+}
+
+.confirmacionModal button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: rgba(116, 201, 253, 0.2);
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.confirmacionModal button:hover {
+  background-color: rgba(116, 201, 253, 0.5);
+}
+
+/* Estilos específicos para Addhab */
+
+.addHabitacionModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.addHabitacionModal input[type="text"],
+.addHabitacionModal button {
+  margin-top: 1rem;
+}
+
+.addHabitacionModal button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: rgba(116, 201, 253, 0.2);
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.addHabitacionModal button:hover {
+  background-color: rgba(116, 201, 253, 0.5);
 }
