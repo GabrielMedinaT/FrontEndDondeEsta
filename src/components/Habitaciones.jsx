@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ConfirmacionModalHabitacion from "./ConfirmacionModalHabitacion";
@@ -19,6 +19,8 @@ const Habitaciones = ({ darkmode }) => {
   const [modalAbiertoHabitacion, setModalAbiertoHabitacion] = useState(false);
   const [modalAbiertoArmarios, setModalAbiertoArmarios] = useState(false);
   const [selectedHabitacionId, setSelectedHabitacionId] = useState("");
+  const [modalEditarAbierto, setModalEditarAbierto] = useState(false);
+  const [modalCrearAbierto, setModalCrearAbierto] = useState(false);
 
   const verArmarios = (habitacionId) => {
     setSelectedHabitacionId(habitacionId);
@@ -26,6 +28,9 @@ const Habitaciones = ({ darkmode }) => {
     getArmarios(habitacionId);
   };
 
+  const abrirModalCrear = () => {
+    setModalCrearAbierto(true);
+  };
   const obtenerConfirmacion = (nombre) => {
     setHabitacionAEliminar(nombre);
     setModalAbierto(true);
@@ -34,8 +39,14 @@ const Habitaciones = ({ darkmode }) => {
   const abrirModalHabitacion = () => {
     setModalAbiertoHabitacion(true);
   };
+
   const cerrarModalHabitacion = () => {
     setModalAbiertoHabitacion(false);
+  };
+
+  const editar = (habitacionId) => {
+    setSelectedHabitacionId(habitacionId);
+    setModalAbiertoHabitacion(true);
   };
 
   const {
@@ -49,7 +60,6 @@ const Habitaciones = ({ darkmode }) => {
     getArmarios();
   }, []);
 
-  //*EXTRAER DATOS DE USUARIO
   const extraerDatosDeUsuario = () => {
     const datosRecuperar = JSON.parse(localStorage.getItem("datosUsuario"));
     if (datosRecuperar && datosRecuperar.token) {
@@ -59,7 +69,6 @@ const Habitaciones = ({ darkmode }) => {
     }
   };
 
-  //*OBTENER HABITACIONES PARA MOSTRAR EN LA LISTA
   const getHabitaciones = async () => {
     const [token, userId] = extraerDatosDeUsuario();
     try {
@@ -71,7 +80,6 @@ const Habitaciones = ({ darkmode }) => {
           },
         }
       );
-      // console.log("Todo correcto", response.data);
       setHabitaciones(response.data);
       setIsLoadingHabitaciones(true);
     } catch (error) {
@@ -79,7 +87,6 @@ const Habitaciones = ({ darkmode }) => {
     }
   };
 
-  //*ELIMINAR HABITACION
   const eliminarHabitacion = (nombre) => {
     const [token, userId] = extraerDatosDeUsuario();
     axios
@@ -99,7 +106,7 @@ const Habitaciones = ({ darkmode }) => {
       })
       .catch((error) => console.log(error));
   };
-  //*OBTENER ARMARIOS
+
   const getArmarios = async (habitacionId) => {
     const [token, userId] = extraerDatosDeUsuario();
     try {
@@ -118,10 +125,48 @@ const Habitaciones = ({ darkmode }) => {
       setArmarios(response.data);
       setIsLoadingArmarios(false);
     } catch (error) {
-      // console.log("Error al obtener armarios", error.message);
+      console.log("Error al obtener armarios", error.message);
     }
   };
-  //*AGRUPAR ARMARIOS POR HABITACION
+
+  const editarHabitacion = (nombre, nuevoNombre) => {
+    const [token, userId] = extraerDatosDeUsuario();
+    axios
+      .patch(
+        process.env.REACT_APP_API_URL + `/api/habitaciones/editar/${nombre}`,
+        {
+          nuevoNombre: nuevoNombre,
+          userId: userId,
+        },
+        {
+          headers: {
+            nombre: nombre,
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("OK");
+        setHabitaciones(
+          habitaciones.map((h) => {
+            if (h.nombre === nombre) {
+              h.nombre = nuevoNombre;
+            }
+            return h;
+          })
+        );
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const onEditarHabitacion = (data) => {
+    editarHabitacion(
+      habitaciones.find((h) => h._id === selectedHabitacionId).nombre,
+      data.nombre
+    );
+    setModalAbiertoHabitacion(false);
+  };
+
   const armariosGroupedByHabitacion = armarios.reduce((groups, armario) => {
     const habitacionId = armario.habitacion;
     const habitacion = habitaciones.find((h) => h._id === habitacionId);
@@ -141,10 +186,7 @@ const Habitaciones = ({ darkmode }) => {
 
   return (
     <div className="habitaciones">
-      <button
-        id="crear"
-        className="Crear"
-        onClick={abrirModalHabitacion}></button>
+      <button id="crear" className="Crear" onClick={abrirModalCrear}></button>
       <div id="textoEmergente">Crear</div>
       <div className="cabeceraHabitaciones">
         {habitaciones.length === 0 && <h1>Agregar nivel 2</h1>}
@@ -157,6 +199,7 @@ const Habitaciones = ({ darkmode }) => {
             <h1 onClick={() => verArmarios(habitacion._id)}>
               {habitacion.nombre}
             </h1>
+            <button onClick={() => editar(habitacion._id)}>editar</button>
             <br />
             <button
               className="eliminarHabitacion"
@@ -164,40 +207,35 @@ const Habitaciones = ({ darkmode }) => {
           </ul>
         ))}
       </div>
-      {modalAbierto && (
-        <ConfirmacionModalHabitacion
-          modalAbierto={modalAbierto}
-          cerrarModal={() => setModalAbierto(false)}
-          eliminarHabitacion={eliminarHabitacion}
-          nombreHabitacion={habitacionAEliminar}
-        />
-      )}
-
-      {modalAbiertoHabitacion && (
-        <Addhab
-          modalAbiertoHabitacion={modalAbiertoHabitacion}
-          cerrarModalHabitacion={cerrarModalHabitacion}
-          getHabitaciones={getHabitaciones}
-        />
-      )}
       <Modal
-        isOpen={modalAbiertoArmarios}
-        onRequestClose={() => setModalAbiertoArmarios(false)}
+        isOpen={modalAbiertoHabitacion}
+        onRequestClose={() => setModalAbiertoHabitacion(false)}
         className="modal"
-        overlayClassName="overlay">
-        <h2>Armarios de la habitación </h2>
-        {isloadingarmarios ? (
-          <p>Cargando armarios...</p>
-        ) : armariosGroupedByHabitacion[selectedHabitacionId] ? (
-          armariosGroupedByHabitacion[selectedHabitacionId].map((armario) => (
-            <div key={armario._id}>
-              <p>Nombre: {armario.nombre}</p>
-            </div>
-          ))
-        ) : (
-          <p>No hay armarios disponibles para esta habitación.</p>
-        )}
+        overlayClassName="modal-fondo">
+        <div className="close-modal">
+          <button onClick={cerrarModalHabitacion}>&times;</button>
+        </div>
+        <h1 className="tituloModal">Editar habitación</h1>
+        <form className="form" onSubmit={handleSubmit(onEditarHabitacion)}>
+          <input {...register("nombre", { required: true })} />
+          <button type="submit" className="modal-btn">
+            Actualizar
+          </button>
+        </form>
       </Modal>
+      <ConfirmacionModalHabitacion
+        modalAbierto={abrirModalCrear}
+        cerrarModal={() => abrirModalCrear(false)}
+        eliminarHabitacion={eliminarHabitacion}
+        habitacionAEliminar={habitacionAEliminar}
+      />
+      <Addhab
+        isloadingHabitaciones={isloadingHabitaciones}
+        setIsLoadingHabitaciones={setIsLoadingHabitaciones}
+        getHabitaciones={getHabitaciones}
+        habitaciones={habitaciones}
+        setHabitaciones={setHabitaciones}
+      />
     </div>
   );
 };

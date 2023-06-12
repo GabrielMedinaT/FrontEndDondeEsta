@@ -255,7 +255,7 @@ const MisArmarios = ({ darkmode }) => {
     <div className="Armarios">
       <div className="tituloArmarios">
         <button
-          className="Crear"
+          className="CrearArmario"
           onClick={() => setModalAbierto(true)}></button>
       </div>
       <div className="listaArmarios">
@@ -293,11 +293,7 @@ const MisArmarios = ({ darkmode }) => {
           )
         )}
       </div>
-      {armariosLength === 0 && <h1>No tiene armarios </h1>}
       {/* //*CREAR ARMARIOS */}
-
-      <br />
-      <br />
       <Modal style={modalStyles} className="modal" isOpen={modalAbierto}>
         <form action="" onSubmit={handleSubmit(addArmarios)}>
           <input
@@ -330,7 +326,7 @@ const MisArmarios = ({ darkmode }) => {
             )}
           </select>
 
-          <button onClick={addArmarios}>Añadir armario</button>
+          <button onClick={addArmarios}>Añadir</button>
         </form>
         <button onClick={() => setModalAbierto(false)}>Cerrar</button>
       </Modal>

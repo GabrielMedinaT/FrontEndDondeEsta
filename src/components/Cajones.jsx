@@ -172,50 +172,55 @@ export const Cajones = () => {
     return groups;
   }, {});
 
+  const cajonesLength = cajones.length;
   return (
     <div>
       <h1>Cajones</h1>
       <button onClick={abrirModal}>AÑADIR</button>
       <div className="cajones">
-        {Object.entries(armariosPorHabitacion).map(
-          ([nombreHabitacion, armariosHabitacion]) => (
-            <div key={nombreHabitacion} className="habitacion">
-              <h2>{nombreHabitacion}</h2>
-              <div className="armarios">
-                {armariosHabitacion.map((armario) => (
-                  <div key={armario._id} className="armario">
-                    <h3>{armario.nombre}</h3>
-                    <div className="cajones">
-                      {cajones
-                        .filter((cajon) => cajon.armario === armario._id)
-                        .map((cajon) => (
-                          <div key={cajon._id} className="cajon">
-                            <h4>{cajon.nombre}</h4>
-                            <button
-                              className="eliminarCajon"
-                              onClick={() =>
-                                modalEliminar(cajon.nombre)
-                              }></button>
-                          </div>
-                        ))}
+        {cajonesLength > 0 &&
+          Object.entries(armariosPorHabitacion).map(
+            ([nombreHabitacion, armariosHabitacion]) => (
+              <div key={nombreHabitacion} className="habitacion">
+                <h2>{nombreHabitacion}</h2>
+                <div className="armarios">
+                  {armariosHabitacion.map((armario) => (
+                    <div key={armario._id} className="armario">
+                      <h3>{armario.nombre}</h3>
+                      <div className="cajones">
+                        {cajones
+                          .filter((cajon) => cajon.armario === armario._id)
+                          .map((cajon) => (
+                            <div key={cajon._id} className="cajon">
+                              <h4>{cajon.nombre}</h4>
+                              <button
+                                className="eliminarCajon"
+                                onClick={() =>
+                                  modalEliminar(cajon.nombre)
+                                }></button>
+                            </div>
+                          ))}
+                      </div>
+
+                      <Modal
+                        isOpen={modalEliminarisOpen}
+                        onRequestClose={cerrarModal}
+                        contentLabel="Example Modal">
+                        <h1>¿Seguro que quiere eliminarlo?</h1>
+                        <button onClick={cerrarModal}>Cancelar</button>
+                        <button
+                          onClick={() =>
+                            confirmarEliminarCajon(cajonAEliminar)
+                          }>
+                          Eliminar
+                        </button>
+                      </Modal>
                     </div>
-                    <Modal
-                      isOpen={modalEliminarisOpen}
-                      onRequestClose={cerrarModal}
-                      contentLabel="Example Modal">
-                      <h1>¿Seguro que quiere eliminarlo?</h1>
-                      <button onClick={cerrarModal}>Cancelar</button>
-                      <button
-                        onClick={() => confirmarEliminarCajon(cajonAEliminar)}>
-                        Eliminar
-                      </button>
-                    </Modal>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          )
-        )}
+            )
+          )}
       </div>
       <Modal isOpen={modalIsOpen} contentLabel="Example Modal">
         <div className="cajones-form">

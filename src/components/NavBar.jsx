@@ -309,7 +309,7 @@ const NavBar = () => {
             className={isExpanded ? "lateral-expandido" : "lateral"}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}>
-            <div className="cambiarTema">
+            {/* <div className="cambiarTema">
               <label htmlFor="theme" className="theme">
                 <span className="theme__toggle-wrap">
                   <input
@@ -335,7 +335,7 @@ const NavBar = () => {
                   </span>
                 </span>
               </label>
-            </div>
+            </div> */}
             <button
               id="iconosBarraLateral"
               className={`verUsuario ${

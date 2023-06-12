@@ -2,6 +2,16 @@ h1 {
   font-size: 2rem;
   margin-bottom: 1rem;
 }
+.VerLosCajones {
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+
+  height: 80vh;
+  width: 80vw;
+  margin-top: -15vh;
+}
 
 .habitacion {
   margin-bottom: 2rem;

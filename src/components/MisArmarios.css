@@ -39,7 +39,25 @@
 
   gap: 2vh;
 }
-
+.CrearArmario {
+  background-image: url(../resources/images/agregar.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: transparent;
+  width: 6vh;
+  height: 6vh;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: -10%;
+  right: 70%;
+  transition: all 0.1s ease-in-out;
+}
+.CrearArmario:hover {
+  transform: scale(0.95);
+  box-shadow: rgba(31, 38, 135, 0.37);
+}
 .armariosHabitacion {
   max-width: 45vw;
   max-height: 90vh;
@@ -82,6 +100,6 @@
   background-image: url(../resources/images/eliminar.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  width: 1vh;
-  height: 2vh;
+  width: 2vw;
+  height: 1vh;
 }

@@ -10,7 +10,10 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  height: 80vh;
+  position: absolute;
+  top: -40vh;
+  left: -70vw;
 }
 
 .cabeceraHabitaciones {
@@ -185,7 +188,16 @@ body {
 .confirmacionModal button:hover {
   background-color: rgba(116, 201, 253, 0.5);
 }
-
+.VerLaHabitacion {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: none;
+  cursor: pointer;
+}
 /* Estilos específicos para Addhab */
 
 .addHabitacionModal {
