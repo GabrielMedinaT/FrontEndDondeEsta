@@ -154,14 +154,14 @@ export const Cajones = () => {
       )
       .then((response) => {
         console.log(response);
-        // window.location.reload();
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  // Agrupar los armarios por habitación
+  //* Agrupar los armarios por habitación
   const armariosPorHabitacion = armarios.reduce((groups, armario) => {
     const nombreHabitacion = armario.nombreHabitacion;
     if (groups[nombreHabitacion]) {
