@@ -141,22 +141,22 @@ const Habitaciones = ({ darkmode }) => {
 
   return (
     <div className="habitaciones">
+      <button
+        id="crear"
+        className="Crear"
+        onClick={abrirModalHabitacion}></button>
+      <div id="textoEmergente">Crear</div>
       <div className="cabeceraHabitaciones">
         {habitaciones.length === 0 && <h1>Agregar nivel 2</h1>}
         <h1 className="h1Habitaciones">{habitaciones.nombre}</h1>
-        <button
-          id="crear"
-          className="Crear"
-          onClick={abrirModalHabitacion}></button>
-        <div id="textoEmergente">Crear</div>
       </div>
 
       <div className="listaSuperiorHabitaciones">
         {habitaciones.map((habitacion) => (
           <ul className="habitacionConcreta" key={habitacion._id}>
-            <h2 onClick={() => verArmarios(habitacion._id)}>
+            <h1 onClick={() => verArmarios(habitacion._id)}>
               {habitacion.nombre}
-            </h2>
+            </h1>
             <br />
             <button
               className="eliminarHabitacion"

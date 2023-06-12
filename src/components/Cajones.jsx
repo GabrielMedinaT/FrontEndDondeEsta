@@ -10,11 +10,13 @@ export const Cajones = () => {
   const [cajones, setCajones] = useState([]);
   const [habitaciones, setHabitaciones] = useState([]);
   const [armarios, setArmarios] = useState([]);
-  const [isLoadingCajones, setIsloadingCajojes] = useState(false);
+  const [isLoadingCajones, setIsloadingCajones] = useState(false);
   const [isLoadingArmarios, setIsLoadingArmarios] = useState(false);
   const navigate = useNavigate();
   const [selectedHabitacion, setSelectedHabitacion] = useState("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalEliminarisOpen, setModalEliminarisOpen] = useState(false);
+  const [cajonAEliminar, setCajonAEliminar] = useState(null);
   const handleHabitacionChange = (event) => {
     setSelectedHabitacion(event.target.value);
   };
@@ -24,6 +26,15 @@ export const Cajones = () => {
   };
   const cerrarModal = () => {
     setModalIsOpen(false);
+    setModalEliminarisOpen(false);
+  };
+  const modalEliminar = (nombre) => {
+    setCajonAEliminar(nombre);
+    setModalEliminarisOpen(true);
+  };
+  const confirmarEliminarCajon = (nombre) => {
+    eliminarCajon(nombre);
+    setModalEliminarisOpen(false);
   };
 
   const filteredArmarios = armarios.filter(
@@ -103,7 +114,7 @@ export const Cajones = () => {
 
   const gestorFormulario = async (data) => {
     const [token, userId] = extraerDatosDeUsuario();
-    setIsloadingCajojes(true);
+    setIsloadingCajones(true);
     await axios
       .post(
         process.env.REACT_APP_API_URL + "/api/cajones/nuevo",
@@ -121,15 +132,15 @@ export const Cajones = () => {
       )
       .then((response) => {
         setCajones(response.data);
-        setIsloadingCajojes(true);
+        setIsloadingCajones(true);
         window.location.reload();
       })
       .catch((error) => {
-        setIsloadingCajojes(false);
+        setIsloadingCajones(false);
         console.log(error);
       });
   };
-
+  //*ELIMINAR CAJON
   const eliminarCajon = (nombre) => {
     const [token, userId] = extraerDatosDeUsuario();
     axios
@@ -164,6 +175,7 @@ export const Cajones = () => {
   return (
     <div>
       <h1>Cajones</h1>
+      <button onClick={abrirModal}>AÑADIR</button>
       <div className="cajones">
         {Object.entries(armariosPorHabitacion).map(
           ([nombreHabitacion, armariosHabitacion]) => (
@@ -182,12 +194,22 @@ export const Cajones = () => {
                             <button
                               className="eliminarCajon"
                               onClick={() =>
-                                eliminarCajon(cajon.nombre)
+                                modalEliminar(cajon.nombre)
                               }></button>
-                            <button onClick={abrirModal}></button>
                           </div>
                         ))}
                     </div>
+                    <Modal
+                      isOpen={modalEliminarisOpen}
+                      onRequestClose={cerrarModal}
+                      contentLabel="Example Modal">
+                      <h1>¿Seguro que quiere eliminarlo?</h1>
+                      <button onClick={cerrarModal}>Cancelar</button>
+                      <button
+                        onClick={() => confirmarEliminarCajon(cajonAEliminar)}>
+                        Eliminar
+                      </button>
+                    </Modal>
                   </div>
                 ))}
               </div>

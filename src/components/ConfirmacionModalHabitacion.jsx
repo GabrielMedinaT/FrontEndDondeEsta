@@ -1,7 +1,6 @@
 import React from "react";
 import Modal from "react-modal";
 
-
 const modalStyles = {
   overlay: {
     position: "fixed",
@@ -13,6 +12,7 @@ const modalStyles = {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    zIndex: 1000,
   },
   content: {
     position: "relative",
@@ -40,16 +40,11 @@ const ConfirmacionModalHabitacion = ({
     <Modal
       isOpen={modalAbierto}
       onRequestClose={cerrarModal}
-      style={modalStyles}
-    >
-      <h1>
-        ¿Seguro que quieres eliminar la Habitacion? Esta acción no se podrá
-        revertir
-      </h1>
+      style={modalStyles}>
+      <h1>¿Seguro que lo quieres eliminar? Esta acción no se podrá revertir</h1>
       <button
         className="botonSi"
-        onClick={() => eliminarHabitacion(nombreHabitacion)}
-      >
+        onClick={() => eliminarHabitacion(nombreHabitacion)}>
         Sí
       </button>
       <button className="botonNo" onClick={cerrarModal}>

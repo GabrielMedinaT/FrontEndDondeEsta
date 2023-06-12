@@ -39,6 +39,9 @@ body {
   border-radius: 50%;
   border: none;
   cursor: pointer;
+  position: absolute;
+  top: -10%;
+  right: 50%;
   transition: all 0.3s ease-in-out;
 }
 
@@ -51,12 +54,10 @@ body {
 #textoEmergente {
   display: none;
   position: absolute;
-  top: 50%;
-  left: 100%;
-  transform: translate(-5px, -50%);
+  top: -3%;
+  left: 46%;
   color: black;
   font-weight: 900;
-  padding: 5px;
   background-color: rgba(255, 255, 255, 0.9);
   border-radius: 4px;
   white-space: nowrap;
@@ -113,8 +114,9 @@ body {
 }
 
 .eliminarHabitacion {
-  display: none;
+  /* display: none; */
   background-image: url(../resources/images/eliminar.png);
+  background-color: transparent;
   background-repeat: no-repeat;
   background-size: 100% 100%;
   width: 1.5rem;
@@ -125,6 +127,9 @@ body {
   right: 1rem;
   border: none;
   cursor: pointer;
+}
+.habitacionConcreta:hover .eliminarHabitacion {
+  display: block;
 }
 
 /* Estilos para modales */
@@ -159,6 +164,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
+  z-index: 9999;
 }
 
 .confirmacionModal h2 {

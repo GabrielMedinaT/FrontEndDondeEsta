@@ -32,7 +32,7 @@
   width: 30vw;
   height: 30vh;
   padding: 2vw;
-  margin: 2vw;
+  margin-left: 8vw;
   transition: all 0.5s ease;
 }
 .misCasas:hover {

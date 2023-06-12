@@ -17,6 +17,14 @@ const MisArmarios = ({ darkmode }) => {
   const [modalAbierto, setModalAbierto] = useState(false);
   const [modalEliminar, setModalEliminar] = useState(false);
   const [nombreArmario, setNombreArmario] = useState("");
+  const [modalCajones, setModalCajones] = useState(false);
+  const [armarioSeleccionado, setArmarioSeleccionado] = useState(null);
+  const [cajones, setCajones] = useState([]);
+
+  const verCajones = (armario) => {
+    setArmarioSeleccionado(armario);
+    setModalCajones(true);
+  };
 
   const cerrarModal = () => {
     setModalAbierto(false);
@@ -25,6 +33,29 @@ const MisArmarios = ({ darkmode }) => {
   const verElFormulario = (nombre) => {
     setNombreArmario(nombre);
     setModalEliminar(true);
+  };
+  //*OBTENER CAJONES
+  const getCajones = async (armarioId) => {
+    setIsLoadingHabitacion(true);
+    try {
+      const response = await axios.get(
+        process.env.REACT_APP_API_URL + `/api/cajones/`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          params: {
+            userId: userId,
+            armarioId: armarioId,
+          },
+        }
+      );
+      setHabitacion(response.data);
+      setIsLoadingHabitacion(false);
+      setCajones(response.data.cajones);
+    } catch (error) {
+      setIsLoadingHabitacion(false);
+    }
   };
 
   //*USE EFECCT
@@ -207,13 +238,24 @@ const MisArmarios = ({ darkmode }) => {
       zIndex: 99999, // Asegúrate de que el valor del zIndex sea mayor que cualquier otro elemento en la página
     },
   };
+
+  //*AGRUPAR CAJONES POR ARMARIO
+  const cajonesGroupedByArmario = cajones.reduce((groups, cajon) => {
+    const nombreArmario = cajon.nombreArmario;
+    if (groups[nombreArmario]) {
+      groups[nombreArmario].push(cajon);
+    } else {
+      groups[nombreArmario] = [cajon];
+    }
+    return groups;
+  }, {});
+
   const armariosLength = armarios.length;
   return (
-    <div className={darkmode ? "Armarios-Dark" : "Armarios"}>
+    <div className="Armarios">
       <div className="tituloArmarios">
-        <h1 className="h1muebles">Mis muebles</h1>
         <button
-          className="agregarMueble"
+          className="Crear"
           onClick={() => setModalAbierto(true)}></button>
       </div>
       <div className="listaArmarios">
@@ -231,7 +273,7 @@ const MisArmarios = ({ darkmode }) => {
                     darkmode ? "armarioConcreto-Dark" : "armarioConcreto"
                   }
                   key={armario._id}>
-                  <h1>{armario.nombre}</h1>
+                  <h1 onClick={verCajones}>{armario.nombre}</h1>
                   <button
                     className="eliminarArmario"
                     onClick={() => verElFormulario(armario.nombre)}></button>
@@ -292,8 +334,18 @@ const MisArmarios = ({ darkmode }) => {
         </form>
         <button onClick={() => setModalAbierto(false)}>Cerrar</button>
       </Modal>
-
-      {/* //*MIS ARMARIOS */}
+      <Modal
+        className="modal"
+        isOpen={modalCajones}
+        onRequestClose={() => setModalCajones(false)}>
+        <h1>Cajones del armario {armarioSeleccionado?.nombre}</h1>
+        {cajonesGroupedByArmario[armarioSeleccionado?.nombre]?.map((cajon) => (
+          <div key={cajon.id}>
+            <h2>nombre {cajon.nombre}</h2>
+          </div>
+        ))}
+        <button onClick={() => setModalCajones(false)}>Cerrar</button>
+      </Modal>
     </div>
   );
 };
