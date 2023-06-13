@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import ConfirmacionModalHabitacion from "./ConfirmacionModalHabitacion";
 import Addhab from "./Addhab";
 import Modal from "react-modal";
 import "./Habitaciones.css";
@@ -13,7 +12,6 @@ const Habitaciones = ({ darkmode }) => {
   const [isloadingarmarios, setIsLoadingArmarios] = useState(true);
   const [isloadingHabitaciones, setIsLoadingHabitaciones] = useState(false);
   const navigate = useNavigate();
-  const [slideIndex, setSlideIndex] = useState(0);
   const [modalAbierto, setModalAbierto] = useState(false);
   const [habitacionAEliminar, setHabitacionAEliminar] = useState("");
   const [modalAbiertoHabitacion, setModalAbiertoHabitacion] = useState(false);
@@ -21,6 +19,7 @@ const Habitaciones = ({ darkmode }) => {
   const [selectedHabitacionId, setSelectedHabitacionId] = useState("");
   const [modalEditarAbierto, setModalEditarAbierto] = useState(false);
   const [modalCrearAbierto, setModalCrearAbierto] = useState(false);
+  const [modalEliminarAbierto, setModalEliminarAbierto] = useState(false);
 
   const verArmarios = (habitacionId) => {
     setSelectedHabitacionId(habitacionId);
@@ -28,25 +27,25 @@ const Habitaciones = ({ darkmode }) => {
     getArmarios(habitacionId);
   };
 
-  const abrirModalCrear = () => {
-    setModalCrearAbierto(true);
-  };
   const obtenerConfirmacion = (nombre) => {
     setHabitacionAEliminar(nombre);
     setModalAbierto(true);
   };
 
-  const abrirModalHabitacion = () => {
-    setModalAbiertoHabitacion(true);
+  const eliminarHabitacionModal = (nombre) => {
+    setModalEliminarAbierto(true);
+    setHabitacionAEliminar(nombre);
   };
-
-  const cerrarModalHabitacion = () => {
-    setModalAbiertoHabitacion(false);
+  const cerrarModalEliminar = () => {
+    setModalEliminarAbierto(false);
   };
 
   const editar = (habitacionId) => {
     setSelectedHabitacionId(habitacionId);
-    setModalAbiertoHabitacion(true);
+    setModalEditarAbierto(true);
+  };
+  const cerrarModalEditar = () => {
+    setModalEditarAbierto(false);
   };
 
   const {
@@ -81,17 +80,18 @@ const Habitaciones = ({ darkmode }) => {
         }
       );
       setHabitaciones(response.data);
+      console.log(response.data);
       setIsLoadingHabitaciones(true);
     } catch (error) {
-      console.log("Error al obtener habitaciones", error.message);
+      console.error("Error al obtener habitaciones", error);
     }
   };
 
-  const eliminarHabitacion = (nombre) => {
+  const eliminarHabitacion = async (nombre) => {
     const [token, userId] = extraerDatosDeUsuario();
-    axios
-      .delete(
-        process.env.REACT_APP_API_URL + `/api/habitaciones/borrar/${nombre}`,
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_API_URL}/api/habitaciones/borrar/${nombre}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -100,11 +100,11 @@ const Habitaciones = ({ darkmode }) => {
             userId: userId,
           },
         }
-      )
-      .then((res) => {
-        setHabitaciones(habitaciones.filter((h) => h.nombre !== nombre));
-      })
-      .catch((error) => console.log(error));
+      );
+      setHabitaciones(habitaciones.filter((h) => h.nombre !== nombre));
+    } catch (error) {
+      console.error("Error al eliminar habitacion", error);
+    }
   };
 
   const getArmarios = async (habitacionId) => {
@@ -125,15 +125,15 @@ const Habitaciones = ({ darkmode }) => {
       setArmarios(response.data);
       setIsLoadingArmarios(false);
     } catch (error) {
-      console.log("Error al obtener armarios", error.message);
+      console.error("Error al obtener armarios", error);
     }
   };
 
-  const editarHabitacion = (nombre, nuevoNombre) => {
+  const editarHabitacion = async (nombre, nuevoNombre) => {
     const [token, userId] = extraerDatosDeUsuario();
-    axios
-      .patch(
-        process.env.REACT_APP_API_URL + `/api/habitaciones/editar/${nombre}`,
+    try {
+      await axios.patch(
+        `${process.env.REACT_APP_API_URL}/api/habitaciones/editar/${nombre}`,
         {
           nuevoNombre: nuevoNombre,
           userId: userId,
@@ -144,21 +144,20 @@ const Habitaciones = ({ darkmode }) => {
             Authorization: `Bearer ${token}`,
           },
         }
-      )
-      .then((res) => {
-        console.log("OK");
-        setHabitaciones(
-          habitaciones.map((h) => {
-            if (h.nombre === nombre) {
-              h.nombre = nuevoNombre;
-            }
-            return h;
-          })
-        );
-      })
-      .catch((error) => console.log(error));
+      );
+      setHabitaciones(
+        habitaciones.map((h) => {
+          if (h.nombre === nombre) {
+            h.nombre = nuevoNombre;
+          }
+          return h;
+        })
+      );
+    } catch (error) {
+      console.error("Error al editar habitacion", error);
+    }
   };
-
+  console.log(modalAbiertoHabitacion);
   const onEditarHabitacion = (data) => {
     editarHabitacion(
       habitaciones.find((h) => h._id === selectedHabitacionId).nombre,
@@ -184,14 +183,19 @@ const Habitaciones = ({ darkmode }) => {
     return groups;
   }, {});
 
+  // Aquí deberías seguir con el código de tu UI...
+
   return (
     <div className="habitaciones">
-      <button id="crear" className="Crear" onClick={abrirModalCrear}></button>
-      <div id="textoEmergente">Crear</div>
-      <div className="cabeceraHabitaciones">
-        {habitaciones.length === 0 && <h1>Agregar nivel 2</h1>}
-        <h1 className="h1Habitaciones">{habitaciones.nombre}</h1>
-      </div>
+      <button
+        id="crear"
+        className="Crear"
+        onClick={() => setModalAbiertoHabitacion(true)}></button>
+      {habitaciones.length === 0 && (
+        <div className="cabeceraHabitaciones">
+          <h1>Agregar nivel 2</h1>
+        </div>
+      )}
 
       <div className="listaSuperiorHabitaciones">
         {habitaciones.map((habitacion) => (
@@ -203,17 +207,21 @@ const Habitaciones = ({ darkmode }) => {
             <br />
             <button
               className="eliminarHabitacion"
-              onClick={() => obtenerConfirmacion(habitacion.nombre)}></button>
+              onClick={() => {
+                eliminarHabitacionModal(habitacion.nombre);
+                setModalAbierto(true);
+              }}></button>
           </ul>
         ))}
       </div>
+      {/* MODAL EDITAR */}
       <Modal
-        isOpen={modalAbiertoHabitacion}
-        onRequestClose={() => setModalAbiertoHabitacion(false)}
+        isOpen={modalEditarAbierto}
+        onRequestClose={() => setModalEditarAbierto(false)}
         className="modal"
         overlayClassName="modal-fondo">
         <div className="close-modal">
-          <button onClick={cerrarModalHabitacion}>&times;</button>
+          <button onClick={cerrarModalEditar}>&times;</button>
         </div>
         <h1 className="tituloModal">Editar habitación</h1>
         <form className="form" onSubmit={handleSubmit(onEditarHabitacion)}>
@@ -223,13 +231,29 @@ const Habitaciones = ({ darkmode }) => {
           </button>
         </form>
       </Modal>
-      <ConfirmacionModalHabitacion
-        modalAbierto={abrirModalCrear}
-        cerrarModal={() => abrirModalCrear(false)}
-        eliminarHabitacion={eliminarHabitacion}
-        habitacionAEliminar={habitacionAEliminar}
-      />
+      {/* MODAL ELIMINAR */}
+      <Modal
+        isOpen={modalEliminarAbierto}
+        onRequestClose={() => setModalEliminarAbierto(false)}
+        className="modal"
+        overlayClassName="modal-fondo">
+        <div className="close-modal">
+          <button onClick={cerrarModalEliminar}>&times;</button>
+        </div>
+        <h1 className="tituloModal">Eliminar habitación</h1>
+        <p>¿Estás seguro de que quieres eliminar esta habitación?</p>
+        <div className="modal-btns">
+          <button onClick={cerrarModalEliminar}>Cancelar</button>
+          <button onClick={() => eliminarHabitacion(habitacionAEliminar)}>
+            Eliminar
+          </button>
+        </div>
+      </Modal>
+
+      {/* MODAL CREAR */}
       <Addhab
+        isOpen={modalAbiertoHabitacion}
+        setIsOpen={setModalAbiertoHabitacion}
         isloadingHabitaciones={isloadingHabitaciones}
         setIsLoadingHabitaciones={setIsLoadingHabitaciones}
         getHabitaciones={getHabitaciones}

@@ -24,7 +24,10 @@ body {
   height: 10vh;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 20vw;
+  background-color: white;
 }
 
 .h1Habitaciones {
@@ -44,7 +47,7 @@ body {
   cursor: pointer;
   position: absolute;
   top: -10%;
-  right: 50%;
+  right: 70%;
   transition: all 0.3s ease-in-out;
 }
 

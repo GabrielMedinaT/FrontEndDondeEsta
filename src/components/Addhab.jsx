@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 
 Modal.setAppElement("#root");
 
-const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
+const Addhab = ({ isOpen, setIsOpen, ...props }) => {
   const { t } = useTranslation("global");
   const [habitaciones, setHabitaciones] = useState([]);
   const [isLoadingHabitaciones, setIsLoadingHabitaciones] = useState(false);
@@ -21,6 +21,10 @@ const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
     formState: { errors },
   } = useForm();
   const habitacionesLength = habitaciones.length;
+
+  const cerrarModalHabitacion = () => {
+    setIsOpen(false);
+  };
   //*----------------------Obtener casas----------------------*//
   const obtenerCasas = async () => {
     const [token, userId] = extraerDatosDeUsuario();
@@ -151,7 +155,7 @@ const Addhab = ({ modalAbiertoHabitacion, cerrarModalHabitacion }) => {
 
   return (
     <Modal
-      isOpen={modalAbiertoHabitacion}
+      isOpen={isOpen}
       onRequestClose={cerrarModalHabitacion}
       className="modal"
       overlayClassName="overlay"
