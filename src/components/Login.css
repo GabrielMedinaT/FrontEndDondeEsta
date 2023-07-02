@@ -1,0 +1,147 @@
+.principal {
+  background-color: #f5f5f5;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.present {
+  margin-bottom: 30px;
+}
+
+.titulo {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.formulario {
+  width: 50vw;
+  border: #555555 1px solid;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  box-sizing: border-box;
+  box-shadow: #555555 10px 10px 10px 5px;
+}
+
+.subtitulo {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #555555;
+}
+
+.descripcion {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #555555;
+}
+
+.formulariosLoginSingUp {
+  height: 65vh;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.login h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.formulario input[type="text"],
+.formulario input[type="password"] {
+  width: 30vw;
+  padding: 1vh;
+  margin-bottom: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+
+.formulario p {
+  font-size: 14px;
+  color: #ff0000;
+  margin-bottom: 10px;
+}
+
+.botonesLogIn button {
+  margin: 10px 10px 10px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1vw;
+  border-radius: 4px;
+  cursor: pointer;
+}
+button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1vw;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.botonesLogIn button:active {
+  background-color: #45a049;
+}
+
+.botonesLogIn button + button {
+  margin-left: 10px;
+}
+
+.EnviarLogin {
+  background-color: #008cba;
+}
+
+.EnviarLogin:active {
+  background-color: #007095;
+}
+
+.error {
+  font-size: 14px;
+  color: #ff0000;
+  margin-top: 10px;
+}
+
+.verCambiar {
+  margin-top: 20px;
+}
+
+.modificarPass input[type="password"],
+.modificarPass button {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+}
+
+.modificarPass button {
+  background-color: #008cba;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modificarPass button:active {
+  background-color: #007095;
+}

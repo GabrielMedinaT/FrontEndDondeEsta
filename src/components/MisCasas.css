@@ -1,0 +1,91 @@
+.arc:before {
+  -webkit-animation: spin 0.5s infinite linear;
+  animation: spin 0.5s infinite linear;
+  border-radius: 100%;
+  border-top: 6px solid var(--primary, rgb(251, 4, 4));
+  content: "";
+  display: block;
+  height: 15vh;
+  width: 15vh;
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.misCasas {
+  background: white;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  -webkit-backdrop-filter: blur(12.5px);
+  backdrop-filter: blur(12.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  width: 30vw;
+  height: 30vh;
+  padding: 2vw;
+  margin-left: 8vw;
+  transition: all 0.5s ease;
+}
+.misCasas:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+  -webkit-box-shadow: 0px 0px 230px 133px rgba(116, 201, 253, 0.48);
+  -moz-box-shadow: 0px 0px 230px 133px rgba(116, 201, 253, 0.48);
+  box-shadow: 0px 0px 230px 133px rgba(116, 201, 253, 0.48);
+  border: rgba(116, 201, 253, 0.2) solid 4px;
+}
+.eliminarCasa {
+  background-color: transparent;
+  background-image: url(../resources/images/eliminar.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 1vw;
+  height: 4vh;
+  border-radius: 50%;
+  position: absolute;
+  top: 25vh;
+  left: 14vw;
+}
+
+.agregarCasa {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgba(116, 201, 253, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  -webkit-backdrop-filter: blur(12.5px);
+  backdrop-filter: blur(12.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  max-width: 30vw;
+  height: 50vh;
+  padding: 2vw;
+  transition: all 0.5s ease;
+}
+.agregarCasa input {
+  width: 20vw;
+  height: 4vh;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(116, 201, 253, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  -webkit-backdrop-filter: blur(12.5px);
+  backdrop-filter: blur(12.5px);
+  margin: 1vh;
+}
+.casasLista {
+  list-style-type: none;
+}
+.verLaCasa {
+  margin-top: -40vh;
+}

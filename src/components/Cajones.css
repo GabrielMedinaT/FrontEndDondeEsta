@@ -1,0 +1,85 @@
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.VerLosCajones {
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+
+  height: 80vh;
+  width: 80vw;
+  margin-top: -15vh;
+}
+
+.habitacion {
+  margin-bottom: 2rem;
+}
+
+.armarios {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.armario {
+  background: rgba(116, 201, 253, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(12.5px);
+  -webkit-backdrop-filter: blur(12.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 1rem;
+  width: 15vw;
+  transition: all 0.5s ease;
+}
+
+.armario:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+.cajones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.cajon {
+  background: rgba(116, 201, 253, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(12.5px);
+  -webkit-backdrop-filter: blur(12.5px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 1rem;
+  width: 15vw;
+  transition: all 0.5s ease;
+}
+
+.cajon:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+h3 {
+  margin-bottom: 1rem;
+}
+
+.eliminarCajon {
+  background-color: transparent;
+  background-image: url(../resources/images/eliminar.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+}
